@@ -36,7 +36,7 @@
     "@vue/babel-preset-app": "^4.5.13",
     "@vue/test-utils": "next",
     "axios": "^0.27.2",
-    "babel-jest": "^26.6.3",
+    "babel-jest": "^29.0.1",
     "cypress": "^10.6.0",
     "eslint-plugin-cypress": "^2.12.1",
     "eslint-plugin-jest": "^25.2.4",
