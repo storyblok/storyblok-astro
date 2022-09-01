@@ -1,0 +1,73 @@
+{
+  "name": "@storyblok/astro-ws",
+  "private": true,
+  "version": "0.0.1",
+  "workspaces": [
+    "./lib",
+    "./playground",
+    "./playground-test"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=lib & npm run demo",
+    "demo": "npm run dev --workspace=playground",
+    "build": "npm run build --workspace=lib",
+    "test:e2e": "npm run test:e2e --workspace=lib",
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^14.1.0",
+    "@commitlint/config-conventional": "^14.1.0",
+    "eslint": "^8.9.0",
+    "eslint-config-prettier": "^8.4.0",
+    "eslint-plugin-astro": "^0.17.1",
+    "husky": "^7.0.4",
+    "lint-staged": "^11.2.6",
+    "prettier": "^2.4.1",
+    "prettier-plugin-astro": "^0.5.3"
+  },
+  "lint-staged": {
+    "*.{astro,js,css}": [
+      "prettier --write",
+      "eslint"
+    ],
+    "*.md": [
+      "prettier --write"
+    ]
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "eslintConfig": {
+    "env": {
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "extends": [
+      "plugin:astro/recommended",
+      "prettier"
+    ],
+    "globals": {
+      "globalThis": true
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.astro"
+        ],
+        "parser": "astro-eslint-parser"
+      }
+    ],
+    "ignorePatterns": "dist/"
+  },
+  "prettier": {
+    "trailingComma": "es5",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false
+  }
+}

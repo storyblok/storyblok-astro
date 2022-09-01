@@ -1,0 +1,8 @@
+---
+	import components from 'virtual:storyblok-components';
+	const { blok } = Astro.props;
+
+	const Component = components[blok.component];
+---
+
+{<Component blok={blok} />}
