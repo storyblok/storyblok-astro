@@ -44,7 +44,7 @@ npm install @storyblok/astro
 # yarn add @storyblok/astro
 ```
 
-Add the following code to modules section of `astro.config.mjs` and replace `accessToken` with the preview API token of your Storyblok space.
+Add the following code to `astro.config.mjs` and replace the `accessToken` with the preview API token of your Storyblok space.
 
 ```js
 import { defineConfig } from "astro/config";
