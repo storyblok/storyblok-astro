@@ -85,10 +85,10 @@ First, you need to load them globally by specifying their name and their path in
 
 ```javascript
 components: {
-	page: "storyblok/Page",
-	feature: "storyblok/Feature",
-	grid: "storyblok/Grid",
-	teaser: "storyblok/Teaser",
+  page: "storyblok/Page",
+  feature: "storyblok/Feature",
+  grid: "storyblok/Grid",
+  teaser: "storyblok/Teaser",
 },
 ```
 
@@ -152,8 +152,8 @@ Use the `useStoryblokApi` function to have access to an instance of `storyblok-j
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-const sbApi = useStoryblokApi();
-const { data } = await sbApi.get("cdn/stories/home", {
+const storyblokApi = useStoryblokApi();
+const { data } = await storyblokApi.get("cdn/stories/home", {
   version: "draft",
 });
 
@@ -174,10 +174,10 @@ In order to dynamically generate Astro pages based on the Stories in your Storyb
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-const sbApi = useStoryblokApi();
+const storyblokApi = useStoryblokApi();
 
 export async function getStaticPaths() {
-  const { data } = await sbApi.get("cdn/links", {
+  const { data } = await storyblokApi.get("cdn/links", {
     version: "draft",
   });
   let links = data.links;
@@ -192,7 +192,7 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
-const { data } = await sbApi.get(`cdn/stories/${slug}`, {
+const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
   version: "draft",
 });
 
@@ -232,7 +232,7 @@ Returns the instance of the `storyblok-js-client`.
 
 ## Acknowledgements
 
-A huge thank you goes to the Astro Team. In particular to [Tony Sull](https://github.com/tony-sull), who has provided extraordinary support and made automatigacally rendering Storyblok components a reality.
+A huge thank you goes to the Astro Team. In particular to [Tony Sull](https://github.com/tony-sull), who has provided extraordinary support and made automagically rendering Storyblok components a reality.
 
 ## 🔗 Related Links
 
