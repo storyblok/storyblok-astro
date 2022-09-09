@@ -174,9 +174,9 @@ In order to dynamically generate Astro pages based on the Stories in your Storyb
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-const storyblokApi = useStoryblokApi();
-
 export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  
   const { data } = await storyblokApi.get("cdn/links", {
     version: "draft",
   });
@@ -191,6 +191,8 @@ export async function getStaticPaths() {
 }
 
 const { slug } = Astro.params;
+
+const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
   version: "draft",
