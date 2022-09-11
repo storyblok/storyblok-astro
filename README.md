@@ -125,7 +125,7 @@ const { blok } = Astro.props
 ---
 
 <main {...storyblokEditable(blok)}>
-  {blok.body?.map(blok => {return <StoryblokComponent blok="{blok}" />})}
+  {blok.body?.map(blok => {return <StoryblokComponent blok={blok} />})}
 </main>
 ```
 
@@ -160,7 +160,7 @@ const { data } = await storyblokApi.get("cdn/stories/home", {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 > Note: The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
@@ -201,7 +201,7 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 ### Using the Storyblok Bridge
@@ -223,7 +223,7 @@ const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.text)
 ---
 
-<div set:html="{renderedRichText}"></div>
+<div set:html={renderedRichText}></div>
 ```
 
 ## API
