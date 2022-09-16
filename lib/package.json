@@ -27,37 +27,16 @@
     "prepublishOnly": "npm run build && cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/js": "^1.7.2"
+    "@storyblok/js": "^1.8.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.18.13",
     "@cypress/vite-dev-server": "^2.0.7",
     "@rollup/plugin-dynamic-import-vars": "^1.4.4",
-    "@vue/babel-preset-app": "^4.5.13",
-    "@vue/test-utils": "next",
     "axios": "^0.27.2",
-    "babel-jest": "^26.6.3",
     "cypress": "^10.6.0",
     "eslint-plugin-cypress": "^2.12.1",
-    "eslint-plugin-jest": "^25.2.4",
-    "jest": "^26.6.3",
     "start-server-and-test": "^1.14.0",
-    "vite": "^3.0.8"
-  },
-  "babel": {
-    "presets": [
-      "@vue/babel-preset-app"
-    ]
-  },
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.js$": "babel-jest"
-    }
+    "vite": "^3.1.1"
   },
   "repository": {
     "type": "git",
