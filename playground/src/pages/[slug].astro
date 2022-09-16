@@ -6,6 +6,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const sbApi = useStoryblokApi();
 
 export async function getStaticPaths() {
+  const sbApi = useStoryblokApi();
   const { data } = await sbApi.get("cdn/links", {
     version: "draft",
   });
