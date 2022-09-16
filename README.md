@@ -3,7 +3,7 @@
 		<img  src="https://a.storyblok.com/f/88751/600x200/cc68aca8ea/storyblok-astro.jpg" width="300" height="100" alt="Storyblok + Astro">
 	</a>
 	<h1 align="center">@storyblok/astro</h1>
-	<p align="center">Astro module for the <a href="http://www.storyblok.com?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro" target="_blank">Storyblok</a>, Headless CMS.</p> <br />
+	<p align="center">Astro module for the <a href="http://www.storyblok.com?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro" target="_blank">Storyblok</a> Headless CMS.</p> <br />
 </div>
 
 <p align="center">
@@ -125,7 +125,7 @@ const { blok } = Astro.props
 ---
 
 <main {...storyblokEditable(blok)}>
-  {blok.body?.map(blok => {return <StoryblokComponent blok="{blok}" />})}
+  {blok.body?.map(blok => {return <StoryblokComponent blok={blok} />})}
 </main>
 ```
 
@@ -160,7 +160,7 @@ const { data } = await storyblokApi.get("cdn/stories/home", {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 > Note: The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
@@ -174,9 +174,9 @@ In order to dynamically generate Astro pages based on the Stories in your Storyb
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-const storyblokApi = useStoryblokApi();
-
 export async function getStaticPaths() {
+  const storyblokApi = useStoryblokApi();
+  
   const { data } = await storyblokApi.get("cdn/links", {
     version: "draft",
   });
@@ -192,6 +192,8 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 
+const storyblokApi = useStoryblokApi();
+
 const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
   version: "draft",
 });
@@ -199,7 +201,7 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 ### Using the Storyblok Bridge
@@ -221,7 +223,7 @@ const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.text)
 ---
 
-<div set:html="{renderedRichText}"></div>
+<div set:html={renderedRichText}></div>
 ```
 
 ## API
