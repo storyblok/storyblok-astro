@@ -226,6 +226,32 @@ const renderedRichText = renderRichText(blok.text)
 <div set:html={renderedRichText}></div>
 ```
 
+You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
+
+```js
+import { RichTextSchema, renderRichText } from "@storyblok/astro";
+import cloneDeep from "clone-deep";
+
+const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
+// ... and edit the nodes and marks, or add your own.
+// Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/master/source/schema.js
+
+const { blok } = Astro.props
+
+const renderedRichText = renderRichText(blok.text, {
+  schema: mySchema,
+  resolver: (component, blok) => {
+    switch (component) {
+      case "my-custom-component":
+        return `<div class="my-component-class">${blok.text}</div>`;
+        break;
+      default:
+        return `Component ${component} not found`;
+    }
+  },
+});
+```
+
 ## API
 
 ### useStoryblokApi()
