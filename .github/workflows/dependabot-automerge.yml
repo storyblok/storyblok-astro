@@ -25,5 +25,4 @@ jobs:
         env:
           DEPENDENCY: "@storyblok/js"
           PR_URL: ${{github.event.pull_request.html_url}}
-          GITHUB_TOKEN: ${{secrets.DEPENDABOT_TOKEN
-}}
+          GITHUB_TOKEN: ${{secrets.DEPENDABOT_TOKEN}}
