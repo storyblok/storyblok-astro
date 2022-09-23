@@ -1,8 +1,8 @@
 ---
-	import components from 'virtual:storyblok-components';
-	const { blok } = Astro.props;
+import components from "virtual:storyblok-components";
+const { blok, ...props } = Astro.props;
 
-	const Component = components[blok.component];
+const Component = components[blok.component];
 ---
 
-<Component blok={blok} />
+<Component blok={blok} {...props} />
