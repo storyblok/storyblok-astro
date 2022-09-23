@@ -1,6 +1,6 @@
 <div align="center">
 	<a  href="https://www.storyblok.com?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro" align="center">
-		<img  src="https://a.storyblok.com/f/88751/600x200/cc68aca8ea/storyblok-astro.jpg" width="300" height="100" alt="Storyblok + Astro">
+		<img  src="https://a.storyblok.com/f/88751/1500x500/7974d6bc34/storyblok-astro.png" width="300" height="100" alt="Storyblok + Astro">
 	</a>
 	<h1 align="center">@storyblok/astro</h1>
 	<p align="center">Astro module for the <a href="http://www.storyblok.com?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro" target="_blank">Storyblok</a> Headless CMS.</p> <br />
