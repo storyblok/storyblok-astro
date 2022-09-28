@@ -20,7 +20,7 @@
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^8.4.0",
     "eslint-plugin-astro": "^0.17.1",
-    "husky": "^7.0.4",
+    "husky": "^8.0.1",
     "lint-staged": "^11.2.6",
     "prettier": "^2.4.1",
     "prettier-plugin-astro": "^0.5.4"
