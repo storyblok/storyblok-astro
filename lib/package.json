@@ -1,7 +1,7 @@
 {
   "name": "@storyblok/astro",
   "version": "1.0.0",
-  "description": "UPDATE DESCRIPTION",
+  "description": "SDK to integrate Storyblok into your project using Astro.",
   "main": "./dist/storyblok-astro.js",
   "module": "./dist/storyblok-astro.mjs",
   "files": [
