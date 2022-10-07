@@ -204,13 +204,13 @@ const story = data.story;
 <StoryblokComponent blok={story.content} />
 ```
 
-#### Using the Storyblok Bridge
+### Using the Storyblok Bridge
 
 The Storyblok Bridge is automatically activated by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `false` in `astro.config.mjs`:
 
 > Note: Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
-#### Rendering Rich Text
+### Rendering Rich Text
 
 You can easily render rich text by using the `renderRichText` function that comes with `@storyblok/astro`. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
 
