@@ -143,7 +143,7 @@ For working examples, please refer to the [Live Demo on Stackblitz](https://stac
 
 ### 2. Getting Storyblok Stories and using the Storyblok Bridge
 
-### Fetching one Story
+#### Fetching one Story
 
 Use the `useStoryblokApi` function to have access to an instance of `storyblok-js-client`:
 
@@ -165,7 +165,7 @@ const story = data.story;
 
 > Note: The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
 
-### Dynamic Routing
+#### Dynamic Routing
 
 In order to dynamically generate Astro pages based on the Stories in your Storyblok Space, you can use the [Storyblok Links API](https://www.storyblok.com/docs/api/content-delivery/v2#core-resources/links/links) and the Astro [`getStaticPaths()` function](https://docs.astro.build/en/reference/api-reference/#getstaticpaths) similar to this example:
 
@@ -204,7 +204,7 @@ const story = data.story;
 <StoryblokComponent blok={story.content} />
 ```
 
-### Using the Storyblok Bridge
+#### Using the Storyblok Bridge
 
 The Storyblok Bridge is automatically activated by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `false` in `astro.config.mjs`:
 
