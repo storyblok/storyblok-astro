@@ -1,8 +1,25 @@
 ---
 import components from "virtual:storyblok-components";
+import camelcase from "camelcase";
+
 const { blok, ...props } = Astro.props;
 
-const Component = components[blok.component];
+/**
+ * convert blok components to camel case to match vite-plugin-storyblok
+ */
+const key = camelcase(blok.component);
+
+if (!(key in components)) {
+  /**
+   * Component not found! Log an error with details on the blok name that could not be found
+   * TODO: Add support for a placeholder component as a fallback?
+   */
+  throw new Error(
+    `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
+  );
+}
+
+const Component = components[key];
 ---
 
 <Component blok={blok} {...props} />
