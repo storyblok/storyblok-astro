@@ -234,7 +234,7 @@ import cloneDeep from "clone-deep";
 
 const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
 // ... and edit the nodes and marks, or add your own.
-// Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/master/source/schema.js
+// Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
 
 const { blok } = Astro.props
 
