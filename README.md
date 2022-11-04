@@ -154,7 +154,9 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const storyblokApi = useStoryblokApi();
 const { data } = await storyblokApi.get("cdn/stories/home", {
-  version: "draft",
+  params:{
+    version: "draft",
+  }
 });
 
 const story = data.story;
@@ -178,7 +180,9 @@ export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
   
   const { data } = await storyblokApi.get("cdn/links", {
-    version: "draft",
+    params:{
+	version: "draft",
+    }
   });
   let links = data.links;
   links = Object.values(links);
@@ -195,7 +199,9 @@ const { slug } = Astro.params;
 const storyblokApi = useStoryblokApi();
 
 const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
-  version: "draft",
+   params:{
+    version: "draft",
+  }
 });
 
 const story = data.story;
