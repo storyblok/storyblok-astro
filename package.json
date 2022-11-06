@@ -5,11 +5,13 @@
   "workspaces": [
     "./lib",
     "./playground",
+    "./playground-ssr",
     "./playground-test"
   ],
   "scripts": {
     "dev": "npm run dev --workspace=lib & npm run demo",
     "demo": "npm run dev --workspace=playground",
+    "demo-ssr": "npm run dev-ssr --workspace=playground-ssr",
     "build": "npm run build --workspace=lib",
     "test:e2e": "npm run test:e2e --workspace=lib",
     "prepare": "husky install"
