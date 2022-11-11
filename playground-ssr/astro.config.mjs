@@ -16,7 +16,6 @@ export default defineConfig({
         },
       },
       bridge: false,
-      ssr: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
