@@ -8,14 +8,15 @@ import netlify from "@astrojs/netlify/functions";
 export default defineConfig({
   integrations: [
     storyblok({
-      accessToken: "W1vLyxT5rQ15jBpANjnv0gtt",
+      accessToken: "pWNoWLwXfNySwnqvVGOmkwtt",
       apiOptions: {
         cache: {
           clear: "auto",
           type: "memory",
         },
       },
-      bridge: false,
+      bridge: true,
+      use: "/src/custom-api-plugin.js",
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",

@@ -10,6 +10,7 @@
   "devDependencies": {
     "@astrojs/tailwind": "^2.1.2",
     "@storyblok/astro": "1.0.0",
+    "storyblok-js-client": "4.5.8",
     "@vitejs/plugin-basic-ssl": "^0.1.2",
     "astro": "^1.6.3",
     "axios": "^0.27.2",
