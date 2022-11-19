@@ -207,6 +207,8 @@ The Storyblok Bridge is disabled by default. If you would like to disable it or 
 
 > Note: Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
+If you want to deploy a dedicated preview environment with the Bridge enabled, allowing users of the Storyblok CMS to see their changes being reflected on the frontend directly without having to rebuild the static site, you can enable Server Side Rendering for that particular use case. More information can be found in the [Astro Docs](https://docs.astro.build/en/guides/server-side-rendering/).
+
 ### Rendering Rich Text
 
 You can easily render rich text by using the `renderRichText` function that comes with `@storyblok/astro`. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
