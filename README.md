@@ -22,7 +22,7 @@
   <a href="https://twitter.com/intent/follow?screen_name=storyblok">
     <img src="https://img.shields.io/badge/Follow-%40storyblok-09b3af?style=appveyor&logo=twitter" alt="Follow @Storyblok" />
   </a><br/>
-  <a href="https://app.storyblok.com/#!/signup?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt">
+  <a href="https://app.storyblok.com/#!/signup?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro">
     <img src="https://img.shields.io/badge/Try%20Storyblok-Free-09b3af?style=appveyor&logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAHqADAAQAAAABAAAAHgAAAADpiRU/AAACRElEQVRIDWNgGGmAEd3D3Js3LPrP8D8WXZwSPiMjw6qvPoHhyGYwIXNAbGpbCjbzP0MYuj0YFqMroBV/wCxmIeSju64eDNzMBJUxvP/9i2Hnq5cM1devMnz984eQsQwETeRhYWHgIcJiXqC6VHlFBjUeXgav40cIWkz1oLYXFmGwFBImaDFBHyObcOzdW4aSq5eRhRiE2dgYlpuYoYSKJi8vw3GgWnyAJIs/AuPu4scPGObd/fqVQZ+PHy7+6udPOBsXgySLDfn5GRYYmaKYJcXBgWLpsx8/GPa8foWiBhuHJIsl2DkYQqWksZkDFgP5PObcKYYff//iVAOTIDlx/QPqRMb/YSYBaWlOToZIaVkGZmAZSQiQ5OPtwHwacuo4iplMQEu6tXUZMhSUGDiYmBjylFQYvv/7x9B04xqKOnQOyT5GN+Df//8M59ASXKyMHLoyDD5JPtbj42OYrm+EYgg70JfuYuIoYmLs7AwMjIzA+uY/zjAnyWJpDk6GOFnCvrn86SOwmsNtKciVFAc1ileBHFDC67lzG10Yg0+SjzF0ownsf/OaofvOLYaDQJoQIGix94ljv1gIZI8Pv38zPvj2lQWYf3HGKbpDCFp85v07NnRN1OBTPY6JdRSGxcCw2k6sZuLVMZ5AV4s1TozPnGGFKbz+/PE7IJsHmC//MDMyhXBw8e6FyRFLv3Z0/IKuFqvFyIqAzd1PwBzJw8jAGPfVx38JshwlbIygxmYY43/GQmpais0ODDHuzevLMARHBcgIAQAbOJHZW0/EyQAAAABJRU5ErkJggg==" alt="Follow @Storyblok" />
   </a>
 </p>
@@ -31,9 +31,9 @@
 
 If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/astro-sdk-demo)** on StackBlitz.
 
-## 🚀 Usage
+## Usage
 
-> If you are first-time user of Storyblok, read the [Getting Started](https://www.storyblok.com/docs/guide/getting-started?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-nuxt) guide to get a project ready in less than 5 minutes.
+> If you are first-time user of Storyblok, read the [Getting Started](https://www.storyblok.com/docs/guide/getting-started?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro) guide to get a project ready in less than 5 minutes.
 
 ## Installation
 
@@ -67,13 +67,10 @@ When you initialize the module, you can pass all [_@storyblok/js_ options](https
 // Defaults
 storyblok({
   accessToken: "<your-access-token>",
-  bridge: true,
+  bridge: false,
   apiOptions: {}, // storyblok-js-client options
-  use: [apiPlugin],
 });
 ```
-
-> Note: if you don't use `apiPlugin`, you can use your preferred method or function to fetch your data.
 
 ## Getting started
 
@@ -125,7 +122,7 @@ const { blok } = Astro.props
 ---
 
 <main {...storyblokEditable(blok)}>
-  {blok.body?.map(blok => {return <StoryblokComponent blok={blok} />})}
+  {blok.body?.map(blok => {return <StoryblokComponent blok="{blok}" />})}
 </main>
 ```
 
@@ -160,7 +157,7 @@ const { data } = await storyblokApi.get("cdn/stories/home", {
 const story = data.story;
 ---
 
-<StoryblokComponent blok={story.content} />
+<StoryblokComponent blok="{story.content}" />
 ```
 
 > Note: The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
@@ -201,12 +198,12 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 const story = data.story;
 ---
 
-<StoryblokComponent blok={story.content} />
+<StoryblokComponent blok="{story.content}" />
 ```
 
 ### Using the Storyblok Bridge
 
-The Storyblok Bridge is automatically activated by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `false` in `astro.config.mjs`:
+The Storyblok Bridge is disabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
 
 > Note: Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
@@ -223,7 +220,7 @@ const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.text)
 ---
 
-<div set:html={renderedRichText}></div>
+<div set:html="{renderedRichText}"></div>
 ```
 
 You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
@@ -236,7 +233,7 @@ const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the defaul
 // ... and edit the nodes and marks, or add your own.
 // Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
 
-const { blok } = Astro.props
+const { blok } = Astro.props;
 
 const renderedRichText = renderRichText(blok.text, {
   schema: mySchema,
@@ -258,9 +255,39 @@ const renderedRichText = renderRichText(blok.text, {
 
 Returns the instance of the `storyblok-js-client`.
 
+### Using a custom API plugin
+
+If you want to use a custom API plugin in order to fetch data from Storyblok, you can refer to by employing the `use` parameter in the `astro.config.mjs` like this:
+
+```javascript
+storyblok({
+  accessToken: "<your-access-token>",
+  bridge: false,
+  apiOptions: {},
+  use: "/src/custom-api-plugin.js",
+});
+```
+
+Here is an example setup for `/src/custom-api-plugin.js`:
+
+```javascript
+import StoryblokClient from "storyblok-js-client";
+
+const customApiPlugin = (options) => {
+  const { apiOptions } = options;
+
+  console.log("custom plugin being loaded");
+
+  const storyblokApi = new StoryblokClient(apiOptions);
+  return { storyblokApi };
+};
+
+export default customApiPlugin;
+```
+
 ## Acknowledgements
 
-A huge thank you goes to the Astro Team. In particular to [Tony Sull](https://github.com/tony-sull), who has provided extraordinary support and made automagically rendering Storyblok components a reality.
+A huge thank you goes to the Astro Team. In particular to [Tony Sullivan](https://github.com/tony-sull), who has provided extraordinary support and made _automagically_ rendering Storyblok components a reality.
 
 ## 🔗 Related Links
 
@@ -272,7 +299,8 @@ A huge thank you goes to the Astro Team. In particular to [Tony Sull](https://gi
 ### Support
 
 - Bugs or Feature Requests? [Submit an issue](/../../issues/new);
-- Do you have questions about Storyblok or you need help? [Join our Discord Community](https://discord.gg/jKrbAMz).
+- Do you have questions about this SDK? Or would you like to join the growing community of `@storyblok/astro` users? [Join the Astro Discord Community](https://discord.com/channels/830184174198718474/1002802280267001858)
+- Do you have questions about Storyblok or you need help? [Join the Storyblok Discord Community](https://discord.gg/jKrbAMz).
 
 ### Contributing
 
