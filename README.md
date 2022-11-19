@@ -262,7 +262,6 @@ If you want to use a custom API plugin in order to fetch data from Storyblok, yo
 ```javascript
 storyblok({
   accessToken: "<your-access-token>",
-  bridge: false,
   apiOptions: {},
   use: "/src/custom-api-plugin.js",
 });
@@ -289,12 +288,12 @@ export default customApiPlugin;
 
 A huge thank you goes to the Astro Team. In particular to [Tony Sullivan](https://github.com/tony-sull), who has provided extraordinary support and made _automagically_ rendering Storyblok components a reality.
 
-## 🔗 Related Links
+## Related Links
 
 - **[Live Demo on Stackblitz](https://stackblitz.com/edit/astro-sdk-demo)**
 - **[Storyblok CLI](https://github.com/storyblok/storyblok)**: A simple CLI for scaffolding Storyblok projects and fieldtypes.
 
-## ℹ️ More Resources
+## More Resources
 
 ### Support
 
