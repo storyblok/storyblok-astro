@@ -1,7 +1,7 @@
 {
   "name": "@storyblok/astro",
   "version": "1.0.0",
-  "description": "SDK to integrate Storyblok into your project using Astro.",
+  "description": "Official Astro integration for the Storyblok Headless CMS",
   "main": "./dist/storyblok-astro.js",
   "module": "./dist/storyblok-astro.mjs",
   "files": [
@@ -45,7 +45,8 @@
   },
   "keywords": [
     "astro",
-    "storyblok"
+    "storyblok",
+    "astro-component"
   ],
   "author": "Alexander Feiglstorfer",
   "bugs": {
