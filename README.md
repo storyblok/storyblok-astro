@@ -67,7 +67,7 @@ When you initialize the integration, you can pass all [_@storyblok/js_ options](
 // Defaults
 storyblok({
   accessToken: "<your-access-token>",
-  bridge: false,
+  bridge: true,
   apiOptions: {}, // storyblok-js-client options
 });
 ```
@@ -203,7 +203,7 @@ const story = data.story;
 
 ### Using the Storyblok Bridge
 
-The Storyblok Bridge is disabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
+The Storyblok Bridge is enabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
 
 > Note: Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
