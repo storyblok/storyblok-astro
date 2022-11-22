@@ -1,5 +1,5 @@
 {
-  "name": "@storyblok/astro-playground-test",
+  "name": "@storyblok/astro-playground-ssr",
   "version": "0.0.0",
   "scripts": {
     "dev": "astro dev",
@@ -8,17 +8,15 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/react": "^1.2.2",
-    "@astrojs/svelte": "^1.0.2",
     "@astrojs/tailwind": "^2.1.2",
-    "tailwindcss": "^3.2.4",
-    "@astrojs/vue": "^1.2.1",
     "@storyblok/astro": "1.0.0",
+    "storyblok-js-client": "4.5.8",
     "@vitejs/plugin-basic-ssl": "^0.1.2",
     "astro": "^1.6.10",
     "axios": "^0.27.2",
-    "react": "^18.2.0",
-    "svelte": "^3.53.1",
-    "vue": "^3.2.45"
+    "tailwindcss": "^3.2.4"
+  },
+  "dependencies": {
+    "@astrojs/netlify": "^1.2.1"
   }
 }
