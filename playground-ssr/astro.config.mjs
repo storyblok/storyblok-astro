@@ -15,6 +15,7 @@ export default defineConfig({
           type: "memory",
         },
       },
+      useCustomApi: false,
       bridge: true,
       use: "/src/custom-api-plugin.js",
       components: {

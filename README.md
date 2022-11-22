@@ -69,8 +69,11 @@ storyblok({
   accessToken: "<your-access-token>",
   bridge: true,
   apiOptions: {}, // storyblok-js-client options
+  useCustomApi: false,
 });
 ```
+
+> Note: By default, the apiPlugin from `@storyblok/js` is loaded. If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
 
 ## Getting started
 
@@ -256,35 +259,6 @@ const renderedRichText = renderRichText(blok.text, {
 ### useStoryblokApi()
 
 Returns the instance of the `storyblok-js-client`.
-
-### Using a custom API plugin
-
-If you want to use a custom API plugin in order to fetch data from Storyblok, you can refer to by employing the `use` parameter in the `astro.config.mjs` like this:
-
-```javascript
-storyblok({
-  accessToken: "<your-access-token>",
-  apiOptions: {},
-  use: "/src/custom-api-plugin.js",
-});
-```
-
-Here is an example setup for `/src/custom-api-plugin.js`:
-
-```javascript
-import StoryblokClient from "storyblok-js-client";
-
-const customApiPlugin = (options) => {
-  const { apiOptions } = options;
-
-  console.log("custom plugin being loaded");
-
-  const storyblokApi = new StoryblokClient(apiOptions);
-  return { storyblokApi };
-};
-
-export default customApiPlugin;
-```
 
 ## Acknowledgements
 
