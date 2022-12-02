@@ -13,6 +13,7 @@ export default defineConfig({
     react(),
     storyblok({
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
+      useCustomApi: false,
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },

@@ -18,7 +18,7 @@ export function vitePluginStoryblokInit(accessToken, useCustomApi, apiOptions) {
             use: ${useCustomApi ? "[]" : "[apiPlugin]"},
             apiOptions: ${JSON.stringify(apiOptions)},
           });
-          export const storyblokApiInstance = storyblokApi;
+          export const storyblokApiInstance = storyblokApi;  
         `;
       }
     },

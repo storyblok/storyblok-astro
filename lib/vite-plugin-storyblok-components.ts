@@ -3,7 +3,7 @@
  */
 import camelcase from "camelcase";
 
-export function vitePluginStoryblokComponents(components) {
+export function vitePluginStoryblokComponents(components?: object) {
   const virtualModuleId = "virtual:storyblok-components";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
