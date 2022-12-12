@@ -9,12 +9,12 @@ export function vitePluginStoryblokComponents(components?: object) {
 
   return {
     name: "vite-plugin-storyblok-components",
-    async resolveId(id) {
+    async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;
       }
     },
-    async load(id) {
+    async load(id: string) {
       if (id === resolvedVirtualModuleId) {
         const imports = [];
         for await (const [key, value] of Object.entries(components)) {

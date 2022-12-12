@@ -1,4 +1,4 @@
-import type { AstroIntegration } from 'astro';
+import type { AstroIntegration } from "astro";
 
 import { vitePluginStoryblokInit } from "./vite-plugin-storyblok-init.js";
 import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-components.js";
@@ -16,11 +16,11 @@ import type {
 export {
   storyblokEditable,
   loadStoryblokBridge,
-  //RichTextSchema,
+  //RichTextSchema, // TODO add again once fixed in @storyblok/js
 } from "@storyblok/js";
 
-// TODO find a way to type this correctly 
-//let storyblokApiInstance: StoryblokClient = null 
+// TODO find a way to type this correctly
+//let storyblokApiInstance: StoryblokClient = null;
 
 export function useStoryblokApi() {
   if (!globalThis.storyblokApiInstance) {
@@ -30,7 +30,8 @@ export function useStoryblokApi() {
 }
 
 export function renderRichText(data: ISbRichtext, options?: SbRichTextOptions) {
-  const resolverInstance: RichtextResolver = globalThis.storyblokApiInstance.richTextResolver;
+  const resolverInstance: RichtextResolver =
+    globalThis.storyblokApiInstance.richTextResolver;
   if (!resolverInstance) {
     console.error(
       "Please initialize the Storyblok SDK before calling the renderRichText function"
@@ -42,12 +43,12 @@ export function renderRichText(data: ISbRichtext, options?: SbRichTextOptions) {
 
 export interface IntegrationOptions {
   /**
-  * The access token from your space.
-  */
+   * The access token from your space.
+   */
   accessToken: string;
   /**
-  *  If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
-  */
+   *  If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
+   */
   useCustomApi?: false;
   /**
    * Set custom API options here (cache, region, and more). All options are documented [here](https://github.com/storyblok/storyblok-js-client#class-storyblok).
@@ -58,22 +59,29 @@ export interface IntegrationOptions {
    */
   bridge?: boolean;
   /**
-  * An object containing your Astro components to their Storyblok equivalents.
-  * Example:
-  * ```js
-  * components: {
-  *   page: "storyblok/Page",
-  *   feature: "storyblok/Feature",
-  *   grid: "storyblok/Grid",
-  *   teaser: "storyblok/Teaser",
-  * },
-  * ```
-  */
+   * An object containing your Astro components to their Storyblok equivalents.
+   * Example:
+   * ```js
+   * components: {
+   *   page: "storyblok/Page",
+   *   feature: "storyblok/Feature",
+   *   grid: "storyblok/Grid",
+   *   teaser: "storyblok/Teaser",
+   * },
+   * ```
+   */
   components?: object;
 }
 
-// TODO find better way to set defaults
-export default function storyblokIntegration(options: IntegrationOptions = {accessToken: '', useCustomApi: false, apiOptions: {}, bridge: true, components: {}}): AstroIntegration {
+export default function storyblokIntegration(
+  options: IntegrationOptions = {
+    accessToken: "",
+    useCustomApi: false,
+    apiOptions: {},
+    bridge: true,
+    components: {},
+  }
+): AstroIntegration {
   return {
     name: "@storyblok/astro",
     hooks: {
@@ -98,9 +106,6 @@ export default function storyblokIntegration(options: IntegrationOptions = {acce
           globalThis.storyblokApiInstance = storyblokApiInstance;
           `
         );
-
-        // TODO get rid of this
-        //const enableBridge: boolean = options.bridge ?? true;
 
         if (options.bridge) {
           injectScript(

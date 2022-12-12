@@ -4,12 +4,12 @@ export function vitePluginStoryblokInit(accessToken, useCustomApi, apiOptions) {
 
   return {
     name: "vite-plugin-storyblok-init",
-    async resolveId(id) {
+    async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;
       }
     },
-    async load(id) {
+    async load(id: string) {
       if (id === resolvedVirtualModuleId) {
         return `
           import { storyblokInit, apiPlugin } from "@storyblok/js";
