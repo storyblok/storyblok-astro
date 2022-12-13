@@ -1,6 +1,12 @@
 ---
 import components from "virtual:storyblok-components";
 import camelcase from "camelcase";
+import type { SbBlokData } from "./types";
+
+interface Props {
+  blok: SbBlokData;
+  props: object;
+}
 
 const { blok, ...props } = Astro.props;
 

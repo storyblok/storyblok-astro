@@ -3,18 +3,18 @@
  */
 import camelcase from "camelcase";
 
-export function vitePluginStoryblokComponents(components) {
+export function vitePluginStoryblokComponents(components?: object) {
   const virtualModuleId = "virtual:storyblok-components";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
   return {
     name: "vite-plugin-storyblok-components",
-    async resolveId(id) {
+    async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;
       }
     },
-    async load(id) {
+    async load(id: string) {
       if (id === resolvedVirtualModuleId) {
         const imports = [];
         for await (const [key, value] of Object.entries(components)) {

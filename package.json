@@ -19,6 +19,7 @@
   "devDependencies": {
     "@commitlint/cli": "^14.1.0",
     "@commitlint/config-conventional": "^14.1.0",
+    "@typescript-eslint/parser": "^5.45.0",
     "eslint": "^8.28.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-astro": "^0.21.0",
@@ -61,7 +62,10 @@
         "files": [
           "*.astro"
         ],
-        "parser": "astro-eslint-parser"
+        "parser": "astro-eslint-parser",
+        "parserOptions": {
+          "parser": "@typescript-eslint/parser"
+        }
       }
     ],
     "ignorePatterns": "dist/"
