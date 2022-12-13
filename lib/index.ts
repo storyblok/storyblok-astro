@@ -1,26 +1,20 @@
-import type { AstroIntegration } from "astro";
-
 import { vitePluginStoryblokInit } from "./vite-plugin-storyblok-init.js";
 import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-components.js";
 
-import { renderRichText as origRenderRichText } from "@storyblok/js";
+import {
+  RichTextResolver,
+  renderRichText as origRenderRichText,
+} from "@storyblok/js";
 
-import type {
-  StoryblokClient,
-  ISbConfig,
-  RichtextResolver,
-  ISbRichtext,
-  SbRichTextOptions,
-} from "./types";
+import type { AstroIntegration } from "astro";
+
+import type { ISbConfig, ISbRichtext, SbRichTextOptions } from "./types";
 
 export {
   storyblokEditable,
   loadStoryblokBridge,
-  //RichTextSchema, // TODO add again once fixed in @storyblok/js
+  RichTextSchema,
 } from "@storyblok/js";
-
-// TODO find a way to type this correctly
-//let storyblokApiInstance: StoryblokClient = null;
 
 export function useStoryblokApi() {
   if (!globalThis.storyblokApiInstance) {
@@ -30,7 +24,7 @@ export function useStoryblokApi() {
 }
 
 export function renderRichText(data: ISbRichtext, options?: SbRichTextOptions) {
-  const resolverInstance: RichtextResolver =
+  const resolverInstance: RichTextResolver =
     globalThis.storyblokApiInstance.richTextResolver;
   if (!resolverInstance) {
     console.error(
