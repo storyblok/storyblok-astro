@@ -13,6 +13,7 @@ import type { ISbConfig, ISbRichtext, SbRichTextOptions } from "./types";
 export {
   storyblokEditable,
   loadStoryblokBridge,
+  RichTextResolver,
   RichTextSchema,
 } from "@storyblok/js";
 
