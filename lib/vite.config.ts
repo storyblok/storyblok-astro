@@ -1,5 +1,6 @@
-import { defineConfig } from "vite";
+import { defineConfig, Plugin } from "vite";
 import path from "path";
+import dts from "vite-plugin-dts";
 
 const name = "storyblok-astro";
 
@@ -12,5 +13,10 @@ export default defineConfig(() => {
         fileName: (format) => (format === "es" ? `${name}.mjs` : `${name}.js`),
       },
     },
+    plugins: [
+      dts({
+        skipDiagnostics: false,
+      }) as unknown as Plugin,
+    ],
   };
 });
