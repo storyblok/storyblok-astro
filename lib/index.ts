@@ -4,6 +4,7 @@ import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-component
 import {
   RichTextResolver,
   renderRichText as origRenderRichText,
+  StoryblokClient,
 } from "@storyblok/js";
 
 import type { AstroIntegration } from "astro";
@@ -17,7 +18,7 @@ export {
   RichTextSchema,
 } from "@storyblok/js";
 
-export function useStoryblokApi() {
+export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
     console.error("storyblokApiInstance has not been initialized correctly");
   }
