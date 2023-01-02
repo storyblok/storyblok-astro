@@ -5,7 +5,7 @@ import type { SbBlokData } from "./types";
 
 interface Props {
   blok: SbBlokData;
-  props: object;
+  [prop: string]: unknown;
 }
 
 const { blok, ...props } = Astro.props;
