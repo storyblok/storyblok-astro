@@ -15,7 +15,7 @@ export default defineConfig({
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },
-      bridge: true,
+      //bridge: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/subfolder/Feature",

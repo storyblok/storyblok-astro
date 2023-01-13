@@ -13,11 +13,11 @@ export default defineConfig({
     react(),
     storyblok({
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
-      useCustomApi: false,
+      //useCustomApi: false,
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },
-      bridge: true,
+      //bridge: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",

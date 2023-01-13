@@ -37,7 +37,7 @@ export function renderRichText(data: ISbRichtext, options?: SbRichTextOptions) {
   return origRenderRichText(data, options, resolverInstance);
 }
 
-export interface IntegrationOptions {
+export type IntegrationOptions = {
   /**
    * The access token from your space.
    */
@@ -45,7 +45,7 @@ export interface IntegrationOptions {
   /**
    *  If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
    */
-  useCustomApi?: false;
+  useCustomApi?: boolean;
   /**
    * Set custom API options here (cache, region, and more). All options are documented [here](https://github.com/storyblok/storyblok-js-client#class-storyblok).
    */
@@ -67,17 +67,16 @@ export interface IntegrationOptions {
    * ```
    */
   components?: object;
-}
+};
 
 export default function storyblokIntegration(
-  options: IntegrationOptions = {
-    accessToken: "",
-    useCustomApi: false,
-    apiOptions: {},
-    bridge: true,
-    components: {},
-  }
+  options: IntegrationOptions
 ): AstroIntegration {
+  const resolvedOptions = {
+    useCustomApi: false,
+    bridge: true,
+    ...options,
+  };
   return {
     name: "@storyblok/astro",
     hooks: {
@@ -86,11 +85,11 @@ export default function storyblokIntegration(
           vite: {
             plugins: [
               vitePluginStoryblokInit(
-                options.accessToken,
-                options.useCustomApi,
-                options.apiOptions
+                resolvedOptions.accessToken,
+                resolvedOptions.useCustomApi,
+                resolvedOptions.apiOptions
               ),
-              vitePluginStoryblokComponents(options.components),
+              vitePluginStoryblokComponents(resolvedOptions.components),
             ],
           },
         });
@@ -103,7 +102,7 @@ export default function storyblokIntegration(
           `
         );
 
-        if (options.bridge) {
+        if (resolvedOptions.bridge) {
           injectScript(
             "page",
             `
