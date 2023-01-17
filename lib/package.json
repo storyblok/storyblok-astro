@@ -1,6 +1,6 @@
 {
   "name": "@storyblok/astro",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Official Astro integration for the Storyblok Headless CMS",
   "main": "./dist/storyblok-astro.js",
   "module": "./dist/storyblok-astro.mjs",
