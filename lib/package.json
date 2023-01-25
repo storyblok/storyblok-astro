@@ -33,7 +33,7 @@
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.2",
-    "@rollup/plugin-dynamic-import-vars": "^2.0.2",
+    "@rollup/plugin-dynamic-import-vars": "^2.0.3",
     "@types/node": "18.11.18",
     "astro": "1.9.2",
     "cypress": "^12.3.0",
