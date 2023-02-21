@@ -9,6 +9,8 @@ const { data } = await sbApi.get("cdn/stories/home", {
 });
 
 const story = data.story;
+
+export const prerender = true;
 ---
 
 <BaseLayout>

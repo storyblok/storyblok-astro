@@ -5,21 +5,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const sbApi = useStoryblokApi();
 
-export async function getStaticPaths() {
-  const sbApi = useStoryblokApi();
-  const { data } = await sbApi.get("cdn/links", {
-    version: "draft",
-  });
-  let links = data.links;
-  links = Object.values(links);
-
-  return links.map((link) => {
-    return {
-      params: { slug: link.slug },
-    };
-  });
-}
-
 const { slug } = Astro.params;
 
 const { data } = await sbApi.get(`cdn/stories/${slug}`, {
@@ -27,6 +12,10 @@ const { data } = await sbApi.get(`cdn/stories/${slug}`, {
 });
 
 const story = data.story;
+
+console.log(story.content.static);
+
+export const prerender = await story.content.static;
 ---
 
 <BaseLayout>

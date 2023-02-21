@@ -32,14 +32,14 @@
     "camelcase": "^7.0.1"
   },
   "devDependencies": {
-    "@cypress/vite-dev-server": "^5.0.2",
+    "@cypress/vite-dev-server": "^5.0.3",
     "@rollup/plugin-dynamic-import-vars": "^2.0.3",
-    "@types/node": "18.11.18",
-    "astro": "1.9.2",
+    "@types/node": "18.14.0",
+    "astro": "2.0.14",
     "cypress": "^12.6.0",
     "eslint-plugin-cypress": "^2.12.1",
     "start-server-and-test": "^1.15.4",
-    "typescript": "4.9.4",
+    "typescript": "4.9.5",
     "vite": "^4.0.4",
     "vite-plugin-dts": "^1.7.1"
   },
