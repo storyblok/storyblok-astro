@@ -17,7 +17,6 @@ export default defineConfig({
       },
       useCustomApi: false,
       bridge: true,
-      use: "/src/custom-api-plugin.js",
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
