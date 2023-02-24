@@ -15,7 +15,7 @@
     "@astrojs/vue": "^2.0.1",
     "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "astro": "2.0.14",
+    "astro": "2.0.15",
     "react": "^18.2.0",
     "svelte": "^3.55.1",
     "vue": "^3.2.47"
