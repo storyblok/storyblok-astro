@@ -18,12 +18,18 @@ export function vitePluginStoryblokComponents(components?: object) {
       if (id === resolvedVirtualModuleId) {
         const imports = [];
         for await (const [key, value] of Object.entries(components)) {
-          const { id } = await this.resolve("/src/" + value + ".astro");
+          const resolvedId = await this.resolve("/src/" + value + ".astro");
+
+          if (!resolvedId) {
+            throw new Error(
+              `Component could not be found for blok "${key}"! Does "/src/${value}.astro" exist?`
+            );
+          }
           /**
            * convert blok names to camel case for valid import names
            * StoryblokComponent.astro needs to do the same when resolving components!
            */
-          imports.push(`import ${camelcase(key)} from "${id}"`);
+          imports.push(`import ${camelcase(key)} from "${resolvedId.id}"`);
         }
 
         return `${imports.join(";")};export default {${Object.keys(components)
