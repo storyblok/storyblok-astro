@@ -41,7 +41,7 @@
     "start-server-and-test": "^2.0.0",
     "typescript": "4.9.5",
     "vite": "^4.1.4",
-    "vite-plugin-dts": "^2.0.2"
+    "vite-plugin-dts": "^2.1.0"
   },
   "repository": {
     "type": "git",
