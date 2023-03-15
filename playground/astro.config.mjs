@@ -17,6 +17,8 @@ export default defineConfig({
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },
+      enableFallbackComponent: true,
+      customFallbackComponent: "storyblok/CustomFallback",
       //bridge: true,
       components: {
         page: "storyblok/Page",
@@ -26,7 +28,7 @@ export default defineConfig({
         vue_counter: "storyblok/VueCounter",
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
-        //test_comp: "storyblok/TestComp",
+        "new-component": "storyblok/NewComponent",
         //"blok-with-hyphen": "storyblok/BlokWithHyphen",
       },
     }),

@@ -1,5 +1,6 @@
 ---
 import components from "virtual:storyblok-components";
+import options from "virtual:storyblok-options";
 import FallbackComponent from "./FallbackComponent.astro";
 import camelcase from "camelcase";
 import type { SbBlokData } from "./types";
@@ -14,25 +15,31 @@ const { blok, ...props } = Astro.props;
 /**
  * convert blok components to camel case to match vite-plugin-storyblok-components
  */
-const key = camelcase(blok.component);
+let key = camelcase(blok.component);
 
-let componentFound: boolean = key in components;
+const componentFound: boolean = key in components;
 
 if (!componentFound) {
-  /**
-   * TODO: retrieve enableFallbackComponent vaue from integration settings
-   */
-  /**
-   * Component not found!
-   * Log an error with details on the blok name that could not be found
-   */
-  /* throw new Error(
-    `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
-  ); */
+  if (!options.enableFallbackComponent)
+    throw new Error(
+      `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
+    );
+  else {
+    key = "customFallback";
+  }
 }
 
 const Component = components[key];
 ---
 
 {componentFound && <Component blok={blok} {...props} />}
-{!componentFound && <FallbackComponent blok={blok} />}
+{
+  !componentFound && !options.customFallbackComponent && (
+    <FallbackComponent blok={blok} />
+  )
+}
+{
+  !componentFound && options.customFallbackComponent && (
+    <Component blok={blok} />
+  )
+}

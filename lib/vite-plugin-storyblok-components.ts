@@ -2,11 +2,13 @@
  * Custom Vite plugin by Tony Sull (https://github.com/tony-sull)
  */
 import camelcase from "camelcase";
+import type { Plugin } from "vite";
 
 export function vitePluginStoryblokComponents(
   components?: object,
-  enableFallbackComponent?: boolean
-) {
+  enableFallbackComponent?: boolean,
+  customFallbackComponent?: string
+): Plugin {
   const virtualModuleId = "virtual:storyblok-components";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
@@ -19,6 +21,9 @@ export function vitePluginStoryblokComponents(
     },
     async load(id: string) {
       if (id === resolvedVirtualModuleId) {
+        /**
+         * Handle registered components
+         */
         const imports = [];
         const excludedKeys = [];
         for await (const [key, value] of Object.entries(components)) {
@@ -27,12 +32,12 @@ export function vitePluginStoryblokComponents(
           if (!resolvedId) {
             if (enableFallbackComponent) {
               /**
-               * if showFallbackComponent is enabled, they key needs to be excluded from the export
+               * if showFallbackComponent is enabled, the key needs to be excluded from the export
                */
               excludedKeys.push(key);
             } else {
               /**
-               * else we throw a specific error here
+               * else throw a specific error here
                */
               throw new Error(
                 `Component could not be found for blok "${key}"! Does "/src/${value}.astro" exist?`
@@ -47,10 +52,32 @@ export function vitePluginStoryblokComponents(
           }
         }
 
+        /**
+         * Handle custom fallback component
+         */
+        let customFallbackComponentKey = "";
+        if (enableFallbackComponent && customFallbackComponent) {
+          const fallbackComponentResolvedId = await this.resolve(
+            "/src/" + customFallbackComponent + ".astro"
+          );
+
+          if (!fallbackComponentResolvedId) {
+            throw new Error(
+              `Custom fallback component could not be found. Does "/src/${customFallbackComponent}.astro" exist?`
+            );
+          }
+
+          imports.push(
+            `import customFallback from "${fallbackComponentResolvedId.id}"`
+          );
+
+          customFallbackComponentKey = ",customFallback";
+        }
+
         return `${imports.join(";")};export default {${Object.keys(components)
           .filter((key) => !excludedKeys.includes(key))
           .map((key) => camelcase(key))
-          .join(",")}}`;
+          .join(",")}${customFallbackComponentKey}}`;
       }
     },
   };
