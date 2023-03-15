@@ -67,6 +67,8 @@ export type IntegrationOptions = {
    * ```
    */
   components?: object;
+  enableFallbackComponent?: boolean;
+  useCustomFallbackComponent?: string;
 };
 
 export default function storyblokIntegration(
@@ -75,6 +77,7 @@ export default function storyblokIntegration(
   const resolvedOptions = {
     useCustomApi: false,
     bridge: true,
+    enableFallbackComponent: false,
     ...options,
   };
   return {
@@ -89,7 +92,10 @@ export default function storyblokIntegration(
                 resolvedOptions.useCustomApi,
                 resolvedOptions.apiOptions
               ),
-              vitePluginStoryblokComponents(resolvedOptions.components),
+              vitePluginStoryblokComponents(
+                resolvedOptions.components,
+                resolvedOptions.enableFallbackComponent
+              ),
             ],
           },
         });

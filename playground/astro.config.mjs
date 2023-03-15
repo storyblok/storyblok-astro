@@ -26,6 +26,8 @@ export default defineConfig({
         vue_counter: "storyblok/VueCounter",
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
+        //test_comp: "storyblok/TestComp",
+        //"blok-with-hyphen": "storyblok/BlokWithHyphen",
       },
     }),
     tailwind(),

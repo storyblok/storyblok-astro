@@ -1,0 +1,31 @@
+---
+import type { SbBlokData } from "./types";
+
+interface Props {
+  blok: SbBlokData;
+}
+
+const { blok } = Astro.props;
+---
+
+<section>
+  <p>
+    Component could not be found for blok <span class="code"
+      >{blok.component}</span
+    >! Is it configured correctly?
+  </p>
+</section>
+
+<style is:inline>
+  section {
+    background-color: white;
+    text-align: center;
+    padding: 1rem 3rem;
+  }
+  span.code {
+    background-color: #eee;
+    padding: 0.25rem 0.375rem;
+    border-radius: 0.25rem;
+    color: crimson;
+  }
+</style>
