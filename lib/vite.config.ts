@@ -15,6 +15,7 @@ export default defineConfig(() => {
     },
     plugins: [
       dts({
+        outputDir: "dist/types",
         skipDiagnostics: false,
       }) as unknown as Plugin,
     ],
