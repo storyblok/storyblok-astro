@@ -19,7 +19,7 @@
   "devDependencies": {
     "@commitlint/cli": "^17.4.4",
     "@commitlint/config-conventional": "^17.4.4",
-    "@typescript-eslint/parser": "^5.54.1",
+    "@typescript-eslint/parser": "^5.56.0",
     "eslint": "^8.36.0",
     "eslint-config-prettier": "^8.7.0",
     "eslint-plugin-astro": "^0.24.0",
