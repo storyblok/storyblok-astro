@@ -28,7 +28,7 @@
     "prepublishOnly": "npm run build && cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/js": "^2.1.0",
+    "@storyblok/js": "^2.1.2",
     "camelcase": "^7.0.1"
   },
   "devDependencies": {
