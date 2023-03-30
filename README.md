@@ -63,7 +63,7 @@ export default defineConfig({
 
 ### Options
 
-When you initialize the integration, you can pass all [_@storyblok/js_ options](https://github.com/storyblok/storyblok-js#features-and-api). For spaces created in the United States, you have to set the `region` parameter accordingly `{ apiOptions: { region: 'us' } }`.
+When you initialize the integration, you can pass all [_@storyblok/js_ options](https://github.com/storyblok/storyblok-js#features-and-api).
 
 ```js
 // Defaults
@@ -71,11 +71,30 @@ storyblok({
   accessToken: "<your-access-token>",
   bridge: true,
   apiOptions: {}, // storyblok-js-client options
+  components: {},
   useCustomApi: false,
 });
 ```
 
 > Note: By default, the apiPlugin from `@storyblok/js` is loaded. If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
+
+#### Region parameter
+Possible values:
+- `eu` (default): For spaces created in the EU
+- `us`: For spaces created in the US
+- `cn`: For spaces created in China
+
+Full example for a space created in the US:
+```js
+storyblok({
+  accessToken: "<your-access-token>",
+  apiOptions: {
+    region: 'us'
+  },
+});
+```
+
+> Note: For spaces created in the United States or China, the `region` parameter **must** be specified.
 
 ## Getting started
 
@@ -261,6 +280,9 @@ const renderedRichText = renderRichText(blok.text, {
 ### useStoryblokApi()
 
 Returns the instance of the `storyblok-js-client`.
+
+## The Storyblok JavaScript SDK Ecosystem
+![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)
 
 ## Acknowledgements
 
