@@ -3,7 +3,10 @@
  */
 import camelcase from "camelcase";
 
-export function vitePluginStoryblokComponents(components?: object) {
+export function vitePluginStoryblokComponents(
+  componentsDir: string,
+  components?: object
+) {
   const virtualModuleId = "virtual:storyblok-components";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
@@ -18,11 +21,15 @@ export function vitePluginStoryblokComponents(components?: object) {
       if (id === resolvedVirtualModuleId) {
         const imports = [];
         for await (const [key, value] of Object.entries(components)) {
-          const resolvedId = await this.resolve("/src/" + value + ".astro");
+          const resolvedId = await this.resolve(
+            componentsDir + value + ".astro"
+          );
 
           if (!resolvedId) {
             throw new Error(
-              `Component could not be found for blok "${key}"! Does "/src/${value}.astro" exist?`
+              `Component could not be found for blok "${key}"! Does "${
+                componentsDir + value
+              }.astro" exist?`
             );
           }
           /**
