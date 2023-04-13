@@ -67,6 +67,10 @@ export type IntegrationOptions = {
    * ```
    */
   components?: object;
+  /**
+   * The directory containing your Astro components are. Defaults to "src".
+   */
+  componentsDir?: string;
 };
 
 export default function storyblokIntegration(
@@ -75,6 +79,7 @@ export default function storyblokIntegration(
   const resolvedOptions = {
     useCustomApi: false,
     bridge: true,
+    componentsDir: "src",
     ...options,
   };
   return {
@@ -89,7 +94,10 @@ export default function storyblokIntegration(
                 resolvedOptions.useCustomApi,
                 resolvedOptions.apiOptions
               ),
-              vitePluginStoryblokComponents(resolvedOptions.components),
+              vitePluginStoryblokComponents(
+                resolvedOptions.componentsDir,
+                resolvedOptions.components
+              ),
             ],
           },
         });
