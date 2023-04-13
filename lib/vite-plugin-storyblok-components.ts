@@ -22,13 +22,13 @@ export function vitePluginStoryblokComponents(
         const imports = [];
         for await (const [key, value] of Object.entries(components)) {
           const resolvedId = await this.resolve(
-            componentsDir + value + ".astro"
+            "/" + componentsDir + "/" + value + ".astro"
           );
 
           if (!resolvedId) {
             throw new Error(
               `Component could not be found for blok "${key}"! Does "${
-                componentsDir + value
+                "/" + componentsDir + "/" + value
               }.astro" exist?`
             );
           }

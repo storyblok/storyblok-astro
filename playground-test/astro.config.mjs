@@ -6,6 +6,7 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: "hjfIuqpPLxaJIYlgCAylKgtt",
+      componentsDir: "app",
       components: {
         page: "storyblok/Page",
         feature: "storyblok/subfolder/Feature",

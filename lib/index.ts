@@ -68,7 +68,7 @@ export type IntegrationOptions = {
    */
   components?: object;
   /**
-   * The directory containing your Astro components are. Defaults to "/src/".
+   * The directory containing your Astro components are. Defaults to "src".
    */
   componentsDir?: string;
 };
