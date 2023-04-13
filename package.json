@@ -21,7 +21,7 @@
     "@commitlint/config-conventional": "^17.4.4",
     "@typescript-eslint/parser": "^5.57.0",
     "eslint": "^8.36.0",
-    "eslint-config-prettier": "^8.7.0",
+    "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-astro": "^0.26.1",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.0",
