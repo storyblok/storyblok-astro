@@ -130,7 +130,7 @@ components: {
 >
 > ```js
 > storyblok({
->   componentsDir: "/app/",
+>   componentsDir: "app",
 > });
 > ```
 >
