@@ -72,6 +72,7 @@ storyblok({
   bridge: true,
   apiOptions: {}, // storyblok-js-client options
   components: {},
+  componentsDir: "src",
   useCustomApi: false,
 });
 ```
@@ -79,17 +80,20 @@ storyblok({
 > Note: By default, the apiPlugin from `@storyblok/js` is loaded. If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
 
 #### Region parameter
+
 Possible values:
+
 - `eu` (default): For spaces created in the EU
 - `us`: For spaces created in the US
 - `cn`: For spaces created in China
 
 Full example for a space created in the US:
+
 ```js
 storyblok({
   accessToken: "<your-access-token>",
   apiOptions: {
-    region: 'us'
+    region: "us",
   },
 });
 ```
@@ -119,7 +123,18 @@ components: {
 > - `src/storyblok/Feature.astro`
 > - `src/storyblok/Grid.astro`
 > - `src/storyblok/Teaser.astro`
->   You can choose any other folder in the `src` directory for your Astro components.
+>
+> You can choose any other folder in the `src` directory for your Astro components.
+
+> Note: If you prefer to use a different folder than `src`, you can specify one using the `componentsDir` option:
+>
+> ```js
+> storyblok({
+>   astroDir: "/app/",
+> });
+> ```
+>
+> Now, your Storyblok components can be located anywhere in the `app` folder, e.g. `app/storyblok/Page.astro`.
 
 For each component, use the `storyblokEditable()` function on its root element, passing the `blok` property that they receive:
 
@@ -282,6 +297,7 @@ const renderedRichText = renderRichText(blok.text, {
 Returns the instance of the `storyblok-js-client`.
 
 ## The Storyblok JavaScript SDK Ecosystem
+
 ![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)
 
 ## Acknowledgements
@@ -291,7 +307,7 @@ A huge thank you goes to the Astro Team. In particular to [Tony Sullivan](https:
 ## Related Links
 
 - **[Live Demo on Stackblitz](https://stackblitz.com/edit/astro-sdk-demo)**
-- **[Storyblok CLI](https://github.com/storyblok/storyblok)**: A simple CLI for scaffolding Storyblok projects and fieldtypes.
+- **[Storyblok CLI](https://github.com/storyblok/storyblok)**: A simple CLI for scaffolding Storyblok projects.
 
 ## More Resources
 
@@ -299,7 +315,7 @@ A huge thank you goes to the Astro Team. In particular to [Tony Sullivan](https:
 
 - Bugs or Feature Requests? [Submit an issue](/../../issues/new);
 - Do you have questions about this SDK? Or would you like to join the growing community of `@storyblok/astro` users? [Join the Astro Discord Community](https://discord.com/channels/830184174198718474/1002802280267001858)
-- Do you have questions about Storyblok or you need help? [Join the Storyblok Discord Community](https://discord.gg/jKrbAMz).
+- Do you have questions about Storyblok or do you need help? [Join the Storyblok Discord Community](https://discord.gg/jKrbAMz).
 
 ### Contributing
 
