@@ -33,6 +33,7 @@ const Component = components[key];
 ---
 
 {componentFound && <Component blok={blok} {...props} />}
+<!--TODO: simpfy logic here -->
 {
   !componentFound && !options.customFallbackComponent && (
     <FallbackComponent blok={blok} />

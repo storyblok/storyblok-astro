@@ -6,7 +6,6 @@ import type { Plugin } from "vite";
 
 export function vitePluginStoryblokComponents(
   componentsDir: string,
-
   components?: object,
   enableFallbackComponent?: boolean,
   customFallbackComponent?: string
@@ -26,30 +25,37 @@ export function vitePluginStoryblokComponents(
         /**
          * Handle registered components
          */
-        const imports = [];
-        const excludedKeys = [];
+        const imports: string[] = [];
+        const excludedKeys: string[] = [];
         for await (const [key, value] of Object.entries(components)) {
           const resolvedId = await this.resolve(
             "/" + componentsDir + "/" + value + ".astro"
           );
 
+          /**
+           * if the component cannot be resolved
+           */
           if (!resolvedId) {
             if (enableFallbackComponent) {
               /**
-               * if showFallbackComponent is enabled, the key needs to be excluded from the export
+               * if showFallbackComponent is enabled, the current component key needs to be excluded from the imports
+               * otherwise the attempted import would result in an error
                */
               excludedKeys.push(key);
             } else {
               /**
-               * else throw a specific error here
+               * if it is not enabled, throw a specific error here
                */
               throw new Error(
-                `Component could not be found for blok "${key}"! Does "/src/${value}.astro" exist?`
+                `Component could not be found for blok "${key}"! Does "${
+                  "/" + componentsDir + "/" + value
+                }.astro" exist?`
               );
             }
           } else {
             /**
-             * convert blok names to camel case for valid import names
+             * if the component can be resolved, add it to the imports array
+             * important: convert blok names to camel case for valid import names
              * StoryblokComponent.astro needs to do the same when resolving components!
              */
             imports.push(`import ${camelcase(key)} from "${resolvedId.id}"`);
@@ -59,15 +65,17 @@ export function vitePluginStoryblokComponents(
         /**
          * Handle custom fallback component
          */
-        let customFallbackComponentKey = "";
+        let customFallbackComponentKey: string = "";
         if (enableFallbackComponent && customFallbackComponent) {
           const fallbackComponentResolvedId = await this.resolve(
-            "/src/" + customFallbackComponent + ".astro"
+            "/" + componentsDir + "/" + customFallbackComponent + ".astro"
           );
 
           if (!fallbackComponentResolvedId) {
             throw new Error(
-              `Custom fallback component could not be found. Does "/src/${customFallbackComponent}.astro" exist?`
+              `Custom fallback component could not be found. Does "${
+                "/" + componentsDir + "/" + customFallbackComponent
+              }.astro" exist?`
             );
           }
 

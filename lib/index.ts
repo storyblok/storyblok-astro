@@ -98,7 +98,6 @@ export default function storyblokIntegration(
               ),
               vitePluginStoryblokComponents(
                 resolvedOptions.componentsDir,
-
                 resolvedOptions.components,
                 resolvedOptions.enableFallbackComponent,
                 resolvedOptions.customFallbackComponent
