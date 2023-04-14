@@ -7,6 +7,8 @@ export default defineConfig({
     storyblok({
       accessToken: "hjfIuqpPLxaJIYlgCAylKgtt",
       componentsDir: "app",
+      enableFallbackComponent: true,
+      customFallbackComponent: "storyblok/CustomFallback",
       components: {
         page: "storyblok/Page",
         feature: "storyblok/subfolder/Feature",

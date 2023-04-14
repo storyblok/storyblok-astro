@@ -13,13 +13,9 @@ export default defineConfig({
     react(),
     storyblok({
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
-      //useCustomApi: false,
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },
-      enableFallbackComponent: true,
-      //customFallbackComponent: "storyblok/CustomFallback",
-      //bridge: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
@@ -29,7 +25,6 @@ export default defineConfig({
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
         "new-component": "storyblok/NewComponent",
-        //"blok-with-hyphen": "storyblok/BlokWithHyphen",
       },
     }),
     tailwind(),
