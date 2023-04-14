@@ -8,16 +8,10 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/react": "2.1.0",
-    "@astrojs/svelte": "2.1.0",
     "@astrojs/tailwind": "3.1.0",
-    "tailwindcss": "^3.2.7",
-    "@astrojs/vue": "^2.0.1",
+    "tailwindcss": "^3.3.1",
     "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "astro": "2.1.0",
-    "react": "^18.2.0",
-    "svelte": "^3.56.0",
-    "vue": "^3.2.47"
+    "astro": "2.1.8"
   }
 }

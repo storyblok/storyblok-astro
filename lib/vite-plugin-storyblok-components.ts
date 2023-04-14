@@ -5,6 +5,8 @@ import camelcase from "camelcase";
 import type { Plugin } from "vite";
 
 export function vitePluginStoryblokComponents(
+  componentsDir: string,
+
   components?: object,
   enableFallbackComponent?: boolean,
   customFallbackComponent?: string
@@ -27,7 +29,9 @@ export function vitePluginStoryblokComponents(
         const imports = [];
         const excludedKeys = [];
         for await (const [key, value] of Object.entries(components)) {
-          const resolvedId = await this.resolve("/src/" + value + ".astro");
+          const resolvedId = await this.resolve(
+            "/" + componentsDir + "/" + value + ".astro"
+          );
 
           if (!resolvedId) {
             if (enableFallbackComponent) {

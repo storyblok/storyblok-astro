@@ -66,6 +66,10 @@ export type IntegrationOptions = {
    * ```
    */
   components?: object;
+  /**
+   * The directory containing your Astro components are. Defaults to "src".
+   */
+  componentsDir?: string;
   enableFallbackComponent?: boolean;
   customFallbackComponent?: string;
 };
@@ -76,6 +80,7 @@ export default function storyblokIntegration(
   const resolvedOptions = {
     useCustomApi: false,
     bridge: true,
+    componentsDir: "src",
     enableFallbackComponent: false,
     ...options,
   };
@@ -92,6 +97,8 @@ export default function storyblokIntegration(
                 resolvedOptions.apiOptions
               ),
               vitePluginStoryblokComponents(
+                resolvedOptions.componentsDir,
+
                 resolvedOptions.components,
                 resolvedOptions.enableFallbackComponent,
                 resolvedOptions.customFallbackComponent
