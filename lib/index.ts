@@ -70,7 +70,14 @@ export type IntegrationOptions = {
    * The directory containing your Astro components are. Defaults to "src".
    */
   componentsDir?: string;
+  /**
+   * Show a fallback component in your frontend if a component is not registered properly.
+   */
   enableFallbackComponent?: boolean;
+  /**
+   * Provide a path to a custom fallback component, e.g. "storyblok/customFallback".
+   * Please note: the path takes into account the `componentsDir` option.
+   */
   customFallbackComponent?: string;
 };
 
