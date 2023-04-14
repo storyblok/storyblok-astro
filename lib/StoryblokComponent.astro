@@ -4,6 +4,7 @@ import options from "virtual:storyblok-options";
 import FallbackComponent from "./FallbackComponent.astro";
 import camelcase from "camelcase";
 import type { SbBlokData } from "./types";
+import type { AstroComponentFactory } from "astro/dist/runtime/server";
 
 interface Props {
   blok: SbBlokData;
@@ -19,28 +20,24 @@ let key = camelcase(blok.component);
 
 const componentFound: boolean = key in components;
 
+let Component: AstroComponentFactory;
+
 if (!componentFound) {
   if (!options.enableFallbackComponent)
     throw new Error(
       `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
     );
   else {
-    key = "customFallback";
+    if (options.customFallbackComponent) {
+      key = "customFallback";
+      Component = components[key];
+    } else {
+      Component = FallbackComponent;
+    }
   }
+} else {
+  Component = components[key];
 }
-
-const Component = components[key];
 ---
 
-{componentFound && <Component blok={blok} {...props} />}
-<!--TODO: simpfy logic here -->
-{
-  !componentFound && !options.customFallbackComponent && (
-    <FallbackComponent blok={blok} />
-  )
-}
-{
-  !componentFound && options.customFallbackComponent && (
-    <Component blok={blok} />
-  )
-}
+<Component blok={blok} {...props} />
