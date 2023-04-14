@@ -9,23 +9,30 @@ const { blok } = Astro.props;
 ---
 
 <section>
-  <p>
-    Component could not be found for blok <span class="code"
-      >{blok.component}</span
-    >! Is it configured correctly?
-  </p>
+  <div>
+    <p>
+      Component could not be found for blok <span class="component"
+        >{blok.component}</span
+      >! Is it configured correctly?
+    </p>
+  </div>
 </section>
 
-<style is:inline>
+<style scoped>
   section {
-    background-color: white;
-    text-align: center;
-    padding: 1rem 3rem;
+    display: flex;
+    justify-content: center;
+    padding: 60px 0;
   }
-  span.code {
-    background-color: #eee;
-    padding: 0.25rem 0.375rem;
-    border-radius: 0.25rem;
-    color: crimson;
+  div {
+    display: inline-flex;
+    background-color: #eff1f3;
+    text-align: center;
+    padding: 15px 30px;
+    border-radius: 5px;
+  }
+  span.component {
+    color: #00b3b0;
+    font-weight: bold;
   }
 </style>
