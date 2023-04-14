@@ -8,13 +8,11 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/tailwind": "3.1.0",
+    "@astrojs/tailwind": "3.1.1",
     "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "astro": "2.1.8",
-    "tailwindcss": "^3.3.1"
-  },
-  "dependencies": {
-    "@astrojs/netlify": "2.2.0"
+    "astro": "2.3.0",
+    "tailwindcss": "^3.3.1",
+    "@astrojs/netlify": "2.2.2"
   }
 }
