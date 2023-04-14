@@ -73,6 +73,8 @@ storyblok({
   apiOptions: {}, // storyblok-js-client options
   components: {},
   componentsDir: "src",
+  enableFallbackComponent: false,
+  customFallbackComponent: "",
   useCustomApi: false,
 });
 ```
@@ -166,6 +168,10 @@ const { blok } = Astro.props
 ```
 
 > Note: The `blok` is the actual blok data coming from [Storblok's Content Delivery API](https://www.storyblok.com/docs/api/content-delivery/v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
+
+#### Using fallback components
+
+By default, `@storyblok/astro` throws an error if a component is not configured correctly. Setting `enableFallbackComponent` to `true` bypasses that behavior, rendering a fallback component in the frontend instead. You can also use a custom fallback component by (for example) setting `customFallbackComponent: "storyblok/MyCustomFallback"`.
 
 #### Using partial hydration
 
