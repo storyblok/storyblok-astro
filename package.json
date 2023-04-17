@@ -20,7 +20,7 @@
     "@commitlint/cli": "^17.6.0",
     "@commitlint/config-conventional": "^17.4.4",
     "@typescript-eslint/parser": "^5.58.0",
-    "eslint": "^8.36.0",
+    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-astro": "^0.26.1",
     "husky": "^8.0.3",
