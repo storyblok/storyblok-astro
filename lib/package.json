@@ -6,7 +6,8 @@
   "module": "./dist/storyblok-astro.mjs",
   "files": [
     "dist",
-    "StoryblokComponent.astro"
+    "StoryblokComponent.astro",
+    "FallbackComponent.astro"
   ],
   "exports": {
     ".": {
