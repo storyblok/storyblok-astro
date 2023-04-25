@@ -171,7 +171,7 @@ const { blok } = Astro.props
 
 #### Using fallback components
 
-By default, `@storyblok/astro` throws an error if a component is not configured correctly. Setting `enableFallbackComponent` to `true` bypasses that behavior, rendering a fallback component in the frontend instead. You can also use a custom fallback component by (for example) setting `customFallbackComponent: "storyblok/MyCustomFallback"`.
+By default, `@storyblok/astro` throws an error if a component is not implemented. Setting `enableFallbackComponent` to `true` bypasses that behavior, rendering a fallback component in the frontend instead. You can also use a custom fallback component by (for example) setting `customFallbackComponent: "storyblok/MyCustomFallback"`.
 
 #### Using partial hydration
 
