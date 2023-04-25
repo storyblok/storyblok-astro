@@ -13,11 +13,10 @@ export default defineConfig({
     react(),
     storyblok({
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
-      //useCustomApi: false,
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },
-      //bridge: true,
+      enableFallbackComponent: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
@@ -26,6 +25,7 @@ export default defineConfig({
         vue_counter: "storyblok/VueCounter",
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
+        "new-component": "storyblok/NewComponent",
       },
     }),
     tailwind(),

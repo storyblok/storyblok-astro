@@ -1,7 +1,9 @@
 ---
 import components from "virtual:storyblok-components";
+import options from "virtual:storyblok-options";
 import camelcase from "camelcase";
 import type { SbBlokData } from "./types";
+import type { AstroComponentFactory } from "astro/dist/runtime/server";
 
 interface Props {
   blok: SbBlokData;
@@ -11,21 +13,25 @@ interface Props {
 const { blok, ...props } = Astro.props;
 
 /**
- * convert blok components to camel case to match vite-plugin-storyblok
+ * convert blok components to camel case to match vite-plugin-storyblok-components
  */
-const key = camelcase(blok.component);
+let key = camelcase(blok.component);
 
-if (!(key in components)) {
-  /**
-   * Component not found! Log an error with details on the blok name that could not be found
-   * TODO: Add support for a placeholder component as a fallback?
-   */
-  throw new Error(
-    `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
-  );
+const componentFound: boolean = key in components;
+
+let Component: AstroComponentFactory;
+
+if (!componentFound) {
+  if (!options.enableFallbackComponent)
+    throw new Error(
+      `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
+    );
+  else {
+    Component = components["FallbackComponent"];
+  }
+} else {
+  Component = components[key];
 }
-
-const Component = components[key];
 ---
 
 <Component blok={blok} {...props} />

@@ -11,20 +11,21 @@
   "scripts": {
     "dev": "npm run dev --workspace=lib & npm run demo",
     "demo": "npm run dev --workspace=playground",
+    "demo-test": "npm run dev --workspace=playground-test",
     "demo-ssr": "npm run dev-ssr --workspace=playground-ssr",
     "build": "npm run build --workspace=lib",
     "test:e2e": "npm run test:e2e --workspace=lib",
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^17.6.0",
-    "@commitlint/config-conventional": "^17.4.4",
+    "@commitlint/cli": "^17.6.1",
+    "@commitlint/config-conventional": "^17.6.1",
     "@typescript-eslint/parser": "^5.58.0",
-    "eslint": "^8.36.0",
+    "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-astro": "^0.26.1",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.0",
+    "lint-staged": "^13.2.1",
     "prettier": "^2.8.7",
     "prettier-plugin-astro": "^0.8.0"
   },

@@ -1,4 +1,11 @@
-export function vitePluginStoryblokInit(accessToken, useCustomApi, apiOptions) {
+import type { ISbConfig } from "./types";
+import type { Plugin } from "vite";
+
+export function vitePluginStoryblokInit(
+  accessToken: string,
+  useCustomApi: boolean,
+  apiOptions: ISbConfig
+): Plugin {
   const virtualModuleId = "virtual:storyblok-init";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 

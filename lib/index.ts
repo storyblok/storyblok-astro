@@ -1,6 +1,6 @@
-import { vitePluginStoryblokInit } from "./vite-plugin-storyblok-init.js";
-import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-components.js";
-
+import { vitePluginStoryblokInit } from "./vite-plugin-storyblok-init";
+import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-components";
+import { vitePluginStoryblokOptions } from "./vite-plugin-storyblok-options";
 import {
   RichTextResolver,
   renderRichText as origRenderRichText,
@@ -8,7 +8,6 @@ import {
 } from "@storyblok/js";
 
 import type { AstroIntegration } from "astro";
-
 import type { ISbConfig, ISbRichtext, SbRichTextOptions } from "./types";
 
 export {
@@ -71,6 +70,15 @@ export type IntegrationOptions = {
    * The directory containing your Astro components are. Defaults to "src".
    */
   componentsDir?: string;
+  /**
+   * Show a fallback component in your frontend if a component is not registered properly.
+   */
+  enableFallbackComponent?: boolean;
+  /**
+   * Provide a path to a custom fallback component, e.g. "storyblok/customFallback".
+   * Please note: the path takes into account the `componentsDir` option.
+   */
+  customFallbackComponent?: string;
 };
 
 export default function storyblokIntegration(
@@ -80,6 +88,7 @@ export default function storyblokIntegration(
     useCustomApi: false,
     bridge: true,
     componentsDir: "src",
+    enableFallbackComponent: false,
     ...options,
   };
   return {
@@ -96,8 +105,11 @@ export default function storyblokIntegration(
               ),
               vitePluginStoryblokComponents(
                 resolvedOptions.componentsDir,
-                resolvedOptions.components
+                resolvedOptions.components,
+                resolvedOptions.enableFallbackComponent,
+                resolvedOptions.customFallbackComponent
               ),
+              vitePluginStoryblokOptions(resolvedOptions),
             ],
           },
         });

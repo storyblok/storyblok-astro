@@ -13,7 +13,8 @@
       "import": "./dist/storyblok-astro.mjs",
       "require": "./dist/storyblok-astro.js"
     },
-    "./StoryblokComponent.astro": "./StoryblokComponent.astro"
+    "./StoryblokComponent.astro": "./StoryblokComponent.astro",
+    "./FallbackComponent.astro": "./FallbackComponent.astro"
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {
@@ -39,7 +40,7 @@
     "cypress": "^12.9.0",
     "eslint-plugin-cypress": "^2.13.2",
     "start-server-and-test": "^2.0.0",
-    "typescript": "5.0.3",
+    "typescript": "5.0.4",
     "vite": "^4.2.1",
     "vite-plugin-dts": "^2.2.0"
   },

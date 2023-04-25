@@ -12,10 +12,6 @@ const { data } = await sbApi.get(`cdn/stories/${slug}`, {
 });
 
 const story = data.story;
-
-console.log(story.content.static);
-
-export const prerender = await story.content.static;
 ---
 
 <BaseLayout>
