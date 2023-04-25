@@ -13,7 +13,8 @@
       "import": "./dist/storyblok-astro.mjs",
       "require": "./dist/storyblok-astro.js"
     },
-    "./StoryblokComponent.astro": "./StoryblokComponent.astro"
+    "./StoryblokComponent.astro": "./StoryblokComponent.astro",
+    "./FallbackComponent.astro": "./FallbackComponent.astro"
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {

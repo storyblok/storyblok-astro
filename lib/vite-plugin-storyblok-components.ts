@@ -65,31 +65,44 @@ export function vitePluginStoryblokComponents(
         /**
          * Handle custom fallback component
          */
-        let customFallbackComponentKey: string = "";
-        if (enableFallbackComponent && customFallbackComponent) {
-          const fallbackComponentResolvedId = await this.resolve(
-            "/" + componentsDir + "/" + customFallbackComponent + ".astro"
-          );
 
-          if (!fallbackComponentResolvedId) {
-            throw new Error(
-              `Custom fallback component could not be found. Does "${
-                "/" + componentsDir + "/" + customFallbackComponent
-              }.astro" exist?`
+        let fallbackComponentKey: string = "";
+
+        if (enableFallbackComponent) {
+          fallbackComponentKey = ",FallbackComponent";
+          if (customFallbackComponent) {
+            /**
+             * resolve custom FallbackComponent defined in astro.config.mjs
+             */
+            const fallbackComponentResolvedId = await this.resolve(
+              "/" + componentsDir + "/" + customFallbackComponent + ".astro"
+            );
+
+            if (!fallbackComponentResolvedId) {
+              throw new Error(
+                `Custom fallback component could not be found. Does "${
+                  "/" + componentsDir + "/" + customFallbackComponent
+                }.astro" exist?`
+              );
+            }
+
+            imports.push(
+              `import FallbackComponent from "${fallbackComponentResolvedId.id}"`
+            );
+          } else {
+            /**
+             * import default FallbackComponent bundled with @storyblok/astro
+             */
+            imports.push(
+              `import FallbackComponent from '@storyblok/astro/FallbackComponent.astro';`
             );
           }
-
-          imports.push(
-            `import customFallback from "${fallbackComponentResolvedId.id}"`
-          );
-
-          customFallbackComponentKey = ",customFallback";
         }
 
         return `${imports.join(";")};export default {${Object.keys(components)
           .filter((key) => !excludedKeys.includes(key))
           .map((key) => camelcase(key))
-          .join(",")}${customFallbackComponentKey}}`;
+          .join(",")}${fallbackComponentKey}}`;
       }
     },
   };
