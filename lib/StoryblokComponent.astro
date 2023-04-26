@@ -2,7 +2,7 @@
 import components from "virtual:storyblok-components";
 import options from "virtual:storyblok-options";
 import camelcase from "camelcase";
-import type { SbBlokData } from "./types";
+import type { SbBlokData } from "./dist/types";
 import type { AstroComponentFactory } from "astro/dist/runtime/server";
 
 interface Props {
@@ -11,6 +11,12 @@ interface Props {
 }
 
 const { blok, ...props } = Astro.props;
+
+if (!blok) {
+  throw new Error(
+    "Cannot render StoryblokComponent. 'blok' prop is undefined."
+  );
+}
 
 /**
  * convert blok components to camel case to match vite-plugin-storyblok-components
