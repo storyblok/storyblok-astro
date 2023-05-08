@@ -42,7 +42,7 @@
     "eslint-plugin-cypress": "^2.13.2",
     "start-server-and-test": "^2.0.0",
     "typescript": "5.0.4",
-    "vite": "^4.2.1",
+    "vite": "^4.3.5",
     "vite-plugin-dts": "^2.3.0"
   },
   "repository": {
