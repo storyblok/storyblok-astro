@@ -4,6 +4,7 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
+    "start-stackblitz": "npm install @storyblok/astro@latest && astro dev",
     "build": "astro build",
     "preview": "astro preview"
   },
@@ -20,5 +21,8 @@
     "react-dom": "^18.2.0",
     "svelte": "^3.58.0",
     "vue": "^3.2.47"
+  },
+  "stackblitz": {
+    "startCommand": "npm start-stackblitz"
   }
 }
