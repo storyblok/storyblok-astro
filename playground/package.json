@@ -23,6 +23,6 @@
     "vue": "^3.2.47"
   },
   "stackblitz": {
-    "startCommand": "npm start-stackblitz"
+    "startCommand": "npm run start-stackblitz"
   }
 }
