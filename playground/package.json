@@ -17,6 +17,7 @@
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "astro": "2.3.4",
     "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "svelte": "^3.58.0",
     "vue": "^3.2.47"
   }
