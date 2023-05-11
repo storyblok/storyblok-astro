@@ -19,7 +19,7 @@
     "astro": "2.3.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "svelte": "^3.58.0",
+    "svelte": "^3.59.1",
     "vue": "^3.2.47"
   },
   "stackblitz": {
