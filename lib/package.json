@@ -11,6 +11,7 @@
   ],
   "exports": {
     ".": {
+      "types": "./dist/types/index.d.ts",
       "import": "./dist/storyblok-astro.mjs",
       "require": "./dist/storyblok-astro.js"
     },
