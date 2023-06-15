@@ -24,7 +24,7 @@ export function useStoryblokApi(): StoryblokClient {
   return globalThis.storyblokApiInstance;
 }
 
-export function renderRichText(data: ISbRichtext, options?: SbRichTextOptions) {
+export function renderRichText(data?: ISbRichtext, options?: SbRichTextOptions) {
   const resolverInstance: RichTextResolver =
     globalThis.storyblokApiInstance.richTextResolver;
   if (!resolverInstance) {

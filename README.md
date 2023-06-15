@@ -256,9 +256,10 @@ If you want to deploy a dedicated preview environment with the Bridge enabled, a
 
 ### Rendering Rich Text
 
-You can easily render rich text by using the `renderRichText` function that comes with `@storyblok/astro`. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
+You can easily render rich text by using either the `renderRichText` function or the `<RichTextRenderer />` component, both of which are included in `@storyblok/astro`.
+Use `renderRichText`, which only supports parsing and returning native HTML tags, if you are not embedding `bloks` in your rich text. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
 
-```html
+```jsx
 ---
 import { renderRichText } from '@storyblok/astro';
 
@@ -268,6 +269,18 @@ const renderedRichText = renderRichText(blok.text)
 ---
 
 <div set:html="{renderedRichText}"></div>
+```
+
+Use the `<RichTextRenderer />` component if you are embedding `bloks` in your rich text:
+
+```jsx
+---
+import { renderRichText, RichTextRenderer } from '@storyblok/astro';
+
+const { blok } = Astro.props
+---
+
+<RichTextRenderer richTextData="{blok.richtext}" />
 ```
 
 You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
@@ -294,6 +307,37 @@ const renderedRichText = renderRichText(blok.text, {
     }
   },
 });
+```
+
+The same can be done with the `<RichTextRenderer />` component by passing along the options via the `richTextOptions` prop:
+
+```js
+---
+import { RichTextSchema, renderRichText, RichTextRenderer } from "@storyblok/astro";
+import cloneDeep from "clone-deep";
+
+const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
+// ... and edit the nodes and marks, or add your own.
+// Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
+
+const { blok } = Astro.props;
+
+const options = {
+  schema: mySchema,
+  resolver: (component, blok) => {
+    switch (component) {
+      case "my-custom-component":
+        return `<div class="my-component-class">${blok.text}</div>`;
+        break;
+      default:
+        return `Component ${component} not found`;
+    }
+  },
+};
+---
+
+<RichTextRenderer richTextData="{blok.richtext}" richTextOptions="{options}" />
+
 ```
 
 ## API

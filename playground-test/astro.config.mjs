@@ -14,6 +14,8 @@ export default defineConfig({
         feature: "storyblok/subfolder/Feature",
         grid: "storyblok/Grid",
         teaser: "storyblok/Teaser",
+        richtext: "storyblok/RichText",
+        embedded_blok: "storyblok/EmbeddedBlok"
       },
     }),
     tailwind(),
