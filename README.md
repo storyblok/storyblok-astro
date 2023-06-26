@@ -110,7 +110,7 @@ In order to link your Astro components to their equivalents you created in Story
 
 First, you need to load them globally by specifying their name and their path in `astro.config.mjs`:
 
-```javascript
+```js
 components: {
   page: "storyblok/Page",
   feature: "storyblok/Feature",
@@ -140,7 +140,7 @@ components: {
 
 For each component, use the `storyblokEditable()` function on its root element, passing the `blok` property that they receive:
 
-```html
+```jsx
 ---
 import { storyblokEditable } from '@storyblok/astro';
 
@@ -154,7 +154,7 @@ const { blok } = Astro.props
 
 Finally, you can use the provided `<StoryblokComponent>` for nested components; it will automatically render them (if they have been registered globally beforehand):
 
-```html
+```jsx
 ---
 import { storyblokEditable } from '@storyblok/astro';
 import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
@@ -189,7 +189,7 @@ For working examples, please refer to the [Live Demo on Stackblitz](https://stac
 
 Use the `useStoryblokApi` function to have access to an instance of `storyblok-js-client`:
 
-```html
+```jsx
 ---
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
@@ -275,17 +275,17 @@ Use the `<RichTextRenderer />` component if you are embedding `bloks` in your ri
 
 ```jsx
 ---
-import { renderRichText, RichTextRenderer } from '@storyblok/astro';
+import RichTextRenderer from "@storyblok/astro/RichTextRenderer.astro";
 
 const { blok } = Astro.props
 ---
 
-<RichTextRenderer richTextData="{blok.richtext}" />
+<RichTextRenderer richTextData={blok.richtext} />
 ```
 
 You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
 
-```js
+```jsx
 import { RichTextSchema, renderRichText } from "@storyblok/astro";
 import cloneDeep from "clone-deep";
 
@@ -311,9 +311,11 @@ const renderedRichText = renderRichText(blok.text, {
 
 The same can be done with the `<RichTextRenderer />` component by passing along the options via the `richTextOptions` prop:
 
-```js
+```jsx
 ---
-import { RichTextSchema, renderRichText, RichTextRenderer } from "@storyblok/astro";
+import { RichTextSchema } from "@storyblok/astro";
+import RichTextRenderer from "@storyblok/astro/RichTextRenderer.astro";
+
 import cloneDeep from "clone-deep";
 
 const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
@@ -336,7 +338,7 @@ const options = {
 };
 ---
 
-<RichTextRenderer richTextData="{blok.richtext}" richTextOptions="{options}" />
+<RichTextRenderer richTextData={blok.richtext} richTextOptions={options} />
 
 ```
 
