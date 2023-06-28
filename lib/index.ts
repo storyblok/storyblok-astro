@@ -8,7 +8,12 @@ import {
 } from "@storyblok/js";
 
 import type { AstroIntegration } from "astro";
-import type { ISbConfig, ISbRichtext, SbRichTextOptions } from "./types";
+import type {
+  ISbConfig,
+  ISbRichtext,
+  SbRichTextOptions,
+  StoryblokBridgeConfigV2,
+} from "./types";
 
 export {
   storyblokEditable,
@@ -24,7 +29,10 @@ export function useStoryblokApi(): StoryblokClient {
   return globalThis.storyblokApiInstance;
 }
 
-export function renderRichText(data?: ISbRichtext, options?: SbRichTextOptions) {
+export function renderRichText(
+  data?: ISbRichtext,
+  options?: SbRichTextOptions
+) {
   const resolverInstance: RichTextResolver =
     globalThis.storyblokApiInstance.richTextResolver;
   if (!resolverInstance) {
@@ -50,9 +58,9 @@ export type IntegrationOptions = {
    */
   apiOptions?: ISbConfig;
   /**
-   * A boolean to enable/disable the Storyblok JavaScript Bridge. Enabled by default.
+   * A boolean to enable/disable the Storyblok JavaScript Bridge or provide a StoryblokBridgeConfigV2 configuration object. Enabled by default.
    */
-  bridge?: boolean;
+  bridge?: boolean | StoryblokBridgeConfigV2;
   /**
    * An object containing your Astro components to their Storyblok equivalents.
    * Example:
@@ -123,13 +131,17 @@ export default function storyblokIntegration(
         );
 
         if (resolvedOptions.bridge) {
+          const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
+
           injectScript(
             "page",
             `
               import { loadStoryblokBridge } from "@storyblok/astro";
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
-                const storyblokInstance = new StoryblokBridge();
+                const storyblokInstance = new StoryblokBridge(${JSON.stringify(
+                  bridgeConfigurationOptions
+                )});
 
                 storyblokInstance.on(["published", "change"], (event) => {
                   if (!event.slugChanged) {
