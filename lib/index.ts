@@ -8,7 +8,7 @@ import {
 } from "@storyblok/js";
 
 import type { AstroIntegration } from "astro";
-import {
+import type {
   ISbConfig,
   ISbRichtext,
   SbRichTextOptions,
