@@ -58,7 +58,7 @@ export type IntegrationOptions = {
    */
   apiOptions?: ISbConfig;
   /**
-   * A boolean to enable/disable the Storyblok JavaScript Bridge or a StoryblokBridgeConfigV2 configuration object. Enabled by default.
+   * A boolean to enable/disable the Storyblok JavaScript Bridge or provide a StoryblokBridgeConfigV2 configuration object. Enabled by default.
    */
   bridge?: boolean | StoryblokBridgeConfigV2;
   /**
