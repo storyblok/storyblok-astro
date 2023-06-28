@@ -218,7 +218,7 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
-  
+
   const { data } = await storyblokApi.get("cdn/links", {
     version: "draft",
   });
@@ -251,6 +251,23 @@ const story = data.story;
 The Storyblok Bridge is enabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
 
 > Note: Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
+
+You can also provide a `StoryblokBridgeConfigV2` configuration object to the `bridge` parameter.
+
+```
+bridge: {
+  customParent?: string,
+  preventClicks?: boolean, // Defaults to false.
+  resolveRelations?: strings[]
+}
+```
+
+- `customParent` is used to provide a custom URL for the Storyblok editor iframe.
+- `preventClicks` prevents the default behaviour of clicks when inside the Storyblok editor.
+- `resolveRelations` may be needed to tell the Storyblok Bridge to resolve the same relations that are already resolved in the API requests via the `resolve_relations` parameter.
+
+The provided options will be used to initialize the Storyblok Bridge.
+You can find more information about the Storyblok Bridge and its configuration options on the [In Depth Storyblok Bridge guide](https://www.storyblok.com/docs/guide/in-depth/storyblok-latest-js-v2).
 
 If you want to deploy a dedicated preview environment with the Bridge enabled, allowing users of the Storyblok CMS to see their changes being reflected on the frontend directly without having to rebuild the static site, you can enable Server Side Rendering for that particular use case. More information can be found in the [Astro Docs](https://docs.astro.build/en/guides/server-side-rendering/).
 
