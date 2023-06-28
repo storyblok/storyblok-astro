@@ -264,7 +264,7 @@ bridge: {
 
 - `customParent` is used to provide a custom URL for the Storyblok editor iframe.
 - `preventClicks` prevents the default behaviour of clicks when inside the Storyblok editor.
-- `resolveRelations` may be needed to tell the Storyblok Bridge to resolve the same relations that are already resolved in the API requests via the `resolve_relations` parameter.
+- `resolveRelations` may be needed to tell the Storyblok Bridge to resolve the same relations that are already resolved in the API requests via the `resolve_relations` parameter. _Note: this paramenter won't have any effect in Astro, since the Storyblok Bridge will reload the page and thus all the requests needed will be performed after the reload_
 
 The provided options will be used to initialize the Storyblok Bridge.
 You can find more information about the Storyblok Bridge and its configuration options on the [In Depth Storyblok Bridge guide](https://www.storyblok.com/docs/guide/in-depth/storyblok-latest-js-v2).
