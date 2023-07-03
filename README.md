@@ -142,7 +142,7 @@ For each component, use the `storyblokEditable()` function on its root element, 
 
 ```jsx
 ---
-import { storyblokEditable } from '@storyblok/astro';
+import { storyblokEditable } from "@storyblok/astro";
 
 const { blok } = Astro.props
 ---
@@ -156,8 +156,8 @@ Finally, you can use the provided `<StoryblokComponent>` for nested components; 
 
 ```jsx
 ---
-import { storyblokEditable } from '@storyblok/astro';
-import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { blok } = Astro.props
 ---
@@ -254,7 +254,7 @@ The Storyblok Bridge is enabled by default. If you would like to disable it or e
 
 You can also provide a `StoryblokBridgeConfigV2` configuration object to the `bridge` parameter.
 
-```
+```ts
 bridge: {
   customParent?: string,
   preventClicks?: boolean, // Defaults to false.
@@ -278,7 +278,7 @@ Use `renderRichText`, which only supports parsing and returning native HTML tags
 
 ```jsx
 ---
-import { renderRichText } from '@storyblok/astro';
+import { renderRichText } from "@storyblok/astro";
 
 const { blok } = Astro.props
 
