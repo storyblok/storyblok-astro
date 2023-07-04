@@ -99,10 +99,25 @@ export function vitePluginStoryblokComponents(
           }
         }
 
-        return `${imports.join(";")};export default {${Object.keys(components)
-          .filter((key) => !excludedKeys.includes(key))
-          .map((key) => camelcase(key))
-          .join(",")}${fallbackComponentKey}}`;
+        if (!Object.values(components).length) {
+          /**
+           * If no components are registered in astro.config.mjs, either export just the fallback component (default or custom),
+           * or throw an error.
+           */
+          if (enableFallbackComponent) {
+            return `${
+              imports[0]
+            } export default {${fallbackComponentKey.replace(",", "")}}`;
+          }
+          throw new Error(
+            `Currently, no Storyblok components are registered in astro.config.mjs.\nPlease register your components or enable the fallback component.\nDetailed information can be found here: https://github.com/storyblok/storyblok-astro`
+          );
+        } else {
+          return `${imports.join(";")};export default {${Object.keys(components)
+            .filter((key) => !excludedKeys.includes(key))
+            .map((key) => camelcase(key))
+            .join(",")}${fallbackComponentKey}}`;
+        }
       }
     },
   };
