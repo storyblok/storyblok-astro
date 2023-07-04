@@ -40,13 +40,13 @@
     "@cypress/vite-dev-server": "^5.0.5",
     "@rollup/plugin-dynamic-import-vars": "^2.0.3",
     "@types/node": "20.3.3",
-    "astro": "2.7.2",
+    "astro": "2.7.3",
     "cypress": "^12.16.0",
     "eslint-plugin-cypress": "^2.13.3",
     "start-server-and-test": "^2.0.0",
     "typescript": "5.1.6",
     "vite": "^4.3.9",
-    "vite-plugin-dts": "^3.0.2"
+    "vite-plugin-dts": "^3.0.3"
   },
   "repository": {
     "type": "git",
