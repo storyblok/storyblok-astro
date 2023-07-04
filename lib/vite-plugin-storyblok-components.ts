@@ -94,7 +94,7 @@ export function vitePluginStoryblokComponents(
              * import default FallbackComponent bundled with @storyblok/astro
              */
             imports.push(
-              `import FallbackComponent from '@storyblok/astro/FallbackComponent.astro';`
+              `import FallbackComponent from '@storyblok/astro/FallbackComponent.astro'`
             );
           }
         }
@@ -107,7 +107,7 @@ export function vitePluginStoryblokComponents(
           if (enableFallbackComponent) {
             return `${
               imports[0]
-            } export default {${fallbackComponentKey.replace(",", "")}}`;
+            }; export default {${fallbackComponentKey.replace(",", "")}}`;
           }
           throw new Error(
             `Currently, no Storyblok components are registered in astro.config.mjs.\nPlease register your components or enable the fallback component.\nDetailed information can be found here: https://github.com/storyblok/storyblok-astro`
