@@ -59,7 +59,8 @@ export default defineConfig({
 });
 ```
 
-> ⚠️ This SDK uses the Fetch API under the hood. If your environment doesn't support it, you need to install a polyfill like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
+> **Warning**  
+> This SDK uses the Fetch API under the hood. If your environment doesn't support it, you need to install a polyfill like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
 
 ### Options
 
@@ -79,7 +80,8 @@ storyblok({
 });
 ```
 
-> Note: By default, the apiPlugin from `@storyblok/js` is loaded. If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
+> **Note**  
+> By default, the `apiPlugin` from `@storyblok/js` is loaded. If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
 
 #### Region parameter
 
@@ -100,7 +102,8 @@ storyblok({
 });
 ```
 
-> Note: For spaces created in the United States or China, the `region` parameter **must** be specified.
+> **Warning**  
+> For spaces created in the United States or China, the `region` parameter **must** be specified.
 
 ## Getting started
 
@@ -119,7 +122,8 @@ components: {
 },
 ```
 
-> Note: The `src` folder is automatically added to the beginning of the path, so in this example your Astro components should be located here:
+> **Note**  
+> The `src` folder is automatically added to the beginning of the path, so in this example your Astro components should be located here:
 >
 > - `src/storyblok/Page.astro`
 > - `src/storyblok/Feature.astro`
@@ -167,7 +171,8 @@ const { blok } = Astro.props
 </main>
 ```
 
-> Note: The `blok` is the actual blok data coming from [Storblok's Content Delivery API](https://www.storyblok.com/docs/api/content-delivery/v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
+> **Note**  
+> The `blok` is the actual blok data coming from [Storblok's Content Delivery API](https://www.storyblok.com/docs/api/content-delivery/v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
 
 #### Using fallback components
 
@@ -205,7 +210,8 @@ const story = data.story;
 <StoryblokComponent blok="{story.content}" />
 ```
 
-> Note: The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
+> **Note**  
+> The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
 
 #### Dynamic Routing
 
@@ -250,7 +256,8 @@ const story = data.story;
 
 The Storyblok Bridge is enabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
 
-> Note: Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
+> **Note**  
+> Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
 You can also provide a `StoryblokBridgeConfigV2` configuration object to the `bridge` parameter.
 
@@ -258,16 +265,20 @@ You can also provide a `StoryblokBridgeConfigV2` configuration object to the `br
 bridge: {
   customParent?: string,
   preventClicks?: boolean, // Defaults to false.
-  resolveRelations?: strings[]
+  resolveRelations?: strings[],
+  resolveLinks?: string
 }
 ```
 
 - `customParent` is used to provide a custom URL for the Storyblok editor iframe.
 - `preventClicks` prevents the default behaviour of clicks when inside the Storyblok editor.
-- `resolveRelations` may be needed to tell the Storyblok Bridge to resolve the same relations that are already resolved in the API requests via the `resolve_relations` parameter. _Note: this paramenter won't have any effect in Astro, since the Storyblok Bridge will reload the page and thus all the requests needed will be performed after the reload_
+- `resolveRelations` may be needed to resolve the same relations that are already resolved in the API requests via the `resolve_relations` parameter.
+- `resolveLinks` may be needed to resolve link fields.
 
-The provided options will be used to initialize the Storyblok Bridge.
-You can find more information about the Storyblok Bridge and its configuration options on the [In Depth Storyblok Bridge guide](https://www.storyblok.com/docs/guide/in-depth/storyblok-latest-js-v2).
+> **Note**  
+> `resolveRelations` and `resolveLinks` will not have any effect in Astro, since the Storyblok Bridge is configured to reload the page. Thus, all the requests needed will be performed after the reload.
+
+The provided options will be used when initializing the Storyblok Bridge. You can find more information about the Storyblok Bridge and its configuration options on the [In Depth Storyblok Bridge guide](https://www.storyblok.com/docs/guide/in-depth/storyblok-latest-js-v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
 
 If you want to deploy a dedicated preview environment with the Bridge enabled, allowing users of the Storyblok CMS to see their changes being reflected on the frontend directly without having to rebuild the static site, you can enable Server Side Rendering for that particular use case. More information can be found in the [Astro Docs](https://docs.astro.build/en/guides/server-side-rendering/).
 
