@@ -12,6 +12,6 @@
     "tailwindcss": "^3.3.3",
     "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "astro": "2.8.4"
+    "astro": "2.8.5"
   }
 }
