@@ -1,17 +1,1 @@
 blank_issues_enabled: false
-contact_links:   
-  - name: Astro Discord (no official support is provided via Discord)
-    url: https://discord.com/channels/830184174198718474/1002802280267001858
-    about: For news and community support regarding @storyblok/astro, please visit the Storyblok channel in the official Astro Discord.
-    
-  - name: Storyblok Discord (no official support is provided via Discord)
-    url: https://discord.gg/WmMYYQp
-    about: You can also join our Storyblok Discord community.
-    
-  - name: Storyblok Help Center/Service Desk - official support channel
-    url: https://storyblok.atlassian.net/servicedesk/customer/portals
-    about: You can raise a request for the Storyblok Service Desk.
-
-  - name: Feature Requests
-    url: https://feedback.storyblok.com/b/feature-requests/
-    about: Please review the existing FRs on the platform before posting a new one.
