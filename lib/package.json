@@ -40,7 +40,7 @@
     "@cypress/vite-dev-server": "^5.0.5",
     "@rollup/plugin-dynamic-import-vars": "^2.0.4",
     "@types/node": "20.4.2",
-    "astro": "2.8.4",
+    "astro": "2.9.7",
     "cypress": "^12.17.1",
     "eslint-plugin-cypress": "^2.13.3",
     "start-server-and-test": "^2.0.0",
