@@ -13,6 +13,6 @@
     "@vitejs/plugin-basic-ssl": "^1.0.1",
     "astro": "2.10.1",
     "tailwindcss": "^3.3.3",
-    "@astrojs/netlify": "2.5.1"
+    "@astrojs/netlify": "2.5.2"
   }
 }
