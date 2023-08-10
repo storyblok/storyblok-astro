@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@storyblok/js": "^2.2.8",
-    "camelcase": "^7.0.1"
+    "camelcase": "^8.0.0"
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.5",
