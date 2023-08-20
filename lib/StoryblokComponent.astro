@@ -21,7 +21,11 @@ if (!blok) {
 /**
  * convert blok components to camel case to match vite-plugin-storyblok-components
  */
-let key = camelcase(blok.component);
+let key = camelcase(blok.component ?? (() => {
+  throw new Error(
+      `Component could not be found for blok "${blok.component}"! 'blok.component' is null or undefined.`
+    )
+})());
 
 const componentFound: boolean = key in components;
 
