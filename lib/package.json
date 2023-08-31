@@ -48,6 +48,9 @@
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.3"
   },
+  "peerDependencies": {
+    "astro": "^2.0.0 || ^3.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/storyblok/storyblok-astro"
