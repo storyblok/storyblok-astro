@@ -2,7 +2,9 @@
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
-    "strict": false
+    "strict": false,
+    "baseUrl": ".",
+    "moduleResolution": "Node" // temporary until https://github.com/cypress-io/cypress/issues/26308 is fixed
   },
   "extends": "astro/tsconfigs/base",
   "$schema": "https://json.schemastore.org/tsconfig",

@@ -1,7 +1,5 @@
 import { defineConfig } from "astro/config";
 import storyblok from "@storyblok/astro";
-import tailwind from "@astrojs/tailwind";
-// import basicSsl from "@vitejs/plugin-basic-ssl";
 
 export default defineConfig({
   integrations: [
@@ -19,12 +17,5 @@ export default defineConfig({
         embedded_blok: "storyblok/EmbeddedBlok",
       },
     }),
-    tailwind(),
   ],
-  // vite: {
-  //   plugins: [basicSsl()],
-  //   server: {
-  //     https: true,
-  //   },
-  // },
 });

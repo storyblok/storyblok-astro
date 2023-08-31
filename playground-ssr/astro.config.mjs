@@ -2,13 +2,13 @@ import { defineConfig } from "astro/config";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-import netlify from "@astrojs/netlify/functions";
+import vercel from "@astrojs/vercel/serverless";
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     storyblok({
-      accessToken: "pWNoWLwXfNySwnqvVGOmkwtt",
+      accessToken: "igfBcJoK0sIocwod9qd2Pwtt",
       apiOptions: {
         cache: {
           clear: "auto",
@@ -33,5 +33,8 @@ export default defineConfig({
     },
   },
   output: "server",
-  adapter: netlify(),
+  adapter: vercel(),
+  /**
+   * Note: to build an SSR test environment using the WIP version, host generated package on Git, e.g. git+https://github.com/manuelschroederdev/storyblok-astro-dist
+   */
 });

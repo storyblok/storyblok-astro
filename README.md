@@ -370,6 +370,9 @@ const options = {
 
 ```
 
+> **Note**  
+> Please be aware that the `<RichTextRenderer />` component is **not** supported when using Astro v1. Make sure to use Astro v2 or v3.
+
 ## API
 
 ### useStoryblokApi()

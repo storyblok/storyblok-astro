@@ -7,9 +7,12 @@ const sbApi = useStoryblokApi();
 
 const { slug } = Astro.params;
 
-const { data } = await sbApi.get(`cdn/stories/${slug}`, {
-  version: "draft",
-});
+const { data } = await sbApi.get(
+  `cdn/stories/${slug === undefined ? "home" : slug}`,
+  {
+    version: "draft",
+  }
+);
 
 const story = data.story;
 ---
