@@ -4,7 +4,6 @@ import { vitePluginStoryblokOptions } from "./vite-plugin-storyblok-options";
 import {
   RichTextResolver,
   renderRichText as origRenderRichText,
-  StoryblokClient,
 } from "@storyblok/js";
 
 import type { AstroIntegration } from "astro";
@@ -13,6 +12,7 @@ import type {
   ISbRichtext,
   SbRichTextOptions,
   StoryblokBridgeConfigV2,
+  StoryblokClient,
 } from "./types";
 
 export {

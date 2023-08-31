@@ -25,28 +25,28 @@
     "dev": "vite build --watch",
     "build": "vite build",
     "test": "npm run test:e2e",
-    "test:e2e": "start-server-and-test cy:playground http-get://localhost:3000/ cy:run",
-    "test:e2e-watch": "start-server-and-test cy:playground http-get://localhost:3000/ cy:open",
+    "test:e2e": "start-server-and-test cy:playground http-get://localhost:4321/ cy:run",
+    "test:e2e-watch": "start-server-and-test cy:playground http-get://localhost:4321/ cy:open",
     "cy:playground": "npm run dev --prefix ../playground-test",
     "cy:run": "cypress run",
     "cy:open": "cypress open",
     "prepublishOnly": "npm run build && cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/js": "^2.2.12",
+    "@storyblok/js": "^2.3.0",
     "camelcase": "^8.0.0"
   },
   "devDependencies": {
-    "@cypress/vite-dev-server": "^5.0.5",
+    "@cypress/vite-dev-server": "^5.0.6",
     "@rollup/plugin-dynamic-import-vars": "^2.0.5",
-    "@types/node": "20.5.4",
-    "astro": "2.10.13",
-    "cypress": "^12.17.4",
+    "@types/node": "20.5.7",
+    "astro": "^3.0.3",
+    "cypress": "^13.0.0",
     "eslint-plugin-cypress": "^2.14.0",
     "start-server-and-test": "^2.0.0",
-    "typescript": "5.1.6",
+    "typescript": "5.2.2",
     "vite": "^4.4.9",
-    "vite-plugin-dts": "^3.5.2"
+    "vite-plugin-dts": "^3.5.3"
   },
   "repository": {
     "type": "git",
