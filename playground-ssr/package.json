@@ -11,10 +11,10 @@
     "@storyblok/astro": "1.0.0",
     "@astrojs/tailwind": "5.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.1",
-    "astro": "3.0.8",
+    "astro": "3.0.12",
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "@astrojs/vercel": "^4.0.3"
+    "@astrojs/vercel": "^4.0.5"
   }
 }
