@@ -225,7 +225,7 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
 
-  const { data } = await storyblokApi.get("cdn/links", {
+  const { data } = await storyblokApi.getAll("cdn/links", {
     version: "draft",
   });
   let links = data.links;
@@ -283,6 +283,9 @@ The provided options will be used when initializing the Storyblok Bridge. You ca
 If you want to deploy a dedicated preview environment with the Bridge enabled, allowing users of the Storyblok CMS to see their changes being reflected on the frontend directly without having to rebuild the static site, you can enable Server Side Rendering for that particular use case. More information can be found in the [Astro Docs](https://docs.astro.build/en/guides/server-side-rendering/).
 
 ### Rendering Rich Text
+
+> **Note**  
+> While @storyblok/astro provides basic richtext rendering capabilities, for advanced use cases, it is highly recommended to use [storyblok-rich-text-astro-renderer](https://github.com/NordSecurity/storyblok-rich-text-astro-renderer).
 
 You can easily render rich text by using either the `renderRichText` function or the `<RichTextRenderer />` component, both of which are included in `@storyblok/astro`.
 Use `renderRichText`, which only supports parsing and returning native HTML tags, if you are not embedding `bloks` in your rich text. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
