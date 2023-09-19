@@ -6,9 +6,9 @@
   "module": "./dist/storyblok-astro.mjs",
   "files": [
     "dist",
-    "StoryblokComponent.astro",
-    "FallbackComponent.astro",
-    "RichTextRenderer.astro"
+    "components/StoryblokComponent.astro",
+    "components/FallbackComponent.astro",
+    "components/RichTextRenderer.astro"
   ],
   "exports": {
     ".": {
