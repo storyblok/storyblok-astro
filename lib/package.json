@@ -6,9 +6,7 @@
   "module": "./dist/storyblok-astro.mjs",
   "files": [
     "dist",
-    "StoryblokComponent.astro",
-    "FallbackComponent.astro",
-    "RichTextRenderer.astro"
+    "components"
   ],
   "exports": {
     ".": {
@@ -16,9 +14,21 @@
       "import": "./dist/storyblok-astro.mjs",
       "require": "./dist/storyblok-astro.js"
     },
-    "./StoryblokComponent.astro": "./StoryblokComponent.astro",
-    "./FallbackComponent.astro": "./FallbackComponent.astro",
-    "./RichTextRenderer.astro": "./RichTextRenderer.astro"
+    "./StoryblokComponent.astro": {
+      "types": "./components/StoryblokComponent.ts",
+      "import": "./components/StoryblokComponent.ts",
+      "require": "./components/StoryblokComponent.ts"
+    },
+    "./FallbackComponent.astro": {
+      "types": "./components/FallbackComponent.ts",
+      "import": "./components/FallbackComponent.ts",
+      "require": "./components/FallbackComponent.ts"
+    },
+    "./RichTextRenderer.astro": {
+      "types": "./components/RichTextRenderer.ts",
+      "import": "./components/RichTextRenderer.ts",
+      "require": "./components/RichTextRenderer.ts"
+    }
   },
   "types": "./dist/types/index.d.ts",
   "scripts": {
