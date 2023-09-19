@@ -67,7 +67,11 @@
   "homepage": "https://github.com/storyblok/storyblok-astro",
   "release": {
     "branches": [
-      "main"
+      "main",
+      {
+        "name": "next",
+        "prerelease": true
+      }
     ]
   },
   "publishConfig": {
