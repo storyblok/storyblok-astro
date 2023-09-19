@@ -8,7 +8,7 @@
     "target": "ESNext",
     "strict": false,
     "baseUrl": ".",
-    "jsx": "preserve",
+    //"jsx": "preserve",
     "moduleResolution": "Bundler"
   },
   // Old "moduleResolution": "Node" option required for Cypress
