@@ -42,7 +42,7 @@
     "@types/node": "20.6.0",
     "astro": "^3.0.12",
     "cypress": "^13.1.0",
-    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "start-server-and-test": "^2.0.0",
     "typescript": "5.2.2",
     "vite": "^4.4.9",
