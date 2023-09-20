@@ -131,7 +131,16 @@ export default function storyblokIntegration(
         );
 
         if (resolvedOptions.bridge) {
-          const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
+          let initBridge: string = "";
+
+          if (typeof resolvedOptions.bridge === "object") {
+            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
+            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
+              bridgeConfigurationOptions
+            )});`;
+          } else {
+            initBridge = "const storyblokInstance = new StoryblokBridge()";
+          }
 
           injectScript(
             "page",
@@ -139,9 +148,7 @@ export default function storyblokIntegration(
               import { loadStoryblokBridge } from "@storyblok/astro";
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
-                const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-                  bridgeConfigurationOptions
-                )});
+                ${initBridge}
 
                 storyblokInstance.on(["published", "change"], (event) => {
                   if (!event.slugChanged) {
