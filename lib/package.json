@@ -53,7 +53,7 @@
     "astro": "^3.1.0",
     "cypress": "^13.2.0",
     "eslint-plugin-cypress": "^2.14.0",
-    "start-server-and-test": "^2.0.0",
+    "start-server-and-test": "^2.0.1",
     "typescript": "5.2.2",
     "vite": "^4.4.9",
     "vite-plugin-dts": "^3.5.4"
