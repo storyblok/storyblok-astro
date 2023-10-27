@@ -15,6 +15,6 @@
     "tailwindcss": "^3.3.3"
   },
   "dependencies": {
-    "@astrojs/vercel": "^5.0.0"
+    "@astrojs/vercel": "^5.1.0"
   }
 }
