@@ -31,9 +31,6 @@
 
 If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/astro-sdk-demo)** on StackBlitz.
 
-> **Note**  
-> Since Astro 3.0 dropped Node 16 support, the StackBlitz live demo currently does not work.
-
 ## Usage
 
 > If you are first-time user of Storyblok, read the [Getting Started](https://www.storyblok.com/docs/guide/getting-started?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro) guide to get a project ready in less than 5 minutes.
