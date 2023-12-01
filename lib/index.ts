@@ -102,7 +102,11 @@ export default function storyblokIntegration(
   return {
     name: "@storyblok/astro",
     hooks: {
-      "astro:config:setup": ({ injectScript, updateConfig }) => {
+      "astro:config:setup": ({
+        injectScript,
+        updateConfig,
+        addDevOverlayPlugin,
+      }) => {
         updateConfig({
           vite: {
             plugins: [
@@ -159,6 +163,8 @@ export default function storyblokIntegration(
             `
           );
         }
+
+        addDevOverlayPlugin("storyblok-plugin-test");
       },
     },
   };
