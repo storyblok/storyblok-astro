@@ -45,30 +45,46 @@ export default {
     document.addEventListener("astro:after-swap", createCanvas);
 
     function createCanvas() {
-      const links: { icon: Icon; name: string; link: string }[] = [
+      const links: {
+        icon: Icon;
+        name: string;
+        description: string;
+        link: string;
+      }[] = [
         {
           icon: "star",
           name: "Ultimate Tutorial",
-          link: "https://github.com/withastro/roadmap/discussions/new/choose",
+          description: "Practical step-by-step guide.",
+          link: "https://www.storyblok.com/tp/the-storyblok-astro-ultimate-tutorial",
         },
         {
           icon: "lightbulb",
           name: "Further Tutorials",
-          link: "https://docs.astro.build",
+          description: "Browse our other tutorials.",
+          link: "https://www.storyblok.com/tutorials?technologies=astro",
         },
         {
           icon: "file-search",
-          name: "API Documentation",
-          link: "https://docs.astro.build",
+          name: "API Docs",
+          description: "Storyblok's Content Delivery and Management APIs.",
+          link: "https://www.storyblok.com/docs#api-documentations",
+        },
+        {
+          icon: "astro:logo",
+          name: "Astro Docs",
+          description: "Astro's official Storyblok docs.",
+          link: "https://docs.astro.build/en/guides/cms/storyblok/",
         },
         {
           icon: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 17 14"><path fill="currentColor" d="M14.3451 1.9072c-1.0375-.47613-2.1323-.81595-3.257-1.010998-.0102-.001716-.0207-.000234-.03.004243s-.017.011728-.022.020757c-.141.249998-.297.576998-.406.832998-1.2124-.18399-2.44561-.18399-3.658 0-.12159-.28518-.25914-.56328-.412-.832998-.00513-.00893-.01285-.016098-.02213-.02056-.00928-.004462-.0197-.00601-.02987-.00444-1.125.193998-2.22.533998-3.257 1.010998-.00888.00339-.0163.00975-.021.018-2.074 3.099-2.643004 6.122-2.364004 9.107.001.014.01.028.021.037 1.207724.8946 2.558594 1.5777 3.995004 2.02.01014.0032.02103.0031.03111-.0003.01007-.0034.01878-.01.02489-.0187.308-.42.582-.863.818-1.329.00491-.0096.0066-.0205.0048-.0312-.00181-.0106-.007-.0204-.0148-.0278-.00517-.0049-.0113-.0086-.018-.011-.43084-.1656-.84811-.3645-1.248-.595-.01117-.0063-.01948-.0167-.0232-.029-.00373-.0123-.00258-.0255.0032-.037.0034-.0074.00854-.014.015-.019.084-.063.168-.129.248-.195.00706-.0057.01554-.0093.02453-.0106.00898-.0012.01813 0 .02647.0036 2.619 1.196 5.454 1.196 8.041 0 .0086-.0037.0181-.0051.0275-.0038.0093.0012.0181.0049.0255.0108.08.066.164.132.248.195.0068.005.0123.0116.0159.0192.0036.0076.0053.016.0049.0244-.0003.0084-.0028.0166-.0072.0238-.0043.0072-.0104.0133-.0176.0176-.399.2326-.8168.4313-1.249.594-.0069.0025-.0132.0065-.0183.0117-.0052.0051-.0092.0114-.0117.0183-.0023.0067-.0032.0138-.0027.0208.0005.0071.0024.0139.0057.0202.24.465.515.909.817 1.329.0061.0087.0148.0153.0249.0187.0101.0034.021.0035.0311.0003 1.4388-.441 2.7919-1.1241 4.001-2.02.0061-.0042.0111-.0097.0147-.0161.0037-.0064.0058-.0135.0063-.0209.334-3.451-.559-6.449-2.366-9.106-.0018-.00439-.0045-.00834-.008-.01162-.0034-.00327-.0075-.00578-.012-.00738Zm-8.198 7.307c-.789 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612Zm5.316 0c-.788 0-1.438-.724-1.438-1.612 0-.889.637-1.613 1.438-1.613.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612Z"/></svg>`,
           name: "Community",
-          link: "https://astro.build/chat",
+          description: "Engage with our Discord community.",
+          link: "https://discord.com/channels/830184174198718474/1002802280267001858",
         },
         {
           icon: "bug",
           name: "Report a Bug",
+          description: "Help us make @storyblok/astro even better.",
           link: "https://github.com/withastro/astro/issues/new/choose",
         },
       ];
@@ -86,56 +102,58 @@ export default {
 					align-items: center;
 				}
 
-				header section {
-					display: flex;
-					gap: 0.8em;
-				}
-
-				h2 {
-					color: white;
-					margin: 0;
-					font-size: 18px;
-				}
-
 				a {
 					color: rgba(224, 204, 250, 1);
+					text-decoration: none;
 				}
 
 				a:hover {
 					color: #f4ecfd;
 				}
 
-				@keyframes pulse {
-					0%, 100% {
-						opacity: 1;
-					}
-					50% {
-						opacity: .5;
-					}
+				.version-badge {
+					box-sizing: border-box;
+					border-radius: 4px;
+					border: 1px solid transparent;
+					padding: 8px;
+					font-size: 12px;
+					height: 24px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+					color: rgba(191, 193, 201, 1);
+					border-color: rgba(191, 193, 201, 1);
+					transition: all 0.15s ease-in-out;
+				}
+
+				header a:hover .version-badge {
+					border: 1px solid white;
+					background-color: white;
+					color: black;
 				}
 
 				#links {
 					margin: auto 0;
-					justify-content: center;
 					display: grid;
-					grid-template-columns: repeat(3, 1fr);
-					grid-template-rows: repeat(2, 1fr);
-					gap: 32px;
+					grid-template-columns: repeat(3, minmax(0, 1fr));
+					gap: 16px;
 				}
 
-				#links a {
-					text-decoration: none;
-					align-items: center;
-					display: flex;
-					flex-direction: column;
-					gap: 0.7em;
-					flex: 1;
-					white-space: nowrap;
-					font-weight: 600;
+				#links astro-dev-toolbar-card {
 					color: white;
 				}
 
-				#links a:hover {
+				#links astro-dev-toolbar-card h3 {
+					margin: 0.5em 0;
+					color: white;
+				}
+
+				#links astro-dev-toolbar-card p {
+					margin: 0;
+				}
+
+				#links astro-dev-toolbar-card:hover {
 					color: rgba(145, 152, 173, 1);
 				}
 
@@ -143,6 +161,7 @@ export default {
 					width: 1.5em;
 					height: 1.5em;
 					display: block;
+					color: white;
 				}
 
 				@media (forced-colors: active) {
@@ -153,30 +172,30 @@ export default {
 			</style>
 
 			<header>
-				<section>
-					<div id="logo">
-						${storyblokLogoFull}
-					</div>
-					<!--<div>
-						@storyblok-astro
-						<astro-dev-toolbar-badge badge-style="gray" size="large">${
-              (window as DevOverlayMetadata).__astro_dev_overlay__.version
-            }</astro-dev-toolbar-badge>
-					</div>-->
-				</section>
+				<a href="https://storyblok.com" target="_blank" id="logo">
+					${storyblokLogoFull}
+				</a>
+				<a href="https://github.com/storyblok/storyblok-astro" target="_blank">
+					<div class="version-badge">@storyblok/astro ${
+            (window as DevOverlayMetadata).__astro_dev_overlay__.version
+          }</div>
+				</a>
 			</header>
 			<hr />
-
 			<div id="main-container">
 				<section id="links">
 				${links
           .map(
             (link) =>
-              `<a href="${link.link}" target="_blank"><astro-dev-toolbar-icon ${
+              `<astro-dev-toolbar-card link="${
+                link.link
+              }"><astro-dev-toolbar-icon ${
                 isDefinedIcon(link.icon)
                   ? `icon="${link.icon}">`
                   : `>${link.icon}`
-              }</astro-dev-toolbar-icon>${link.name}</a>`
+              }</astro-dev-toolbar-icon><h3>${link.name}</h3><p>${
+                link.description
+              }</p></astro-dev-toolbar-card>`
           )
           .join("")}
 				</section>
