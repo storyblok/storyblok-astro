@@ -7,7 +7,7 @@
   "files": [
     "dist",
     "components",
-    "plugin-storyblok-dev-overlay.ts"
+    "toolbar-app-storyblok.ts"
   ],
   "exports": {
     ".": {
@@ -30,10 +30,10 @@
       "import": "./components/RichTextRenderer.ts",
       "require": "./components/RichTextRenderer.ts"
     },
-    "./plugin-storyblok-dev-overlay.ts": {
-      "types": "./plugin-storyblok-dev-overlay.ts",
-      "import": "./plugin-storyblok-dev-overlay.ts",
-      "require": "./plugin-storyblok-dev-overlay.ts"
+    "./toolbar-app-storyblok.ts": {
+      "types": "./toolbar-app-storyblok.ts",
+      "import": "./toolbar-app-storyblok.ts",
+      "require": "./toolbar-app-storyblok.ts"
     }
   },
   "types": "./dist/types/index.d.ts",
