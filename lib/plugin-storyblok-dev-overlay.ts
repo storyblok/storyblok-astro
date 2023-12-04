@@ -111,28 +111,6 @@ export default {
 					color: #f4ecfd;
 				}
 
-				.version-badge {
-					box-sizing: border-box;
-					border-radius: 4px;
-					border: 1px solid transparent;
-					padding: 8px;
-					font-size: 12px;
-					height: 24px;
-					display: flex;
-					align-items: center;
-					justify-content: center;
-					font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-					color: rgba(191, 193, 201, 1);
-					border-color: rgba(191, 193, 201, 1);
-					transition: all 0.15s ease-in-out;
-				}
-
-				header a:hover .version-badge {
-					border: 1px solid white;
-					background-color: white;
-					color: black;
-				}
-
 				#links {
 					margin: auto 0;
 					display: grid;
