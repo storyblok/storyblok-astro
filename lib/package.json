@@ -6,7 +6,8 @@
   "module": "./dist/storyblok-astro.mjs",
   "files": [
     "dist",
-    "components"
+    "components",
+    "dev-overlay"
   ],
   "exports": {
     ".": {
@@ -28,6 +29,11 @@
       "types": "./components/RichTextRenderer.ts",
       "import": "./components/RichTextRenderer.ts",
       "require": "./components/RichTextRenderer.ts"
+    },
+    "./dev-overlay/storyblok-plugin-test.ts": {
+      "types": "./dev-overlay/storyblok-plugin-test.ts",
+      "import": "./dev-overlay/storyblok-plugin-test.ts",
+      "require": "./dev-overlay/storyblok-plugin-test.ts"
     }
   },
   "types": "./dist/types/index.d.ts",
@@ -50,16 +56,16 @@
     "@cypress/vite-dev-server": "^5.0.6",
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",
     "@types/node": "20.10.0",
-    "astro": "^3.6.3",
+    "astro": "^4.0.0-beta.4",
     "cypress": "^13.6.0",
     "eslint-plugin-cypress": "^2.14.0",
     "start-server-and-test": "^2.0.3",
     "typescript": "5.3.2",
-    "vite": "^4.5.0",
-    "vite-plugin-dts": "^3.6.3"
+    "vite": "^5.0.4",
+    "vite-plugin-dts": "^3.6.4"
   },
   "peerDependencies": {
-    "astro": "^2.0.0 || ^3.0.0"
+    "astro": "^4.0.0-beta.4"
   },
   "repository": {
     "type": "git",

@@ -30,9 +30,6 @@ export default defineConfig({
     }),
     tailwind(),
   ],
-  experimental: {
-    devOverlay: true,
-  },
   vite: {
     plugins: [basicSsl()],
     server: {

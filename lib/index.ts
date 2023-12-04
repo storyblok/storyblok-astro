@@ -164,7 +164,9 @@ export default function storyblokIntegration(
           );
         }
 
-        addDevOverlayPlugin("storyblok-plugin-test");
+        addDevOverlayPlugin(
+          "@storyblok/astro/dev-overlay/storyblok-plugin-test.ts"
+        );
       },
     },
   };
