@@ -176,9 +176,7 @@ export default {
 					${storyblokLogoFull}
 				</a>
 				<a href="https://github.com/storyblok/storyblok-astro" target="_blank">
-					<div class="version-badge">@storyblok/astro ${
-            (window as DevOverlayMetadata).__astro_dev_overlay__.version
-          }</div>
+          <img src="https://img.shields.io/npm/v/@storyblok/astro?color=40C6C4&label=Astro&labelColor=1B243F&logo=storyblok" alt="Storyblok Astro Version v.3.0.1."/>
 				</a>
 			</header>
 			<hr />
