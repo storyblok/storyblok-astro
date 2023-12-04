@@ -9,7 +9,7 @@ const { blok } = Astro.props;
   <div class="container grid grid-cols-3 gap-12">
     {
       blok.columns?.map((blok) => {
-        return <StoryblokComponent blok={1} />;
+        return <StoryblokComponent blok={blok} />;
       })
     }
   </div>

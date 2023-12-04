@@ -31,9 +31,6 @@
 
 If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/astro-sdk-demo)** on StackBlitz.
 
-> **Note**  
-> Since Astro 3.0 dropped Node 16 support, the StackBlitz live demo currently does not work.
-
 ## Usage
 
 > If you are first-time user of Storyblok, read the [Getting Started](https://www.storyblok.com/docs/guide/getting-started?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro) guide to get a project ready in less than 5 minutes.
@@ -135,7 +132,8 @@ components: {
 >
 > You can choose any other folder in the `src` directory for your Astro components.
 
-> Note: If you prefer to use a different folder than `src`, you can specify one using the `componentsDir` option:
+> **Note**
+> If you prefer to use a different folder than `src`, you can specify one using the `componentsDir` option:
 >
 > ```js
 > storyblok({
@@ -143,7 +141,7 @@ components: {
 > });
 > ```
 >
-> Now, your Storyblok components can be located anywhere in the `app` folder, e.g. `app/storyblok/Page.astro`.
+> Now, your Storyblok components can be located anywhere in the `app` folder, e.g. `page: "storyblok/Page"` for `app/storyblok/Page.astro` or `page: "Page"` for `app/Page.astro`.
 
 For each component, use the `storyblokEditable()` function on its root element, passing the `blok` property that they receive:
 
