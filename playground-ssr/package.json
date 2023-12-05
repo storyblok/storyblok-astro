@@ -8,13 +8,13 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@storyblok/astro": "1.0.0",
     "@astrojs/tailwind": "^6.0.0-beta.0",
+    "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.2",
-    "astro": "^4.0.0-beta.4",
-    "tailwindcss": "^3.3.5"
+    "astro": "^4.0.0-beta.7",
+    "tailwindcss": "^3.3.6"
   },
   "dependencies": {
-    "@astrojs/vercel": "^5.0.0"
+    "@astrojs/vercel": "^6.0.0-beta.2"
   }
 }

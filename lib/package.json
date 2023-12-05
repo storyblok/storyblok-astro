@@ -55,17 +55,17 @@
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.6",
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",
-    "@types/node": "20.10.0",
-    "astro": "^4.0.0-beta.4",
+    "@types/node": "20.10.3",
+    "astro": "^4.0.0-beta.7",
     "cypress": "^13.6.0",
-    "eslint-plugin-cypress": "^2.14.0",
+    "eslint-plugin-cypress": "^2.15.1",
     "start-server-and-test": "^2.0.3",
     "typescript": "5.3.2",
-    "vite": "^5.0.4",
+    "vite": "^5.0.5",
     "vite-plugin-dts": "^3.6.4"
   },
   "peerDependencies": {
-    "astro": "^4.0.0-beta.4"
+    "astro": "^2.0.0 || ^3.0.0 || ^4.0.0"
   },
   "repository": {
     "type": "git",
