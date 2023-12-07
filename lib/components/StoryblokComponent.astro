@@ -5,7 +5,7 @@ import camelcase from "camelcase";
 import type { SbBlokData } from "./dist/types";
 import type { AstroComponentFactory } from "astro/dist/runtime/server";
 
-interface Props {
+export interface Props {
   blok: SbBlokData;
   [prop: string]: unknown;
 }
