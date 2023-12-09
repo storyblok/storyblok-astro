@@ -3,10 +3,11 @@
  */
 import camelcase from "camelcase";
 import type { Plugin } from "vite";
+import type { Components } from "index";
 
 export function vitePluginStoryblokComponents(
   componentsDir: string,
-  components?: object,
+  components?: Components,
   enableFallbackComponent?: boolean,
   customFallbackComponent?: string
 ): Plugin {
@@ -28,9 +29,15 @@ export function vitePluginStoryblokComponents(
         const imports: string[] = [];
         const excludedKeys: string[] = [];
         for await (const [key, value] of Object.entries(components)) {
-          const resolvedId = await this.resolve(
-            "/" + componentsDir + "/" + value + ".astro"
-          );
+          if (typeof value === "string") {
+            const filename = value.endsWith(".astro")
+              ? value
+              : value + ".astro";
+            const resolvedId = await this.resolve(
+              `/${componentsDir}/${filename}`
+            );
+          } else {
+          }
 
           /**
            * if the component cannot be resolved
@@ -101,8 +108,7 @@ export function vitePluginStoryblokComponents(
 
         if (!Object.values(components).length) {
           /**
-           * If no components are registered in astro.config.mjs, either export just the fallback component (default or custom),
-           * or throw an error.
+           * If no components are registered in astro.config.mjs, either export just the fallback component (default or custom), or throw an error.
            */
           if (enableFallbackComponent) {
             return `${

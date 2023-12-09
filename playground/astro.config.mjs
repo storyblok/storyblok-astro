@@ -18,6 +18,7 @@ export default defineConfig({
       },
       enableFallbackComponent: true,
       components: {
+        interactive: { component: "InteractiveComponent.vue", client: "idle" },
         page: "storyblok/Page",
         feature: "storyblok/Feature",
         grid: "storyblok/Grid",

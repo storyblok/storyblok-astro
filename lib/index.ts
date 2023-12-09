@@ -44,6 +44,25 @@ export function renderRichText(
   return origRenderRichText(data, options, resolverInstance);
 }
 
+export type IslandComponent = {
+  /**
+   * A string providing the location of an interactive component.
+   * E.g. "storyblok/Interactive.vue" or "storyblok/Interactive.svelte".
+   */
+  component: string;
+  /**
+   * A hydration directive. Defaults to client:load.
+   * https://docs.astro.build/en/core-concepts/framework-components/#hydrating-interactive-components
+   */
+  client?: string;
+};
+
+export type Component = string | IslandComponent;
+
+export type Components = {
+  [key: string]: Component;
+};
+
 export type IntegrationOptions = {
   /**
    * The access token from your space.
@@ -72,8 +91,9 @@ export type IntegrationOptions = {
    *   teaser: "storyblok/Teaser",
    * },
    * ```
+   *
    */
-  components?: object;
+  components?: Components;
   /**
    * The directory containing your Astro components are. Defaults to "src".
    */
@@ -105,7 +125,7 @@ export default function storyblokIntegration(
       "astro:config:setup": ({
         injectScript,
         updateConfig,
-        addDevOverlayPlugin,
+        addDevToolbarApp,
       }) => {
         updateConfig({
           vite: {
@@ -164,7 +184,7 @@ export default function storyblokIntegration(
           );
         }
 
-        addDevOverlayPlugin("@storyblok/astro/toolbar-app-storyblok.ts");
+        addDevToolbarApp("@storyblok/astro/toolbar-app-storyblok.ts");
       },
     },
   };
