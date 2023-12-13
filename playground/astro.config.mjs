@@ -18,12 +18,15 @@ export default defineConfig({
       },
       enableFallbackComponent: true,
       components: {
-        interactive: { component: "InteractiveComponent.vue", client: "idle" },
+        //interactive: { component: "InteractiveComponent.vue", client: "idle" },
         page: "storyblok/Page",
         feature: "storyblok/Feature",
         grid: "storyblok/Grid",
         teaser: "storyblok/Teaser",
-        vue_counter: "storyblok/VueCounter",
+        vue_counter: {
+          component: "storyblok/vue/Counter.vue",
+          client: "idle",
+        },
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
         "new-component": "storyblok/NewComponent",

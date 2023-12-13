@@ -27,17 +27,33 @@ export function vitePluginStoryblokComponents(
          * Handle registered components
          */
         const imports: string[] = [];
+        let outputComponents: object = {};
         const excludedKeys: string[] = [];
         for await (const [key, value] of Object.entries(components)) {
+          console.dir(components);
+          console.log(
+            "component keys in vite module: " + Object.keys(components)
+          );
+          let filename: string = "";
           if (typeof value === "string") {
-            const filename = value.endsWith(".astro")
-              ? value
-              : value + ".astro";
-            const resolvedId = await this.resolve(
-              `/${componentsDir}/${filename}`
-            );
+            filename = value.endsWith(".astro") ? value : value + ".astro";
+            outputComponents[camelcase(key)] = { component: camelcase(key) };
           } else {
+            filename = value.component;
+            //console.log("client " + value.client);
+            outputComponents[camelcase(key)] = {
+              component: camelcase(key),
+              client: value.client,
+            };
           }
+
+          //console.log(filename);
+
+          const resolvedId = await this.resolve(
+            `/${componentsDir}/${filename}`
+          );
+
+          //console.log(resolvedId);
 
           /**
            * if the component cannot be resolved
@@ -119,10 +135,33 @@ export function vitePluginStoryblokComponents(
             `Currently, no Storyblok components are registered in astro.config.mjs.\nPlease register your components or enable the fallback component.\nDetailed information can be found here: https://github.com/storyblok/storyblok-astro`
           );
         } else {
-          return `${imports.join(";")};export default {${Object.keys(components)
+          console.log("outputComponents: ");
+          console.dir(outputComponents);
+          let testOutput: string = `export default {`;
+          let i = 0;
+          for (const [key, value] of Object.entries(outputComponents)) {
+            testOutput += `{${key}:{component:${key}`;
+            testOutput += value.client ? `,client:${value.client}}}` : `}`;
+            // TODO: comma
+            testOutput +=
+              i < Object.keys(outputComponents).length - 1 ? `,` : ``;
+            i++;
+          }
+          testOutput += `}`;
+
+          console.log(testOutput);
+          /* const output = `${imports.join(";")};export default {${Object.keys(
+            components
+          )
             .filter((key) => !excludedKeys.includes(key))
             .map((key) => camelcase(key))
-            .join(",")}${fallbackComponentKey}}`;
+            .join(",")}${fallbackComponentKey}}`; */
+
+          const output = `${imports.join(
+            ";"
+          )};${outputComponents}${fallbackComponentKey}}`;
+          //console.log(output);
+          return output;
         }
       }
     },

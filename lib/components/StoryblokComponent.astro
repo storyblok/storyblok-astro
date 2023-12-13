@@ -2,9 +2,11 @@
 import components from "virtual:storyblok-components";
 import options from "virtual:storyblok-options";
 import camelcase from "camelcase";
-import type { SbBlokData } from "./dist/types";
-import type { AstroComponentFactory } from "astro/dist/runtime/server";
+import type { SbBlokData } from "../dist/types";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
+/* console.log("components in StoryblokComponent");
+console.dir(components); */
 export interface Props {
   blok: SbBlokData;
   [prop: string]: unknown;
@@ -26,6 +28,9 @@ let key = camelcase(blok.component);
 const componentFound: boolean = key in components;
 
 let Component: AstroComponentFactory;
+let client: string;
+
+//console.log("component in StoryblokComponent: " + components[key]);
 
 if (!componentFound) {
   if (!options.enableFallbackComponent)
@@ -40,4 +45,24 @@ if (!componentFound) {
 }
 ---
 
-<Component blok={blok} {...props} />
+{!client && <Component blok={blok} {...props} />}
+{
+  client && client === "load" && (
+    <Component blok={blok} client:load {...props} />
+  )
+}
+{
+  client && client === "idle" && (
+    <Component blok={blok} client:idle {...props} />
+  )
+}
+{
+  client && client === "visible" && (
+    <Component blok={blok} client:visible {...props} />
+  )
+}
+{
+  client && client === "media" && (
+    <Component blok={blok} client:media {...props} />
+  )
+}
