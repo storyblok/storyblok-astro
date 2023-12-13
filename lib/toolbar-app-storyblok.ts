@@ -1,4 +1,4 @@
-import type { DevOverlayPlugin, DevOverlayMetadata } from "astro";
+import type { DevToolbarApp, DevOverlayMetadata } from "astro";
 import {
   isDefinedIcon,
   type Icon,
@@ -182,4 +182,4 @@ export default {
       canvas.append(windowComponent);
     }
   },
-} satisfies DevOverlayPlugin;
+} satisfies DevToolbarApp;
