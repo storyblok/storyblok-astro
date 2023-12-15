@@ -5,8 +5,6 @@ import camelcase from "camelcase";
 import type { SbBlokData } from "../dist/types";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
-/* console.log("components in StoryblokComponent");
-console.dir(components); */
 export interface Props {
   blok: SbBlokData;
   [prop: string]: unknown;
@@ -30,8 +28,6 @@ const componentFound: boolean = key in components;
 let Component: AstroComponentFactory;
 let client: string;
 
-//console.log("component in StoryblokComponent: " + components[key]);
-
 if (!componentFound) {
   if (!options.enableFallbackComponent)
     throw new Error(
@@ -41,6 +37,7 @@ if (!componentFound) {
     Component = components["FallbackComponent"];
   }
 } else {
+  // TODO: load Component and client from Vite module
   Component = components[key];
 }
 ---

@@ -44,7 +44,7 @@ export function renderRichText(
   return origRenderRichText(data, options, resolverInstance);
 }
 
-export type IslandComponent = {
+export type InteractiveComponent = {
   /**
    * A string providing the location of an interactive component.
    * E.g. "storyblok/Interactive.vue" or "storyblok/Interactive.svelte".
@@ -57,7 +57,7 @@ export type IslandComponent = {
   client?: string;
 };
 
-export type Component = string | IslandComponent;
+export type Component = string | InteractiveComponent;
 
 export type Components = {
   [key: string]: Component;
