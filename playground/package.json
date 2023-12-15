@@ -9,16 +9,16 @@
   },
   "devDependencies": {
     "@astrojs/react": "^3.0.7",
-    "@astrojs/svelte": "^5.0.0",
+    "@astrojs/svelte": "^5.0.1",
     "@astrojs/tailwind": "^6.0.0-beta.0",
-    "@astrojs/vue": "^4.0.2",
+    "@astrojs/vue": "^4.0.3",
     "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.0.2",
-    "astro": "^4.0.2",
+    "astro": "^4.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "svelte": "^4.2.8",
     "tailwindcss": "^3.3.6",
-    "vue": "^3.3.10"
+    "vue": "^3.3.11"
   }
 }
