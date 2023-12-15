@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Preview</title>
+
+    <style is:global>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      iframe {
+        width: 100%;
+        height: 100vh;
+        border: none;
+        position: absolute;
+      }
+      iframe:not(:first-of-type) {
+        opacity: 0%;
+      }
+    </style>
+    <script>
+      import { setupPreviewEventsManager } from "../previewEventsManager";
+      import { setupPreviewIFrameManager } from "../../js/preview/iFrameManager.js";
+
+      await setupPreviewEventsManager();
+      await setupPreviewIFrameManager();
+    </script>
+  </head>
+  <body></body>
+</html>

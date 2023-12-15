@@ -105,7 +105,9 @@ export default function storyblokIntegration(
       "astro:config:setup": ({
         injectScript,
         updateConfig,
-        addDevOverlayPlugin,
+        addMiddleware,
+        injectRoute,
+        addDevToolbarApp,
       }) => {
         updateConfig({
           vite: {
@@ -146,7 +148,8 @@ export default function storyblokIntegration(
             initBridge = "const storyblokInstance = new StoryblokBridge()";
           }
 
-          injectScript(
+          // TODO: handle based on user preference (live preview boolean in Astro config)
+          /* injectScript(
             "page",
             `
               import { loadStoryblokBridge } from "@storyblok/astro";
@@ -161,10 +164,35 @@ export default function storyblokIntegration(
                 });
               });
             `
+          ); */
+
+          injectScript(
+            "page",
+            `
+              import { loadStoryblokBridge } from "@storyblok/astro";
+              loadStoryblokBridge().then(() => {
+                const { StoryblokBridge, location } = window;
+                ${initBridge}
+
+                storyblokInstance.on(["published", "change", "input", "enterEditmode", "customEvent", "unpublished",], (event) => {
+                  // TODO: check if events are necessary
+                });
+              });
+            `
           );
         }
 
-        addDevOverlayPlugin("@storyblok/astro/toolbar-app-storyblok.ts");
+        addMiddleware({
+          entrypoint: "@storyblok/astro/middlewareStoryblok.ts",
+          order: "pre",
+        });
+
+        injectRoute({
+          pattern: "/storyblok-preview/[...path]",
+          entrypoint: "@storyblok/astro/StoryblokPreview.astro",
+        });
+
+        addDevToolbarApp("@storyblok/astro/toolbarAppStoryblok.ts");
       },
     },
   };

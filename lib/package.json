@@ -7,7 +7,12 @@
   "files": [
     "dist",
     "components",
-    "toolbar-app-storyblok.ts"
+    "middlewareStoryblok.ts",
+    "previewEventsManager.ts",
+    "sourceEventsManager.ts",
+    "fetchAstroPage.ts",
+    "StoryblokPreview.astro",
+    "toolbarAppStoryblok.ts"
   ],
   "exports": {
     ".": {
@@ -30,10 +35,35 @@
       "import": "./components/RichTextRenderer.ts",
       "require": "./components/RichTextRenderer.ts"
     },
-    "./toolbar-app-storyblok.ts": {
-      "types": "./toolbar-app-storyblok.ts",
-      "import": "./toolbar-app-storyblok.ts",
-      "require": "./toolbar-app-storyblok.ts"
+    "./middlewareStoryblok.ts": {
+      "types": "./middlewareStoryblok.ts",
+      "import": "./middlewareStoryblok.ts",
+      "require": "./middlewareStoryblok.ts"
+    },
+    "./previewEventsManager.ts": {
+      "types": "./previewEventsManager.ts",
+      "import": "./previewEventsManager.ts",
+      "require": "./previewEventsManager.ts"
+    },
+    "./sourceEventsManager.ts": {
+      "types": "./sourceEventsManager.ts",
+      "import": "./sourceEventsManager.ts",
+      "require": "./sourceEventsManager.ts"
+    },
+    "./fetchAstroPage.ts": {
+      "types": "./fetchAstroPage.ts",
+      "import": "./fetchAstroPage.ts",
+      "require": "./fetchAstroPage.ts"
+    },
+    "./StoryblokPreview.astro": {
+      "types": "./StoryblokPreview.ts",
+      "import": "./StoryblokPreview.ts",
+      "require": "./StoryblokPreview.ts"
+    },
+    "./toolbarAppStoryblok.ts": {
+      "types": "./toolbarAppStoryblok.ts",
+      "import": "./toolbarAppStoryblok.ts",
+      "require": "./toolbarAppStoryblok.ts"
     }
   },
   "types": "./dist/types/index.d.ts",
@@ -59,6 +89,7 @@
     "astro": "^4.0.4",
     "cypress": "^13.6.1",
     "eslint-plugin-cypress": "^2.15.1",
+    "iframe-swapper": "^1.0.0",
     "start-server-and-test": "^2.0.3",
     "typescript": "5.3.3",
     "vite": "^5.0.8",

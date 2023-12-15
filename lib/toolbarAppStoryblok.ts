@@ -1,4 +1,4 @@
-import type { DevToolbarApp, DevOverlayMetadata } from "astro";
+import type { DevToolbarApp } from "astro";
 import {
   isDefinedIcon,
   type Icon,
