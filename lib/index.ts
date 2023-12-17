@@ -1,6 +1,6 @@
-import { vitePluginStoryblokInit } from "./vite-plugin-storyblok-init";
-import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-components";
-import { vitePluginStoryblokOptions } from "./vite-plugin-storyblok-options";
+import { vitePluginStoryblokInit } from "./vite-plugins/vite-plugin-storyblok-init";
+import { vitePluginStoryblokComponents } from "./vite-plugins/vite-plugin-storyblok-components";
+import { vitePluginStoryblokOptions } from "./vite-plugins/vite-plugin-storyblok-options";
 import {
   RichTextResolver,
   renderRichText as origRenderRichText,
@@ -22,11 +22,34 @@ export {
   RichTextSchema,
 } from "@storyblok/js";
 
+export { setupSourceEventsManager } from "./live-preview/sourceEventsManager";
+export { setupPreviewEventsManager } from "./live-preview/previewEventsManager";
+export { fetchAstroPage } from "./live-preview/fetchAstroPage";
+
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
     console.error("storyblokApiInstance has not been initialized correctly");
   }
   return globalThis.storyblokApiInstance;
+}
+
+export function setupStoryblokManager(storyId: string) {
+  // This block is needed to let Storyblok manager work, as it is looking for the parameter in the URL
+  if (storyId) {
+    // if location.search doesn't contain _storyblok, add it
+    if (!location.search.includes("_storyblok")) {
+      // if it doesn't contain any query params, add _storyblok
+      if (!location.search) {
+        location.search = `_storyblok=${storyId}`;
+      } else {
+        // if it contains other query params, add _storyblok after the first one
+        location.search = location.search.replace(
+          "?",
+          `?_storyblok=${storyId}&`
+        );
+      }
+    }
+  }
 }
 
 export function renderRichText(
@@ -180,10 +203,22 @@ export default function storyblokIntegration(
               });
             `
           );
+
+          injectScript(
+            "page",
+            `
+            import { setupPreviewEventsManager } from "@storyblok/astro";
+            // TODO: import from iframe-swapper
+
+            await setupPreviewEventsManager();
+            console.log("live preview scripts are being correctly injected (page)");
+            //await setupPreviewIFrameManager();
+            `
+          );
         }
 
         addMiddleware({
-          entrypoint: "@storyblok/astro/middlewareStoryblok.ts",
+          entrypoint: "@storyblok/astro/middleware.ts",
           order: "pre",
         });
 
@@ -192,7 +227,7 @@ export default function storyblokIntegration(
           entrypoint: "@storyblok/astro/StoryblokPreview.astro",
         });
 
-        addDevToolbarApp("@storyblok/astro/toolbarAppStoryblok.ts");
+        addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
       },
     },
   };

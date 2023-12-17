@@ -20,5 +20,8 @@
     "svelte": "^4.2.8",
     "tailwindcss": "^3.3.6",
     "vue": "^3.3.11"
+  },
+  "dependencies": {
+    "@astrojs/node": "^7.0.1"
   }
 }

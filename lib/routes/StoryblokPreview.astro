@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Preview</title>
+    <title>Storyblok Preview</title>
 
     <style is:global>
       body {
@@ -23,12 +23,12 @@
       }
     </style>
     <script>
-      import { setupPreviewEventsManager } from "../previewEventsManager";
-      // TODO: important from iframe-swapper
-      import { setupPreviewIFrameManager } from "../../js/preview/iFrameManager.js";
+      import { setupPreviewEventsManager } from "@storyblok/astro";
+      // TODO: import from iframe-swapper
 
       await setupPreviewEventsManager();
-      await setupPreviewIFrameManager();
+      console.log("live-preview route is being correctly injected");
+      //await setupPreviewIFrameManager();
     </script>
   </head>
   <body></body>

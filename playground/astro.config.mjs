@@ -5,7 +5,9 @@ import react from "@astrojs/react";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import node from "@astrojs/node";
 
+// https://astro.build/config
 export default defineConfig({
   integrations: [
     svelte(),
@@ -14,7 +16,10 @@ export default defineConfig({
     storyblok({
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
       apiOptions: {
-        cache: { clear: "auto", type: "memory" },
+        cache: {
+          clear: "auto",
+          type: "memory",
+        },
       },
       enableFallbackComponent: true,
       components: {
@@ -36,4 +41,8 @@ export default defineConfig({
       https: true,
     },
   },
+  output: "server",
+  adapter: node({
+    mode: "standalone",
+  }),
 });

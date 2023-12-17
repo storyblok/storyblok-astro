@@ -2,15 +2,33 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import type { ISbStory } from "@storyblok/astro";
+import type { ISbStoryData } from "@storyblok/astro";
 
-const sbApi = useStoryblokApi();
-const { data } = await sbApi.get("cdn/stories/home", {
-  version: "draft",
-});
+const storyblokApi = useStoryblokApi();
 
-const story = data.story;
+let story: ISbStoryData;
+let storyId: number = null;
+
+// Check if the Story data is available in Astro.locals (coming from middleware)
+if (Astro.locals["_storyblok_preview_data"]) {
+  story = Astro.locals["_storyblok_preview_data"];
+  storyId = story.id;
+} else {
+  // Fetch the story from the API if it's not available in Astro.locals
+  const { data } = await storyblokApi.get("cdn/stories/home", {
+    version: "draft",
+  });
+
+  story = data.story;
+  storyId = story.id;
+}
 ---
 
+<script define:vars={{ storyId }}>
+  import setupStoryblokManager from "@storyblok/astro";
+  setupStoryblokManager(storyId);
+</script>
 <BaseLayout>
   <StoryblokComponent blok={story.content} />
 </BaseLayout>

@@ -7,12 +7,9 @@
   "files": [
     "dist",
     "components",
-    "middlewareStoryblok.ts",
-    "previewEventsManager.ts",
-    "sourceEventsManager.ts",
-    "fetchAstroPage.ts",
-    "StoryblokPreview.astro",
-    "toolbarAppStoryblok.ts"
+    "dev-toolbar",
+    "live-preview",
+    "routes"
   ],
   "exports": {
     ".": {
@@ -35,35 +32,20 @@
       "import": "./components/RichTextRenderer.ts",
       "require": "./components/RichTextRenderer.ts"
     },
-    "./middlewareStoryblok.ts": {
-      "types": "./middlewareStoryblok.ts",
-      "import": "./middlewareStoryblok.ts",
-      "require": "./middlewareStoryblok.ts"
-    },
-    "./previewEventsManager.ts": {
-      "types": "./previewEventsManager.ts",
-      "import": "./previewEventsManager.ts",
-      "require": "./previewEventsManager.ts"
-    },
-    "./sourceEventsManager.ts": {
-      "types": "./sourceEventsManager.ts",
-      "import": "./sourceEventsManager.ts",
-      "require": "./sourceEventsManager.ts"
-    },
-    "./fetchAstroPage.ts": {
-      "types": "./fetchAstroPage.ts",
-      "import": "./fetchAstroPage.ts",
-      "require": "./fetchAstroPage.ts"
+    "./middleware.ts": {
+      "types": "./live-preview/middleware.ts",
+      "import": "./live-preview/middleware.ts",
+      "require": "./live-preview/middleware.ts"
     },
     "./StoryblokPreview.astro": {
-      "types": "./StoryblokPreview.ts",
-      "import": "./StoryblokPreview.ts",
-      "require": "./StoryblokPreview.ts"
+      "types": "./routes/StoryblokPreview.ts",
+      "import": "./routes/StoryblokPreview.ts",
+      "require": "./routes/StoryblokPreview.ts"
     },
-    "./toolbarAppStoryblok.ts": {
-      "types": "./toolbarAppStoryblok.ts",
-      "import": "./toolbarAppStoryblok.ts",
-      "require": "./toolbarAppStoryblok.ts"
+    "./toolbarApp.ts": {
+      "types": "./dev-toolbar/toolbarApp.ts",
+      "import": "./dev-toolbar/toolbarApp.ts",
+      "require": "./dev-toolbar/toolbarApp.ts"
     }
   },
   "types": "./dist/types/index.d.ts",

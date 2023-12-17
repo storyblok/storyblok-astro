@@ -1,5 +1,5 @@
 // TODO: important from iframe-swapper
-import { updatePage } from "./iFrameManager";
+//import { updatePage } from "./iFrameManager";
 
 /**
  * Sets up event listeners to handle messages for a preview environment.
@@ -18,7 +18,7 @@ export function setupPreviewEventsManager() {
         console.log("⏬ forwarding message: Storyblok → nested iFrame", event);
 
         if (event.data.action === "input") {
-          await updatePage(event.data.story);
+          //await updatePage(event.data.story);
         } else if (["published", "unpublished"].includes(event.data.action)) {
           location.reload();
         }
