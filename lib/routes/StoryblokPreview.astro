@@ -1,35 +1,33 @@
+---
+
+---
+
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>Storyblok Preview</title>
-
     <style is:global>
       body {
         margin: 0;
         padding: 0;
-      }
-      iframe {
-        width: 100%;
         height: 100vh;
-        border: none;
-        position: absolute;
-      }
-      iframe:not(:first-of-type) {
-        opacity: 0%;
       }
     </style>
     <script>
-      import { setupPreviewEventsManager } from "@storyblok/astro";
-      // TODO: import from iframe-swapper
+      import "iframe-swapper";
+      import {
+        setupPreviewEventsManager,
+        setupPreviewIFrameManager,
+      } from "@storyblok/astro";
 
-      await setupPreviewEventsManager();
       console.log("live-preview route is being correctly injected");
-      //await setupPreviewIFrameManager();
+      setupPreviewEventsManager();
+      await setupPreviewIFrameManager();
     </script>
   </head>
-  <body></body>
+  <body><iframe-swapper swap-delay="100"></iframe-swapper></body>
 </html>

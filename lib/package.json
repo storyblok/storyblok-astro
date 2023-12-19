@@ -39,8 +39,8 @@
     },
     "./StoryblokPreview.astro": {
       "types": "./routes/StoryblokPreview.ts",
-      "import": "./routes/StoryblokPreview.ts",
-      "require": "./routes/StoryblokPreview.ts"
+      "import": "./routes/StoryblokPreview.astro",
+      "require": "./routes/StoryblokPreview.astro"
     },
     "./toolbarApp.ts": {
       "types": "./dev-toolbar/toolbarApp.ts",
@@ -62,16 +62,16 @@
   },
   "dependencies": {
     "@storyblok/js": "^2.3.0",
-    "camelcase": "^8.0.0"
+    "camelcase": "^8.0.0",
+    "iframe-swapper": "^1.1.1"
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.6",
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",
     "@types/node": "20.10.4",
-    "astro": "^4.0.4",
+    "astro": "^4.0.6",
     "cypress": "^13.6.1",
     "eslint-plugin-cypress": "^2.15.1",
-    "iframe-swapper": "^1.0.0",
     "start-server-and-test": "^2.0.3",
     "typescript": "5.3.3",
     "vite": "^5.0.8",

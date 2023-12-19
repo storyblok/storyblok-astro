@@ -24,6 +24,10 @@ export {
 
 export { setupSourceEventsManager } from "./live-preview/sourceEventsManager";
 export { setupPreviewEventsManager } from "./live-preview/previewEventsManager";
+export {
+  setupPreviewIFrameManager,
+  updatePage,
+} from "./live-preview/iFrameManager";
 export { fetchAstroPage } from "./live-preview/fetchAstroPage";
 
 export function useStoryblokApi(): StoryblokClient {
@@ -207,12 +211,9 @@ export default function storyblokIntegration(
           injectScript(
             "page",
             `
-            import { setupPreviewEventsManager } from "@storyblok/astro";
-            // TODO: import from iframe-swapper
-
-            await setupPreviewEventsManager();
-            console.log("live preview scripts are being correctly injected (page)");
-            //await setupPreviewIFrameManager();
+            import { setupSourceEventsManager } from "@storyblok/astro";
+            console.log("setupSourceEventsManager");
+            setupSourceEventsManager();
             `
           );
         }
@@ -225,6 +226,10 @@ export default function storyblokIntegration(
         injectRoute({
           pattern: "/storyblok-preview/[...path]",
           entrypoint: "@storyblok/astro/StoryblokPreview.astro",
+        });
+        injectRoute({
+          pattern: "/hello-world",
+          entrypoint: "@storyblok/astro/hello-world.ts",
         });
 
         addDevToolbarApp("@storyblok/astro/toolbarApp.ts");

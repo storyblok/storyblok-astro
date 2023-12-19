@@ -2,7 +2,6 @@
 import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { ISbStory } from "@storyblok/astro";
 import type { ISbStoryData } from "@storyblok/astro";
 
 const storyblokApi = useStoryblokApi();
@@ -25,9 +24,27 @@ if (Astro.locals["_storyblok_preview_data"]) {
 }
 ---
 
-<script define:vars={{ storyId }}>
-  import setupStoryblokManager from "@storyblok/astro";
+<!-- <script define:vars={{ storyId }} type="module">
+  import { setupStoryblokManager } from "@storyblok/astro";
   setupStoryblokManager(storyId);
+</script> -->
+<script define:vars={{ storyId }}>
+  // This block is needed to let Storyblok manager work, as it is looking for the parameter in the URL
+  if (storyId) {
+    // if location.search doesn't contain _storyblok, add it
+    if (!location.search.includes("_storyblok")) {
+      // if it doesn't contain any query params, add _storyblok
+      if (!location.search) {
+        location.search = `_storyblok=${storyId}`;
+      } else {
+        // if it contains other query params, add _storyblok after the first one
+        location.search = location.search.replace(
+          "?",
+          `?_storyblok=${storyId}&`
+        );
+      }
+    }
+  }
 </script>
 <BaseLayout>
   <StoryblokComponent blok={story.content} />

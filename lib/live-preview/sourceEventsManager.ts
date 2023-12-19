@@ -9,7 +9,7 @@ export function setupSourceEventsManager() {
   window.parent.postMessage = function (message, targetOrigin) {
     // Override only if targetOrigin includes 'app.storyblok.com'
     if (targetOrigin.includes(storyblokOrigin)) {
-      // @TODO: Improve security
+      // TODO: Improve security
       originalPostMessage(message, "*");
     } else {
       // Use the original postMessage for other origins
