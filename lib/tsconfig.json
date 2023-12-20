@@ -1,23 +1,14 @@
 {
   "extends": "astro/tsconfigs/base",
   "$schema": "https://json.schemastore.org/tsconfig",
-  "include": ["./*.astro", "./**/*.ts"],
+  //"include": ["./**/*.astro", "./**/*.ts"],
   "exclude": ["node_modules/*", "./vite*.ts", "dist"],
   "compilerOptions": {
     "module": "ESNext",
     "target": "ESNext",
     "strict": false,
     "baseUrl": ".",
-    "jsx": "preserve",
-    "moduleResolution": "Bundler"
-  },
-  // Old "moduleResolution": "Node" option required for Cypress
-  // https://github.com/cypress-io/cypress/issues/26308#issuecomment-1663592648
-  // TODO: Remove when issue is resolved https://github.com/cypress-io/cypress/issues/27448
-  "ts-node": {
-    "compilerOptions": {
-      "module": "ESNext",
-      "moduleResolution": "Node"
-    }
+    "moduleResolution": "Bundler",
+    "jsx": "preserve"
   }
 }

@@ -2,10 +2,10 @@
 import components from "virtual:storyblok-components";
 import options from "virtual:storyblok-options";
 import camelcase from "camelcase";
-import type { SbBlokData } from "./dist/types";
-import type { AstroComponentFactory } from "astro/dist/runtime/server";
+import type { SbBlokData } from "../dist/types";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
-interface Props {
+export interface Props {
   blok: SbBlokData;
   [prop: string]: unknown;
 }

@@ -6,7 +6,8 @@
   "module": "./dist/storyblok-astro.mjs",
   "files": [
     "dist",
-    "components"
+    "components",
+    "toolbar-app-storyblok.ts"
   ],
   "exports": {
     ".": {
@@ -28,6 +29,11 @@
       "types": "./components/RichTextRenderer.ts",
       "import": "./components/RichTextRenderer.ts",
       "require": "./components/RichTextRenderer.ts"
+    },
+    "./toolbar-app-storyblok.ts": {
+      "types": "./toolbar-app-storyblok.ts",
+      "import": "./toolbar-app-storyblok.ts",
+      "require": "./toolbar-app-storyblok.ts"
     }
   },
   "types": "./dist/types/index.d.ts",
@@ -43,23 +49,23 @@
     "prepublishOnly": "npm run build && cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/js": "^2.3.0",
+    "@storyblok/js": "^3.0.0",
     "camelcase": "^8.0.0"
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.6",
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",
-    "@types/node": "20.10.0",
-    "astro": "^3.6.3",
-    "cypress": "^13.6.0",
-    "eslint-plugin-cypress": "^2.14.0",
+    "@types/node": "20.10.4",
+    "astro": "^4.0.4",
+    "cypress": "^13.6.1",
+    "eslint-plugin-cypress": "^2.15.1",
     "start-server-and-test": "^2.0.3",
-    "typescript": "5.3.2",
-    "vite": "^4.5.0",
-    "vite-plugin-dts": "^3.6.3"
+    "typescript": "5.3.3",
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.6.4"
   },
   "peerDependencies": {
-    "astro": "^2.0.0 || ^3.0.0"
+    "astro": "^3.0.0 || ^4.0.0"
   },
   "repository": {
     "type": "git",
