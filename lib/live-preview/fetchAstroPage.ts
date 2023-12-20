@@ -1,4 +1,4 @@
-export const fetchAstroPage = async (content) => {
+export const fetchAstroPage = async (content: any = null) => {
   const result = await fetch(
     window.location.href.replace("/storyblok-preview", "/"), // for nested pages
     content

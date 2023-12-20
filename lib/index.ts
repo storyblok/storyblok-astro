@@ -227,10 +227,6 @@ export default function storyblokIntegration(
           pattern: "/storyblok-preview/[...path]",
           entrypoint: "@storyblok/astro/StoryblokPreview.astro",
         });
-        injectRoute({
-          pattern: "/hello-world",
-          entrypoint: "@storyblok/astro/hello-world.ts",
-        });
 
         addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
       },

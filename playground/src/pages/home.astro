@@ -10,6 +10,7 @@ let story: ISbStoryData;
 let storyId: number = null;
 
 // Check if the Story data is available in Astro.locals (coming from middleware)
+console.log(Astro.locals);
 if (Astro.locals["_storyblok_preview_data"]) {
   story = Astro.locals["_storyblok_preview_data"];
   storyId = story.id;

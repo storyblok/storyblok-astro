@@ -15,7 +15,6 @@ export function setupPreviewEventsManager() {
         window.parent.postMessage(event.data, "*");
       } else {
         console.log("⏬ forwarding message: Storyblok → nested iFrame", event);
-
         if (event.data.action === "input") {
           await updatePage(event.data.story);
         } else if (["published", "unpublished"].includes(event.data.action)) {
