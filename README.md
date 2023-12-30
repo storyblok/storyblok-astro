@@ -228,11 +228,9 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 export async function getStaticPaths() {
   const storyblokApi = useStoryblokApi();
 
-  const { data } = await storyblokApi.getAll("cdn/links", {
+  const links = await storyblokApi.getAll("cdn/links", {
     version: "draft",
   });
-  let links = data.links;
-  links = Object.values(links);
 
   return links.map((link) => {
     return {
