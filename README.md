@@ -40,8 +40,8 @@ If you are in a hurry, check out our official **[live demo](https://stackblitz.c
 Install `@storyblok/astro`:
 
 ```bash
-npm install @storyblok/astro
-# yarn add @storyblok/astro
+npm install @storyblok/astro -d
+# yarn add @storyblok/astro -d
 ```
 
 Add the following code to `astro.config.mjs` and replace the `accessToken` with the preview API token of your Storyblok space.
