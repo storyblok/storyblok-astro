@@ -26,7 +26,7 @@
     "eslint-plugin-astro": "^0.31.2",
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
-    "prettier": "^3.2.2",
+    "prettier": "^3.2.4",
     "prettier-plugin-astro": "^0.12.3"
   },
   "lint-staged": {
