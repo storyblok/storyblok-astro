@@ -2,7 +2,7 @@ import type { DevToolbarApp } from "astro";
 import {
   isDefinedIcon,
   type Icon,
-} from "astro/runtime/client/dev-overlay/ui-library/icons.js";
+} from "astro/runtime/client/dev-toolbar/ui-library/icons.js";
 
 const storyblokLogo = `<svg width="45px" height="53px" viewBox="0 0 45 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="storyblok-logo-kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
