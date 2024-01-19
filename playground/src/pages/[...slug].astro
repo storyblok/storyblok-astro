@@ -1,25 +1,43 @@
 ---
 import { useStoryblokApi } from "@storyblok/astro";
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { ISbStoryData } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const storyblokApi = useStoryblokApi();
 
-let story: ISbStoryData;
-let storyId: number = null;
+export async function getStaticPaths() {
+  const { data } = await storyblokApi.get("cdn/links", {
+    version: "draft",
+  });
+  let links = data.links;
+  links = Object.values(links);
 
-console.log(Astro.request);
+  return links
+    .filter((link) => !link?.is_folder)
+    .map((link) => {
+      return {
+        params: {
+          slug: link.slug === "home" ? undefined : link.slug,
+        },
+      };
+    });
+}
 
-// Check if the Story data is available in Astro.locals (coming from middleware.js)
+let story;
+let storyId = "";
+
 if (Astro.locals["_storyblok_preview_data"]) {
   story = Astro.locals["_storyblok_preview_data"];
   storyId = story.id;
 } else {
+  const { slug } = Astro.params;
   // Fetch the story from the API if it's not available in Astro.locals
-  const { data } = await storyblokApi.get("cdn/stories/home", {
-    version: "draft",
-  });
+  const { data } = await storyblokApi.get(
+    `cdn/stories/${slug === undefined ? "home" : slug}`,
+    {
+      version: "draft",
+    }
+  );
 
   story = data.story;
   storyId = story.id;

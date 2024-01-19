@@ -57,7 +57,7 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     if (!isPreviewRoute && !isAlreadyRedirected && isStoryblokRequest) {
       url.pathname = "/storyblok-preview" + url.pathname;
       url.searchParams.set("_storyblok_preview_prevent_redirect", "");
-      locals["_storyblok_preview_redirect"] = url.href;
+      return Response.redirect(url.href);
     }
   }
   // Process data coming via POST request from /storyblok-preview route
@@ -69,6 +69,5 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
       locals["_storyblok_preview_data"] = requestBody;
     }
   }
-
   return next();
 });
