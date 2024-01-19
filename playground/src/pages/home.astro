@@ -9,9 +9,12 @@ const storyblokApi = useStoryblokApi();
 let story: ISbStoryData;
 let storyId: number = null;
 
-// Check if the Story data is available in Astro.locals (coming from middleware)
-console.log(Astro.locals);
-if (Astro.locals["_storyblok_preview_data"]) {
+// Check if the Preview route should be loaded
+if (Astro.locals["_storyblok_preview_redirect"]) {
+  return Astro.redirect(Astro.locals["_storyblok_preview_redirect"]);
+}
+// Check if the Story data is available in Astro.locals (coming from middleware.js)
+else if (Astro.locals["_storyblok_preview_data"]) {
   story = Astro.locals["_storyblok_preview_data"];
   storyId = story.id;
 } else {
