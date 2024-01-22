@@ -40,7 +40,7 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
 
   // Process initial GET request from Storyblok to /storyblok-preview route
   if (request["method"] === "GET") {
-    const url = getValueFromRequest("url");
+    const url = new URL(request.url);
 
     const isPreviewRoute = url.pathname.startsWith("/storyblok-preview");
     const isAlreadyRedirected = url.searchParams.has(

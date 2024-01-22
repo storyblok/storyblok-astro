@@ -5,30 +5,28 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const storyblokApi = useStoryblokApi();
 
-export async function getStaticPaths() {
-  const { data } = await storyblokApi.get("cdn/links", {
-    version: "draft",
-  });
-  let links = data.links;
-  links = Object.values(links);
+// export async function getStaticPaths() {
+//   const { data } = await storyblokApi.get("cdn/links", {
+//     version: "draft",
+//   });
+//   let links = data.links;
+//   links = Object.values(links);
 
-  return links
-    .filter((link) => !link?.is_folder)
-    .map((link) => {
-      return {
-        params: {
-          slug: link.slug === "home" ? undefined : link.slug,
-        },
-      };
-    });
-}
+//   return links
+//     .filter((link) => !link?.is_folder)
+//     .map((link) => {
+//       return {
+//         params: {
+//           slug: link.slug === "home" ? undefined : link.slug,
+//         },
+//       };
+//     });
+// }
 
 let story;
-let storyId = "";
 
 if (Astro.locals["_storyblok_preview_data"]) {
   story = Astro.locals["_storyblok_preview_data"];
-  storyId = story.id;
 } else {
   const { slug } = Astro.params;
   // Fetch the story from the API if it's not available in Astro.locals
@@ -40,15 +38,13 @@ if (Astro.locals["_storyblok_preview_data"]) {
   );
 
   story = data.story;
-  storyId = story.id;
 }
 ---
 
 <!-- <script define:vars={{ storyId }} type="module">
   import { setupStoryblokManager } from "@storyblok/astro";
   setupStoryblokManager(storyId);
-</script> -->
-<script define:vars={{ storyId }}>
+</script> --><!-- <script define:vars={{ storyId }}>
   // TODO: needs to be here to have Bridge initialized correctly - maybe different solution possible?
   // This block is needed to let Storyblok manager work, as it is looking for the parameter in the URL
   if (storyId) {
@@ -66,7 +62,7 @@ if (Astro.locals["_storyblok_preview_data"]) {
       }
     }
   }
-</script>
+</script> -->
 <BaseLayout>
   <StoryblokComponent blok={story.content} />
 </BaseLayout>

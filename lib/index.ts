@@ -193,21 +193,38 @@ export default function storyblokIntegration(
             `
           ); */
 
+          // injectScript(
+          //   "page",
+          //   `
+          //     import { loadStoryblokBridge } from "@storyblok/astro";
+          //     loadStoryblokBridge().then(() => {
+          //       const { StoryblokBridge, location } = window;
+          //       ${initBridge}
+
+          //       storyblokInstance.on(["published", "change", "input", "enterEditmode", "customEvent", "unpublished",], (event) => {
+          //         // TODO: check if events are necessary
+          //       });
+          //     });
+          //   `
+          // );
+
           injectScript(
             "page",
             `
-              import { loadStoryblokBridge } from "@storyblok/astro";
-              loadStoryblokBridge().then(() => {
-                const { StoryblokBridge, location } = window;
-                ${initBridge}
-
-                storyblokInstance.on(["published", "change", "input", "enterEditmode", "customEvent", "unpublished",], (event) => {
-                  // TODO: check if events are necessary
-                });
-              });
+            if (!location.search.includes("_storyblok")) {
+              // if it doesn't contain any query params, add _storyblok
+              if (!location.search) {
+                location.search = "_storyblok=";
+              } else {
+                // if it contains other query params, add _storyblok after the first one
+                location.search = location.search.replace(
+                  "?",
+                  "?_storyblok=&"
+                );
+              }
+            }
             `
           );
-
           injectScript(
             "page",
             `
