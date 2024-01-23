@@ -164,16 +164,16 @@ export default function storyblokIntegration(
         );
 
         if (resolvedOptions.bridge) {
-          let initBridge: string = "";
+          // let initBridge: string = "";
 
-          if (typeof resolvedOptions.bridge === "object") {
-            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
-            )});`;
-          } else {
-            initBridge = "const storyblokInstance = new StoryblokBridge()";
-          }
+          // if (typeof resolvedOptions.bridge === "object") {
+          //   const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
+          //   initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
+          //     bridgeConfigurationOptions
+          //   )});`;
+          // } else {
+          //   initBridge = "const storyblokInstance = new StoryblokBridge()";
+          // }
 
           // TODO: handle based on user preference (live preview boolean in Astro config)
           /* injectScript(
