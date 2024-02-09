@@ -154,7 +154,6 @@ export default function storyblokIntegration(
             ],
           },
         });
-
         injectScript(
           "page-ssr",
           `
@@ -162,89 +161,40 @@ export default function storyblokIntegration(
           globalThis.storyblokApiInstance = storyblokApiInstance;
           `
         );
-
         if (resolvedOptions.bridge) {
-          // let initBridge: string = "";
-
-          // if (typeof resolvedOptions.bridge === "object") {
-          //   const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-          //   initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-          //     bridgeConfigurationOptions
-          //   )});`;
-          // } else {
-          //   initBridge = "const storyblokInstance = new StoryblokBridge()";
-          // }
-
-          // TODO: handle based on user preference (live preview boolean in Astro config)
-          /* injectScript(
-            "page",
-            `
-              import { loadStoryblokBridge } from "@storyblok/astro";
-              loadStoryblokBridge().then(() => {
-                const { StoryblokBridge, location } = window;
-                ${initBridge}
-
-                storyblokInstance.on(["published", "change"], (event) => {
-                  if (!event.slugChanged) {
-                    location.reload(true);
-                  } 
-                });
-              });
-            `
-          ); */
-
           // injectScript(
           //   "page",
           //   `
-          //     import { loadStoryblokBridge } from "@storyblok/astro";
-          //     loadStoryblokBridge().then(() => {
-          //       const { StoryblokBridge, location } = window;
-          //       ${initBridge}
-
-          //       storyblokInstance.on(["published", "change", "input", "enterEditmode", "customEvent", "unpublished",], (event) => {
-          //         // TODO: check if events are necessary
-          //       });
-          //     });
+          //   if (!location.search.includes("_storyblok")) {
+          //     // if it doesn't contain any query params, add _storyblok
+          //     if (!location.search) {
+          //       location.search = "_storyblok=";
+          //     } else {
+          //       // if it contains other query params, add _storyblok after the first one
+          //       location.search = location.search.replace(
+          //         "?",
+          //         "?_storyblok=&"
+          //       );
+          //     }
+          //   }
           //   `
           // );
-
-          injectScript(
-            "page",
-            `
-            if (!location.search.includes("_storyblok")) {
-              // if it doesn't contain any query params, add _storyblok
-              if (!location.search) {
-                location.search = "_storyblok=";
-              } else {
-                // if it contains other query params, add _storyblok after the first one
-                location.search = location.search.replace(
-                  "?",
-                  "?_storyblok=&"
-                );
-              }
-            }
-            `
-          );
           injectScript(
             "page",
             `
             import { setupSourceEventsManager } from "@storyblok/astro";
-            console.log("setupSourceEventsManager");
             setupSourceEventsManager();
             `
           );
+          addMiddleware({
+            entrypoint: "@storyblok/astro/middleware.ts",
+            order: "pre",
+          });
+          injectRoute({
+            pattern: "/storyblok-preview/[...path]",
+            entrypoint: "@storyblok/astro/StoryblokPreview.astro",
+          });
         }
-
-        addMiddleware({
-          entrypoint: "@storyblok/astro/middleware.ts",
-          order: "pre",
-        });
-
-        injectRoute({
-          pattern: "/storyblok-preview/[...path]",
-          entrypoint: "@storyblok/astro/StoryblokPreview.astro",
-        });
-
         addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
       },
     },
