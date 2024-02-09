@@ -162,23 +162,6 @@ export default function storyblokIntegration(
           `
         );
         if (resolvedOptions.bridge) {
-          // injectScript(
-          //   "page",
-          //   `
-          //   if (!location.search.includes("_storyblok")) {
-          //     // if it doesn't contain any query params, add _storyblok
-          //     if (!location.search) {
-          //       location.search = "_storyblok=";
-          //     } else {
-          //       // if it contains other query params, add _storyblok after the first one
-          //       location.search = location.search.replace(
-          //         "?",
-          //         "?_storyblok=&"
-          //       );
-          //     }
-          //   }
-          //   `
-          // );
           injectScript(
             "page",
             `
