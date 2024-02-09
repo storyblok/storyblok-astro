@@ -1,6 +1,8 @@
 export const fetchAstroPage = async (content: any = null) => {
+  const replaceWith =
+    window.location.pathname === "/storyblok-preview/" ? "" : "/";
   const result = await fetch(
-    window.location.href.replace("/storyblok-preview", "/"), // for nested pages
+    window.location.href.replace("/storyblok-preview", replaceWith), // for nested pages
     content
       ? {
           method: "POST",
