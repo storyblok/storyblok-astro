@@ -1,4 +1,6 @@
 export async function handleStoryblokMessage(event) {
+  console.log(event);
+
   const { action, story } = event || {};
   //in the case of input event
   if (action === "input" && story) {
@@ -10,7 +12,7 @@ export async function handleStoryblokMessage(event) {
     //Get current focused element in storyblok
     const focusedElem = document.querySelector('[data-blok-focused="true"]');
     updateDOMWithNewBody(currentBody, newBody, focusedElem);
-  } else if (["published", "unpublished"].includes(event?.data?.action)) {
+  } else if (["published", "change"].includes(event?.data?.action)) {
     location.reload();
   }
 }
