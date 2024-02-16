@@ -1,0 +1,11 @@
+---
+import { storyblokEditable, renderRichText } from "@storyblok/astro";
+import RichTextRenderer from "@storyblok/astro/RichTextRenderer.astro";
+
+const { blok } = Astro.props;
+---
+
+<main {...storyblokEditable(blok)} class="p-4">
+  <h1 class="text-4xl font-bold">{blok.title}</h1>
+  <RichTextRenderer richTextData={blok.content} />
+</main>

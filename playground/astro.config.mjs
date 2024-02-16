@@ -14,6 +14,7 @@ export default defineConfig({
     vue(),
     react(),
     storyblok({
+      bridge: true,
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
       apiOptions: {
         cache: {
@@ -31,6 +32,8 @@ export default defineConfig({
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
         "new-component": "storyblok/NewComponent",
+        "featured-articles": "storyblok/FeaturedArticles",
+        article: "storyblok/Article",
       },
     }),
     tailwind(),

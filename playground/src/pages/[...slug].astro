@@ -18,6 +18,7 @@ if (previewStory) {
     `cdn/stories/${slug === undefined ? "home" : slug}`,
     {
       version: "draft",
+      resolve_relations: ["featured-articles.posts"],
     }
   );
 
