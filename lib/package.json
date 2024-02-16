@@ -37,11 +37,6 @@
       "import": "./live-preview/middleware.ts",
       "require": "./live-preview/middleware.ts"
     },
-    "./StoryblokPreview.astro": {
-      "types": "./routes/StoryblokPreview.ts",
-      "import": "./routes/StoryblokPreview.astro",
-      "require": "./routes/StoryblokPreview.astro"
-    },
     "./toolbarApp.ts": {
       "types": "./dev-toolbar/toolbarApp.ts",
       "import": "./dev-toolbar/toolbarApp.ts",
@@ -62,8 +57,7 @@
   },
   "dependencies": {
     "@storyblok/js": "^3.0.5",
-    "camelcase": "^8.0.0",
-    "iframe-swapper": "^1.1.1"
+    "camelcase": "^8.0.0"
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.7",

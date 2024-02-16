@@ -14,7 +14,9 @@ export default defineConfig({
     vue(),
     react(),
     storyblok({
-      bridge: true,
+      bridge: {
+        resolveRelations: ["featured-articles.posts"],
+      },
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
       apiOptions: {
         cache: {
