@@ -13,8 +13,13 @@ import type {
   SbRichTextOptions,
   StoryblokBridgeConfigV2,
   StoryblokClient,
+  ISbStoriesParams,
+  ISbStoryData,
+  ISbStory,
 } from "./types";
 export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
+
+import type { AstroGlobal } from "astro";
 
 export {
   storyblokEditable,
@@ -28,6 +33,29 @@ export function useStoryblokApi(): StoryblokClient {
     console.error("storyblokApiInstance has not been initialized correctly");
   }
   return globalThis.storyblokApiInstance;
+}
+
+export async function useStoryblok(
+  slug: string,
+  apiOptions: ISbStoriesParams = {},
+  bridgeOptions: StoryblokBridgeConfigV2 = {},
+  Astro: AstroGlobal
+) {
+  if (!globalThis.storyblokApiInstance) {
+    console.error("storyblokApiInstance has not been initialized correctly");
+  }
+  let story: ISbStoryData = null;
+  if (Astro && Astro.locals["_storyblok_preview_data"]) {
+    story = Astro.locals["_storyblok_preview_data"];
+  } else {
+    const { data } = await globalThis.storyblokApiInstance.get(
+      slug,
+      apiOptions,
+      bridgeOptions
+    );
+    story = data.story;
+  }
+  return story;
 }
 
 export function renderRichText(

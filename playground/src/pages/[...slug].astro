@@ -1,14 +1,14 @@
 ---
-import { useStoryblokApi } from "@storyblok/astro";
+import { useStoryblokApi, useStoryblok } from "@storyblok/astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
-const storyblokApi = useStoryblokApi();
+/* const storyblokApi = useStoryblokApi();
 
 let story;
-const previewStory = Astro.locals["_storyblok_preview_data"];
+const previewStory = Astro.locals["_storyblok_preview_data"]; */
 
-if (previewStory) {
+/* if (previewStory) {
   story = previewStory;
 } else {
   // Fetch the story from the API if it's not available in Astro.locals
@@ -23,7 +23,19 @@ if (previewStory) {
   );
 
   story = data.story;
-}
+} */
+
+const { slug } = Astro.params;
+
+const story = await useStoryblok(
+  `cdn/stories/${slug === undefined ? "home" : slug}`,
+  {
+    version: "draft",
+    resolve_relations: ["featured-articles.posts"],
+  },
+  { resolveRelations: ["featured-articles.posts"] },
+  Astro
+);
 ---
 
 <BaseLayout>
