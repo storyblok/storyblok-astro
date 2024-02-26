@@ -18,5 +18,8 @@ export default defineConfig(() => {
         outDir: "dist/types",
       }) as unknown as Plugin,
     ],
+    optimizeDeps: {
+      include: ['@storyblok/js'],
+    },
   };
 });
