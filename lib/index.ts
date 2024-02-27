@@ -105,7 +105,7 @@ export default function storyblokIntegration(
       "astro:config:setup": ({
         injectScript,
         updateConfig,
-        addDevOverlayPlugin,
+        addDevToolbarApp,
       }) => {
         updateConfig({
           vite: {
@@ -164,7 +164,7 @@ export default function storyblokIntegration(
           );
         }
 
-        addDevOverlayPlugin("@storyblok/astro/toolbar-app-storyblok.ts");
+        addDevToolbarApp("@storyblok/astro/toolbar-app-storyblok.ts");
       },
     },
   };
