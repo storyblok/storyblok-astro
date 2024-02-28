@@ -18,7 +18,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@commitlint/cli": "^18.4.4",
+    "@commitlint/cli": "^19.0.1",
     "@commitlint/config-conventional": "^18.4.4",
     "@typescript-eslint/parser": "^6.19.0",
     "eslint": "^8.56.0",
@@ -27,7 +27,7 @@
     "husky": "^8.0.3",
     "lint-staged": "^15.2.0",
     "prettier": "^3.2.4",
-    "prettier-plugin-astro": "^0.12.3"
+    "prettier-plugin-astro": "^0.13.0"
   },
   "lint-staged": {
     "*.{astro,js,css}": [
