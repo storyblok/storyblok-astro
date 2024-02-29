@@ -8,8 +8,8 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@astrojs/react": "^3.0.9",
-    "@astrojs/svelte": "^5.0.3",
+    "@astrojs/react": "^3.0.10",
+    "@astrojs/svelte": "^5.2.0",
     "@astrojs/tailwind": "^6.0.0-beta.0",
     "@astrojs/vue": "^4.0.8",
     "@storyblok/astro": "1.0.0",
