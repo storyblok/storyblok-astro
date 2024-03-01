@@ -12,6 +12,9 @@ export default defineConfig(() => {
         name: "storyblokAstro",
         fileName: (format) => (format === "es" ? `${name}.mjs` : `${name}.js`),
       },
+      commonjsOptions: {
+        include: [/\@storyblok\/js/, /node_modules/],
+      },
     },
     plugins: [
       dts({
