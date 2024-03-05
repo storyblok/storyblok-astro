@@ -10,6 +10,7 @@ export function vitePluginStoryblokInit(
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
   globalThis.apiPlugin = apiPlugin;
   globalThis.storyblokInit = storyblokInit;
+
   return {
     name: "vite-plugin-storyblok-init",
     async resolveId(id: string) {
