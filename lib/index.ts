@@ -1,3 +1,4 @@
+import { vitePluginStoryblokBridge } from "./vite-plugins/vite-plugin-storyblok-bridge";
 import { vitePluginStoryblokInit } from "./vite-plugins/vite-plugin-storyblok-init";
 import { vitePluginStoryblokComponents } from "./vite-plugins/vite-plugin-storyblok-components";
 import { vitePluginStoryblokOptions } from "./vite-plugins/vite-plugin-storyblok-options";
@@ -38,7 +39,6 @@ export function useStoryblokApi(): StoryblokClient {
 export async function useStoryblok(
   slug: string,
   apiOptions: ISbStoriesParams = {},
-  bridgeOptions: StoryblokBridgeConfigV2 = {},
   Astro: AstroGlobal
 ) {
   if (!globalThis.storyblokApiInstance) {
@@ -50,8 +50,7 @@ export async function useStoryblok(
   } else {
     const { data } = await globalThis.storyblokApiInstance.get(
       slug,
-      apiOptions,
-      bridgeOptions
+      apiOptions
     );
     story = data.story;
   }
@@ -152,6 +151,7 @@ export default function storyblokIntegration(
                 resolvedOptions.customFallbackComponent
               ),
               vitePluginStoryblokOptions(resolvedOptions),
+              vitePluginStoryblokBridge(),
             ],
           },
         });
@@ -164,7 +164,6 @@ export default function storyblokIntegration(
         );
         if (resolvedOptions.bridge) {
           let initBridge: string = "";
-
           if (typeof resolvedOptions.bridge === "object") {
             const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
             initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
@@ -176,8 +175,9 @@ export default function storyblokIntegration(
           injectScript(
             "page",
             `
-              import { handleStoryblokMessage } from "@storyblok/astro";
-              import { loadStoryblokBridge } from "@storyblok/astro";
+              import { handleStoryblokMessage,loadStoryblokBridge } from "@storyblok/astro";
+              import {bridgeOptions}  from "virtual:storyblok-bridge";
+              console.log(bridgeOptions)
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
                 ${initBridge}
