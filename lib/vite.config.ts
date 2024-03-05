@@ -22,7 +22,7 @@ export default defineConfig(() => {
       }) as unknown as Plugin,
     ],
     optimizeDeps: {
-      include: ['@storyblok/js'],
+      include: ['@storyblok/astro > @storyblok/js'],
     },
   };
 });
