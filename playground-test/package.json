@@ -9,6 +9,6 @@
   },
   "devDependencies": {
     "@storyblok/astro": "1.0.0",
-    "astro": "^4.4.5"
+    "astro": "^4.5.1"
   }
 }
