@@ -60,7 +60,7 @@
     "cypress": "^13.6.6",
     "eslint-plugin-cypress": "^2.15.1",
     "start-server-and-test": "^2.0.3",
-    "typescript": "5.3.3",
+    "typescript": "5.4.2",
     "vite": "^5.1.6",
     "vite-plugin-dts": "^3.7.3"
   },
