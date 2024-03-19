@@ -39,6 +39,7 @@ export function useStoryblokApi(): StoryblokClient {
 export async function useStoryblok(
   slug: string,
   apiOptions: ISbStoriesParams = {},
+  bridgeOptions: StoryblokBridgeConfigV2 = {},
   Astro: AstroGlobal
 ) {
   if (!globalThis.storyblokApiInstance) {
@@ -50,7 +51,8 @@ export async function useStoryblok(
   } else {
     const { data } = await globalThis.storyblokApiInstance.get(
       slug,
-      apiOptions
+      apiOptions,
+      bridgeOptions
     );
     story = data.story;
   }

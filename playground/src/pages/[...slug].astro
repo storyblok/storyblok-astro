@@ -10,6 +10,11 @@ const story = await useStoryblok(
     version: "draft",
     resolve_relations: ["featured-articles.posts"],
   },
+  {
+    preventClicks: true,
+    resolveRelations: ["featured-articles.posts"],
+    resolveLinks: "url",
+  },
   Astro
 );
 ---

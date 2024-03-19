@@ -23,13 +23,13 @@ export function vitePluginStoryblokBridge(): Plugin {
       if (!moduleInfo.meta?.astro) return;
       const [, ...routeArray] = id.split("src/pages/");
       const url = routeArray.join("/");
-      const bridgeOptions = parseAstRawCode(this.parse(code));
+      const options = parseAstRawCode(this.parse(code));
       if (previousRawCode.length) {
         rawCode = previousRawCode.filter((i) => i.url !== url);
       }
       rawCode.push({
         url,
-        bridgeOptions,
+        options,
       });
       if (!_server) return;
       if (restartTimeout) {
@@ -57,22 +57,12 @@ export function vitePluginStoryblokBridge(): Plugin {
 
 interface ParsedCodeObj {
   url: string;
-  bridgeOptions: any;
+  options: any;
 }
 
-// function alreadyHaveThisUrl(a: ParsedCodeObj[] = [], b: ParsedCodeObj[] = []) {
-//   const arrayA = new Set(a.map(({ url }) => url));
-//   const arrayB = new Set(b.map(({ url }) => url));
-
-//   return [...arrayB].every((url) => arrayA.has(url));
-// }
-
 function alreadyHaveThisUrl(a: ParsedCodeObj[] = [], b: ParsedCodeObj[] = []) {
-  return b.every(({ url, bridgeOptions }) => {
+  return b.every(({ url, options }) => {
     const aCopy = a.find((e) => e?.url === url);
-    return (
-      aCopy &&
-      JSON.stringify(bridgeOptions) === JSON.stringify(aCopy.bridgeOptions)
-    );
+    return aCopy && JSON.stringify(options) === JSON.stringify(aCopy.options);
   });
 }

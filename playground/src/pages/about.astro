@@ -9,13 +9,11 @@ const story = await useStoryblok(
     version: "draft",
     resolve_relations: ["featured-articles.news"],
   },
+  {},
   Astro
 );
 ---
 
 <BaseLayout>
-  <StoryblokComponent
-    bridgeConfig={{ resolveRelations: ["featured-articles.posts"] }}
-    blok={story.content}
-  />
+  <StoryblokComponent blok={story.content} />
 </BaseLayout>
