@@ -42,6 +42,7 @@ Install `@storyblok/astro`:
 ```bash
 npm install @storyblok/astro
 # yarn add @storyblok/astro
+# See below for pnpm
 ```
 
 > **Note**  
