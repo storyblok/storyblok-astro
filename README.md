@@ -42,7 +42,11 @@ Install `@storyblok/astro`:
 ```bash
 npm install @storyblok/astro
 # yarn add @storyblok/astro
+# See below for pnpm
 ```
+
+> **Note**  
+> With pnpm, hoist Storyblok dependencies publicly with `.npmrc`. For more information, check pnpm documentation on [here](https://pnpm.io/npmrc).
 
 Add the following code to `astro.config.mjs` and replace the `accessToken` with the preview API token of your Storyblok space.
 
