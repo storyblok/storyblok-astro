@@ -55,7 +55,7 @@
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.7",
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.7",
     "astro": "^4.5.16",
     "cypress": "^13.7.2",
     "eslint-plugin-cypress": "^2.15.1",
