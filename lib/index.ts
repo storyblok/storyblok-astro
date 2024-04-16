@@ -165,25 +165,17 @@ export default function storyblokIntegration(
           `
         );
         if (resolvedOptions.bridge) {
-          let initBridge: string = "";
-          if (typeof resolvedOptions.bridge === "object") {
-            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
-            )});`;
-          } else {
-            initBridge = "const storyblokInstance = new StoryblokBridge()";
-          }
           injectScript(
             "page",
             `
               import { handleStoryblokMessage,loadStoryblokBridge } from "@storyblok/astro";
               import {bridgeOptions}  from "virtual:storyblok-bridge";
-              console.log(bridgeOptions)
               loadStoryblokBridge().then(() => {
-                const { StoryblokBridge, location } = window;
-                ${initBridge}
-                storyblokInstance.on(["published", "change","input"], handleStoryblokMessage);
+                const { StoryblokBridge } = window;
+                if(bridgeOptions){
+                  const storyblokInstance = new StoryblokBridge(bridgeOptions)
+                  storyblokInstance.on(["published", "change","input"], handleStoryblokMessage);
+                }
               });
             `
           );

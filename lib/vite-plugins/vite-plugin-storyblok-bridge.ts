@@ -1,5 +1,6 @@
 import type { Plugin } from "vite";
-import { parseAstRawCode } from "./parseAstCode";
+import { parseAstRawCode } from "../utils/parseAstCode";
+import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
 let previousRawCode = [];
 
 export function vitePluginStoryblokBridge(): Plugin {
@@ -22,7 +23,7 @@ export function vitePluginStoryblokBridge(): Plugin {
       const moduleInfo = this.getModuleInfo(id);
       if (!moduleInfo.meta?.astro) return;
       const [, ...routeArray] = id.split("src/pages/");
-      const url = routeArray.join("/");
+      const url = routeArray.join("/").replace(".astro", "");
       const options = parseAstRawCode(this.parse(code));
       if (previousRawCode.length) {
         rawCode = previousRawCode.filter((i) => i.url !== url);
@@ -46,7 +47,7 @@ export function vitePluginStoryblokBridge(): Plugin {
     },
     async load(id: string) {
       if (id === resolvedVirtualModuleId) {
-        return `export const bridgeOptions = ${JSON.stringify(rawCode)}`;
+        return `export const bridgeOptions = ${JSON.stringify(generateFinalBridgeObject(rawCode))}`;
       }
     },
     configureServer(server) {

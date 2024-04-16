@@ -7,9 +7,14 @@ const story = await useStoryblok(
   `cdn/stories/about`,
   {
     version: "draft",
-    resolve_relations: ["featured-articles.news"],
+    resolve_relations: "featured-articles.posts",
   },
-  {},
+  {
+    resolveRelations: "featured-articles.posts",
+    preventClicks: false,
+    language: "en",
+    resolveLinks: "story",
+  },
   Astro
 );
 ---
