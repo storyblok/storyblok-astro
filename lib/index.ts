@@ -18,6 +18,7 @@ import type {
   StoryblokBridgeConfigV2,
   StoryblokClient,
 } from "./types";
+import type { AstroGlobal } from "astro";
 
 export {
   storyblokEditable,
