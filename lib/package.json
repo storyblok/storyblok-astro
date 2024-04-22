@@ -7,7 +7,8 @@
   "files": [
     "dist",
     "components",
-    "toolbar-app-storyblok.ts"
+    "dev-toolbar",
+    "live-preview"
   ],
   "exports": {
     ".": {
@@ -30,10 +31,10 @@
       "import": "./components/RichTextRenderer.ts",
       "require": "./components/RichTextRenderer.ts"
     },
-    "./toolbar-app-storyblok.ts": {
-      "types": "./toolbar-app-storyblok.ts",
-      "import": "./toolbar-app-storyblok.ts",
-      "require": "./toolbar-app-storyblok.ts"
+    "./toolbarApp.ts": {
+      "types": "./dev-toolbar/toolbarApp.ts",
+      "import": "./dev-toolbar/toolbarApp.ts",
+      "require": "./dev-toolbar/toolbarApp.ts"
     }
   },
   "types": "./dist/types/index.d.ts",
