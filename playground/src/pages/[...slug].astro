@@ -3,10 +3,12 @@ import { useStoryblok } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+const { slug } = Astro.params;
 const story = await useStoryblok(
-  "cdn/stories/home",
+  `cdn/stories/${slug}`,
   {
     version: "draft",
+    resolve_relations: ["featured-articles.posts"],
   },
   {},
   Astro
