@@ -1,6 +1,6 @@
-import { vitePluginStoryblokInit } from "./vite-plugin-storyblok-init";
-import { vitePluginStoryblokComponents } from "./vite-plugin-storyblok-components";
-import { vitePluginStoryblokOptions } from "./vite-plugin-storyblok-options";
+import { vitePluginStoryblokInit } from "./vite-plugins/vite-plugin-storyblok-init";
+import { vitePluginStoryblokComponents } from "./vite-plugins/vite-plugin-storyblok-components";
+import { vitePluginStoryblokOptions } from "./vite-plugins/vite-plugin-storyblok-options";
 import {
   RichTextResolver,
   renderRichText as origRenderRichText,
@@ -164,7 +164,7 @@ export default function storyblokIntegration(
           );
         }
 
-        addDevToolbarApp("@storyblok/astro/toolbar-app-storyblok.ts");
+        addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
       },
     },
   };
