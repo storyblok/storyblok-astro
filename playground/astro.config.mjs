@@ -5,6 +5,7 @@ import react from "@astrojs/react";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
 import basicSsl from "@vitejs/plugin-basic-ssl";
+import node from "@astrojs/node";
 
 export default defineConfig({
   integrations: [
@@ -36,4 +37,8 @@ export default defineConfig({
       https: true,
     },
   },
+  output: "server",
+  adapter: node({
+    mode: "standalone",
+  }),
 });
