@@ -8,7 +8,7 @@ import {
   renderRichText as origRenderRichText,
 } from "@storyblok/js";
 
-import type { AstroIntegration } from "astro";
+import type { AstroIntegration, AstroGlobal } from "astro";
 import type {
   ISbConfig,
   ISbRichtext,
@@ -18,7 +18,6 @@ import type {
   StoryblokBridgeConfigV2,
   StoryblokClient,
 } from "./types";
-import type { AstroGlobal } from "astro";
 
 export {
   storyblokEditable,
