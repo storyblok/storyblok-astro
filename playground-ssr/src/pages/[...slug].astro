@@ -1,18 +1,20 @@
 ---
-import { useStoryblok } from "@storyblok/astro";
+import { useStoryblokApi } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
+const sbApi = useStoryblokApi();
+
 const { slug } = Astro.params;
 
-const story = await useStoryblok(
+const { data } = await sbApi.get(
   `cdn/stories/${slug === undefined ? "home" : slug}`,
   {
     version: "draft",
-  },
-  {},
-  Astro
+  }
 );
+
+const story = data.story;
 ---
 
 <BaseLayout>
