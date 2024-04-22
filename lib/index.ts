@@ -1,6 +1,8 @@
 import { vitePluginStoryblokInit } from "./vite-plugins/vite-plugin-storyblok-init";
 import { vitePluginStoryblokComponents } from "./vite-plugins/vite-plugin-storyblok-components";
 import { vitePluginStoryblokOptions } from "./vite-plugins/vite-plugin-storyblok-options";
+import { vitePluginStoryblokBridge } from "./vite-plugins/vite-plugin-storyblok-bridge";
+
 import {
   RichTextResolver,
   renderRichText as origRenderRichText,
@@ -10,10 +12,13 @@ import type { AstroIntegration } from "astro";
 import type {
   ISbConfig,
   ISbRichtext,
+  ISbStoriesParams,
+  ISbStoryData,
   SbRichTextOptions,
   StoryblokBridgeConfigV2,
   StoryblokClient,
 } from "./types";
+import type { AstroGlobal } from "astro";
 
 export {
   storyblokEditable,
@@ -21,6 +26,7 @@ export {
   RichTextResolver,
   RichTextSchema,
 } from "@storyblok/js";
+export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
@@ -28,7 +34,28 @@ export function useStoryblokApi(): StoryblokClient {
   }
   return globalThis.storyblokApiInstance;
 }
-
+export async function useStoryblok(
+  slug: string,
+  apiOptions: ISbStoriesParams = {},
+  bridgeOptions: StoryblokBridgeConfigV2 = {},
+  Astro: AstroGlobal
+) {
+  if (!globalThis.storyblokApiInstance) {
+    console.error("storyblokApiInstance has not been initialized correctly");
+  }
+  let story: ISbStoryData = null;
+  if (Astro && Astro.locals["_storyblok_preview_data"]) {
+    story = Astro.locals["_storyblok_preview_data"];
+  } else {
+    const { data } = await globalThis.storyblokApiInstance.get(
+      slug,
+      apiOptions,
+      bridgeOptions
+    );
+    story = data.story;
+  }
+  return story;
+}
 export function renderRichText(
   data?: ISbRichtext,
   options?: SbRichTextOptions
@@ -106,6 +133,7 @@ export default function storyblokIntegration(
         injectScript,
         updateConfig,
         addDevToolbarApp,
+        addMiddleware,
       }) => {
         updateConfig({
           vite: {
@@ -122,6 +150,7 @@ export default function storyblokIntegration(
                 resolvedOptions.customFallbackComponent
               ),
               vitePluginStoryblokOptions(resolvedOptions),
+              vitePluginStoryblokBridge(),
             ],
           },
         });
@@ -135,33 +164,24 @@ export default function storyblokIntegration(
         );
 
         if (resolvedOptions.bridge) {
-          let initBridge: string = "";
-
-          if (typeof resolvedOptions.bridge === "object") {
-            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
-            )});`;
-          } else {
-            initBridge = "const storyblokInstance = new StoryblokBridge()";
-          }
-
           injectScript(
             "page",
             `
-              import { loadStoryblokBridge } from "@storyblok/astro";
+              import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
+              import { bridgeOptions }  from "virtual:storyblok-bridge";
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
-                ${initBridge}
-
-                storyblokInstance.on(["published", "change"], (event) => {
-                  if (!event.slugChanged) {
-                    location.reload(true);
-                  } 
-                });
+                if(bridgeOptions){
+                  const storyblokInstance = new StoryblokBridge(bridgeOptions);
+                  storyblokInstance.on(["published", "change","input"], handleStoryblokMessage);
+                };
               });
             `
           );
+          addMiddleware({
+            entrypoint: "@storyblok/astro/middleware.ts",
+            order: "pre",
+          });
         }
 
         addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
