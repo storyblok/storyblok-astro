@@ -4,6 +4,7 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const { slug } = Astro.params;
+
 const story = await useStoryblok(
   `cdn/stories/${slug}`,
   {
