@@ -40,6 +40,8 @@ function updateDOMWithNewBody(currentBody, newBody, focusedElem) {
 }
 
 async function getNewHTMLBody(story) {
+  // TODO: remove perf logs
+  const start = performance.now();
   const result = await fetch(location.href, {
     method: "POST",
     body: JSON.stringify({
@@ -50,8 +52,13 @@ async function getNewHTMLBody(story) {
       "Content-Type": "application/json",
     },
   });
+  const mid = performance.now()
   const html = await result.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");
+
+  const end = performance.now();
+  console.log(`getNewHTMLBody Execution time ${end - mid}, ${end - start}ms`);
+  
   return doc.body;
 }
