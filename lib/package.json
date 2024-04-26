@@ -59,7 +59,7 @@
     "@types/node": "20.12.7",
     "astro": "^4.6.3",
     "cypress": "^13.8.0",
-    "eslint-plugin-cypress": "^2.15.2",
+    "eslint-plugin-cypress": "^3.0.1",
     "start-server-and-test": "^2.0.3",
     "typescript": "5.4.5",
     "vite": "^5.2.10",
