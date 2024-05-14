@@ -1,19 +1,56 @@
+let timeout;
+
 export async function handleStoryblokMessage(event) {
   const { action, story } = event || {};
-  //in the case of input event
+
   if (action === "input" && story) {
-    const currentBody = document.body;
+    // Debounce the getNewHTMLBody function
+    const debouncedGetNewHTMLBody = async () => {
+      const t0 = performance.now();
+      const newBody = await getNewHTMLBody(story);
+      const t1 = performance.now();
+      console.log(`getNewHTMLBody took ${t1 - t0} milliseconds.`);
+      const currentBody = document.body;
+      if (newBody.outerHTML === currentBody.outerHTML) return;
+      // Get current focused element in Storyblok
+      const focusedElem = document.querySelector('[data-blok-focused="true"]');
+      updateDOMWithNewBody(currentBody, newBody, focusedElem);
+      const t2 = performance.now();
+      console.log(`updateDOMWithNewBody took ${t2 - t1} milliseconds.`);
+      console.log(`total time took ${t2 - t0} milliseconds.`);
+    };
 
-    const newBody = await getNewHTMLBody(story);
-    if (newBody.outerHTML === currentBody.outerHTML) return;
+    // Execute the debounced function after a delay
+    const debounceDelay = 1500; // Adjust the delay as needed
+    clearTimeout(timeout);
+    timeout = setTimeout(debouncedGetNewHTMLBody, debounceDelay);
+  }
 
-    //Get current focused element in storyblok
-    const focusedElem = document.querySelector('[data-blok-focused="true"]');
-    updateDOMWithNewBody(currentBody, newBody, focusedElem);
-  } else if (["published", "change"].includes(event?.data?.action)) {
+  if (["published", "change"].includes(event?.data?.action)) {
     location.reload();
   }
 }
+
+// export async function handleStoryblokMessage(event) {
+//   const t0 = performance.now();
+//   const { action, story } = event || {};
+//   //in the case of input event
+//   if (action === "input" && story) {
+//     const newBody = await getNewHTMLBody(story);
+//     const t1 = performance.now();
+//     console.log(`getNewHTMLBody took ${t1 - t0} milliseconds.`);
+//     const currentBody = document.body;
+//     if (newBody.outerHTML === currentBody.outerHTML) return;
+//     //Get current focused element in storyblok
+//     const focusedElem = document.querySelector('[data-blok-focused="true"]');
+//     updateDOMWithNewBody(currentBody, newBody, focusedElem);
+//     const t2 = performance.now();
+//     console.log(`updateDOMWithNewBody took ${t2 - t1} milliseconds.`);
+//     console.log(`total time took ${t2 - t0} milliseconds.`);
+//   } else if (["published", "change"].includes(event?.data?.action)) {
+//     location.reload();
+//   }
+// }
 function updateDOMWithNewBody(currentBody, newBody, focusedElem) {
   if (focusedElem) {
     //Get the [data-blok-uid] of the focused element in storyblok
