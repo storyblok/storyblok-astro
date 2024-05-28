@@ -3,14 +3,13 @@ import { useStoryblok } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const story = await useStoryblok(
-  "cdn/stories/home",
-  {
+const story = await useStoryblok({
+  slug: "cdn/stories/home",
+  apiOptions: {
     version: "draft",
   },
-  {},
-  Astro
-);
+  Astro,
+});
 ---
 
 <BaseLayout>

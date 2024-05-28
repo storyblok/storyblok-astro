@@ -3,7 +3,14 @@ import { parseAstRawCode } from "../utils/parseAstCode";
 import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
 let previousRawCode = [];
 
-export function vitePluginStoryblokBridge(): Plugin {
+export function vitePluginStoryblokBridge(
+  experimentalLivePreview: boolean
+): Plugin {
+  if (!experimentalLivePreview) {
+    return {
+      name: "vite-plugin-storyblok-bridge",
+    };
+  }
   let rawCode = [];
   const virtualModuleId = "virtual:storyblok-bridge";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;

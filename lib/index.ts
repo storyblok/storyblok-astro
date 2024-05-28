@@ -33,12 +33,17 @@ export function useStoryblokApi(): StoryblokClient {
   }
   return globalThis.storyblokApiInstance;
 }
-export async function useStoryblok(
-  slug: string,
-  apiOptions: ISbStoriesParams = {},
-  bridgeOptions: StoryblokBridgeConfigV2 = {},
-  Astro: AstroGlobal
-) {
+export async function useStoryblok({
+  slug,
+  apiOptions = {},
+  bridgeOptions = {},
+  Astro,
+}: {
+  slug: string;
+  apiOptions: ISbStoriesParams;
+  bridgeOptions?: StoryblokBridgeConfigV2;
+  Astro: AstroGlobal;
+}) {
   if (!globalThis.storyblokApiInstance) {
     console.error("storyblokApiInstance has not been initialized correctly");
   }
@@ -113,6 +118,10 @@ export type IntegrationOptions = {
    * Please note: the path takes into account the `componentsDir` option.
    */
   customFallbackComponent?: string;
+  /**
+   * A boolean to enable/disable the Experimental Live Preview feature. Disabled by default.
+   */
+  experimentalLivePreview?: boolean;
 };
 
 export default function storyblokIntegration(
@@ -123,6 +132,7 @@ export default function storyblokIntegration(
     bridge: true,
     componentsDir: "src",
     enableFallbackComponent: false,
+    experimentalLivePreview: false,
     ...options,
   };
   return {
@@ -149,7 +159,9 @@ export default function storyblokIntegration(
                 resolvedOptions.customFallbackComponent
               ),
               vitePluginStoryblokOptions(resolvedOptions),
-              vitePluginStoryblokBridge(),
+              vitePluginStoryblokBridge(
+                resolvedOptions.experimentalLivePreview
+              ),
             ],
           },
         });
@@ -162,12 +174,49 @@ export default function storyblokIntegration(
           `
         );
 
-        if (resolvedOptions.bridge) {
+        // This is only enabled if experimentalLivePreview is disabled and bridge is enabled.
+
+        if (
+          resolvedOptions.bridge &&
+          !resolvedOptions.experimentalLivePreview
+        ) {
+          let initBridge: string = "";
+
+          if (typeof resolvedOptions.bridge === "object") {
+            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
+            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
+              bridgeConfigurationOptions
+            )});`;
+          } else {
+            initBridge = "const storyblokInstance = new StoryblokBridge()";
+          }
+
+          injectScript(
+            "page",
+            `
+              import { loadStoryblokBridge } from "@storyblok/astro";
+              loadStoryblokBridge().then(() => {
+                const { StoryblokBridge, location } = window;
+                ${initBridge}
+
+                storyblokInstance.on(["published", "change"], (event) => {
+                  if (!event.slugChanged) {
+                    location.reload(true);
+                  } 
+                });
+              });
+            `
+          );
+        }
+
+        // This is only enabled if experimentalLivePreview feature is on
+        if (resolvedOptions.experimentalLivePreview) {
           injectScript(
             "page",
             `
               import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
               import { bridgeOptions }  from "virtual:storyblok-bridge";
+              
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
                 if(bridgeOptions){

@@ -4,15 +4,15 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const { slug } = Astro.params;
-const story = await useStoryblok(
-  `cdn/stories/${slug}`,
-  {
+
+const story = await useStoryblok({
+  slug: `cdn/stories/${slug}`,
+  apiOptions: {
     version: "draft",
     resolve_relations: ["featured-articles.posts"],
   },
-  {},
-  Astro
-);
+  Astro,
+});
 ---
 
 <BaseLayout>

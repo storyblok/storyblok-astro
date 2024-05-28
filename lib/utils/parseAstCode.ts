@@ -8,18 +8,16 @@ export function parseAstRawCode(astCode) {
       srcValue?.argument?.callee?.name === "useStoryblok"
     ) {
       const props = srcValue?.argument?.arguments;
-      if (props[1]?.type === "ObjectExpression") {
-        obj = {
-          ...obj,
-          apiOptions: getAstPropToObj(props[1]?.properties),
-        };
-      }
-      if (props[2]?.type === "ObjectExpression") {
-        obj = {
-          ...obj,
-          bridgeOptions: getAstPropToObj(props[2]?.properties),
-        };
-      }
+      props.forEach((argument) => {
+        argument?.properties?.forEach((property) => {
+          if (["apiOptions", "bridgeOptions"].includes(property.key.name)) {
+            obj = {
+              ...obj,
+              [property.key.name]: getAstPropToObj(property?.value?.properties),
+            };
+          }
+        });
+      });
     }
   }
 
