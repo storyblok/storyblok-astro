@@ -4,9 +4,10 @@ import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
 let previousRawCode = [];
 
 export function vitePluginStoryblokBridge(
-  experimentalLivePreview: boolean
+  experimentalLivePreview: boolean,
+  output: string
 ): Plugin {
-  if (!experimentalLivePreview) {
+  if (!experimentalLivePreview || output !== "server") {
     return {
       name: "vite-plugin-storyblok-bridge",
     };

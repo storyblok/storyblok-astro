@@ -389,6 +389,52 @@ const options = {
 
 Returns the instance of the `storyblok-js-client`.
 
+## Experimental Live Preview Feature
+
+The Astro SDK now includes an experimental live preview feature, designed to offer real-time editing capabilities for an enhanced user experience. This optional addition enables users to preview and edit their content directly within the Astro environment.
+
+### Activation
+
+To activate the experimental live preview feature:
+
+1. Set `experimentalLivePreview` to `true` within your `astro.config.mjs` file.
+
+```js
+//astro.config.mjs
+export default defineConfig({
+  integrations: [
+    storyblok({
+      accessToken: "OsvN..",
+      experimentalLivePreview: true,
+    }),
+  ],
+});
+```
+
+### Integration with Storyblok
+
+Additionally, ensure you're utilizing `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
+
+```jsx
+//pages/[...slug].astro
+---
+import { useStoryblok } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { slug } = Astro.params;
+
+const story = await useStoryblok({
+  slug: `cdn/stories/${slug}`,
+  apiOptions: {
+    version: "draft",
+  },
+  Astro,
+});
+---
+
+<StoryblokComponent blok={story.content} />
+```
+
 ## The Storyblok JavaScript SDK Ecosystem
 
 ![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)

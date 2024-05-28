@@ -139,10 +139,12 @@ export default function storyblokIntegration(
     name: "@storyblok/astro",
     hooks: {
       "astro:config:setup": ({
+        config,
         injectScript,
         updateConfig,
         addDevToolbarApp,
         addMiddleware,
+        logger,
       }) => {
         updateConfig({
           vite: {
@@ -160,12 +162,20 @@ export default function storyblokIntegration(
               ),
               vitePluginStoryblokOptions(resolvedOptions),
               vitePluginStoryblokBridge(
-                resolvedOptions.experimentalLivePreview
+                resolvedOptions.experimentalLivePreview,
+                config?.output
               ),
             ],
           },
         });
-
+        if (
+          resolvedOptions.experimentalLivePreview &&
+          config?.output !== "server"
+        ) {
+          throw new Error(
+            "To utilize the Astro Storyblok Live feature, Astro must be configured in SSR mode. Please disable this feature or switch Astro to SSR mode."
+          );
+        }
         injectScript(
           "page-ssr",
           `

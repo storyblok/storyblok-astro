@@ -12,7 +12,7 @@
     "dev": "npm run dev --workspace=lib",
     "demo": "npm run dev --workspace=playground",
     "demo-test": "npm run dev --workspace=playground-test",
-    "demo-ssr": "npm run dev-ssr --workspace=playground-ssr",
+    "demo-ssr": "npm run dev --workspace=playground-ssr",
     "build": "npm run build --workspace=lib",
     "test:e2e": "npm run test:e2e --workspace=lib",
     "prepare": "husky install"
