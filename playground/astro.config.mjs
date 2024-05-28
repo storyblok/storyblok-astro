@@ -5,7 +5,6 @@ import react from "@astrojs/react";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
 import basicSsl from "@vitejs/plugin-basic-ssl";
-import node from "@astrojs/node";
 
 export default defineConfig({
   integrations: [
@@ -14,12 +13,10 @@ export default defineConfig({
     react(),
     storyblok({
       accessToken: "OsvNv534kS2nivAAj1EPVgtt",
-      bridge: true,
       apiOptions: {
         cache: { clear: "auto", type: "memory" },
       },
       enableFallbackComponent: true,
-      experimentalLivePreview: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
@@ -40,8 +37,4 @@ export default defineConfig({
       https: true,
     },
   },
-  output: "server",
-  adapter: node({
-    mode: "standalone",
-  }),
 });
