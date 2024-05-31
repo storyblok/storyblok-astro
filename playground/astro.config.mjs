@@ -17,6 +17,7 @@ export default defineConfig({
         cache: { clear: "auto", type: "memory" },
       },
       enableFallbackComponent: true,
+      experimentalLivePreview: false,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",
@@ -26,6 +27,7 @@ export default defineConfig({
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
         "new-component": "storyblok/NewComponent",
+        "featured-articles": "storyblok/FeaturedArticles",
       },
     }),
     tailwind(),

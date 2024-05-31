@@ -8,7 +8,8 @@
     "dist",
     "components",
     "dev-toolbar",
-    "live-preview"
+    "live-preview",
+    "utils"
   ],
   "exports": {
     ".": {
@@ -35,6 +36,11 @@
       "types": "./dev-toolbar/toolbarApp.ts",
       "import": "./dev-toolbar/toolbarApp.ts",
       "require": "./dev-toolbar/toolbarApp.ts"
+    },
+    "./middleware.ts": {
+      "types": "./live-preview/middleware.ts",
+      "import": "./live-preview/middleware.ts",
+      "require": "./live-preview/middleware.ts"
     }
   },
   "types": "./dist/types/index.d.ts",
@@ -51,7 +57,8 @@
   },
   "dependencies": {
     "@storyblok/js": "^3.0.8",
-    "camelcase": "^8.0.0"
+    "camelcase": "^8.0.0",
+    "lodash.mergewith": "^4.6.2"
   },
   "devDependencies": {
     "@cypress/vite-dev-server": "^5.0.7",
@@ -87,6 +94,10 @@
       "main",
       {
         "name": "next",
+        "prerelease": true
+      },
+      {
+        "name": "alpha",
         "prerelease": true
       }
     ]
