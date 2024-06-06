@@ -391,8 +391,7 @@ Returns the instance of the `storyblok-js-client`.
 
 ## Enabling Live Preview for Storyblok's Visual Editor
 
-[!WARNING]
-
+> **Warning**  
 > This feature is currently experimental and optional. You may encounters bugs or performance issues.
 
 The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
