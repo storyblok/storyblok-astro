@@ -397,9 +397,9 @@ Returns the instance of the `storyblok-js-client`.
 
 The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
 
-### Activation
+To activate the experimental live preview feature, follow these steps:
 
-To activate the experimental live preview feature, set `experimentalLivePreview` to `true` within your `astro.config.mjs` file.
+1. Set `experimentalLivePreview` to `true` within your `astro.config.mjs` file.
 
 ```js
 //astro.config.mjs
@@ -413,9 +413,7 @@ export default defineConfig({
 });
 ```
 
-### Integration with Storyblok
-
-Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
+2. Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
 
 ```jsx
 //pages/[...slug].astro
