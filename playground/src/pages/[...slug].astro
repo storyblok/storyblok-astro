@@ -19,14 +19,13 @@ export async function getStaticPaths() {
 }
 const { slug } = Astro.params;
 
-const story = await useStoryblok({
-  slug: `cdn/stories/${slug}`,
-  apiOptions: {
-    version: "draft",
-    resolve_relations: ["featured-articles.posts"],
-  },
-  Astro,
+const sbApi = useStoryblokApi();
+const { data } = await sbApi.get(`cdn/stories/${slug}`, {
+  version: "draft",
+  resolve_relations: ["featured-articles.posts"],
 });
+
+const story = data.story;
 ---
 
 <BaseLayout>
