@@ -389,15 +389,17 @@ const options = {
 
 Returns the instance of the `storyblok-js-client`.
 
-## Experimental Live Preview Feature
+## Enabling Live Preview for Storyblok's Visual Editor
 
-The Astro SDK now includes an experimental live preview feature, designed to offer real-time editing capabilities for an enhanced user experience. This optional addition enables users to preview and edit their content directly within the Astro environment.
+[!WARNING]
+
+> This feature is currently experimental and optional. You may encounters bugs or performance issues.
+
+The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
 
 ### Activation
 
-To activate the experimental live preview feature:
-
-1. Set `experimentalLivePreview` to `true` within your `astro.config.mjs` file.
+To activate the experimental live preview feature, set `experimentalLivePreview` to `true` within your `astro.config.mjs` file.
 
 ```js
 //astro.config.mjs
@@ -413,7 +415,7 @@ export default defineConfig({
 
 ### Integration with Storyblok
 
-Additionally, ensure you're utilizing `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
+Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
 
 ```jsx
 //pages/[...slug].astro
@@ -423,13 +425,18 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { slug } = Astro.params;
 
-const story = await useStoryblok({
-  slug: `cdn/stories/${slug}`,
-  apiOptions: {
+const story = await useStoryblok(
+  // The slug to fetch
+  `cdn/stories/${slug === undefined ? "home" : slug}`,
+  // The API options
+  {
     version: "draft",
   },
-  Astro,
-});
+  // The Bridge options (optional, if an empty object, null, or false are set, the API options will be considered automatically as far as applicable)
+  {},
+  // The Astro object (essential for the live preview functionality)
+  Astro
+);
 ---
 
 <StoryblokComponent blok={story.content} />

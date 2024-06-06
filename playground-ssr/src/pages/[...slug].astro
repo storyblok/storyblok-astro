@@ -5,14 +5,15 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
 const { slug } = Astro.params;
 
-const story = await useStoryblok({
-  slug: `cdn/stories/${slug === undefined ? "home" : slug}`,
-  apiOptions: {
+const story = await useStoryblok(
+  `cdn/stories/${slug === undefined ? "home" : slug}`,
+  {
     version: "draft",
     resolve_relations: ["featured-articles.posts"],
   },
-  Astro,
-});
+  {},
+  Astro
+);
 ---
 
 <BaseLayout>
