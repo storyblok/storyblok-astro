@@ -17,7 +17,7 @@ export async function handleStoryblokMessage(event: {
     // Debounce the getNewHTMLBody function
     const debouncedGetNewHTMLBody = async () => {
       const newBody = await getNewHTMLBody(story);
-      const currentBody = document.body as HTMLElement;
+      const currentBody = document.body;
       if (newBody.outerHTML === currentBody.outerHTML) return;
       // Get current focused element in Storyblok
       const focusedElem = document.querySelector('[data-blok-focused="true"]');
@@ -58,6 +58,7 @@ function updateDOMWithNewBody(
 }
 
 async function getNewHTMLBody(story: ISbStoryData) {
+  //TODO How to handel (50x, 405, etc.)
   const result = await fetch(location.href, {
     method: "POST",
     body: JSON.stringify({

@@ -1,27 +1,18 @@
-import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
+import type { StoryblokBridgeConfigV2 } from "@storyblok/js";
+import type { RawCode } from "../vite-plugins/vite-plugin-storyblok-bridge";
 
-export interface RawCodeItem {
-  options?: {
-    apiOptions?: ISbStoriesParams;
-    bridgeOptions?: StoryblokBridgeConfigV2;
-  };
-}
-export function generateFinalBridgeObject(
-  rawCode: RawCodeItem[]
-): StoryblokBridgeConfigV2 {
-  let mergedOptions = {
+export function generateFinalBridgeObject(rawCode: RawCode) {
+  let mergedOptions: StoryblokBridgeConfigV2 = {
     resolveRelations: [],
   };
 
-  function addToResolveRelations(
-    resolveRelations: string[] | string | undefined
-  ) {
-    if (resolveRelations) {
-      if (Array.isArray(resolveRelations)) {
-        mergedOptions.resolveRelations.push(...resolveRelations);
-      } else {
-        mergedOptions.resolveRelations.push(resolveRelations);
-      }
+  function addToResolveRelations(resolveRelations?: string[] | string) {
+    if (resolveRelations && Array.isArray(mergedOptions.resolveRelations)) {
+      mergedOptions.resolveRelations.push(
+        ...(Array.isArray(resolveRelations)
+          ? resolveRelations
+          : [resolveRelations])
+      );
     }
   }
 

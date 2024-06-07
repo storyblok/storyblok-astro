@@ -1,8 +1,18 @@
+import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
 import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
-import { parseAstRawCode } from "../utils/parseAstCode";
-import type { Plugin } from "vite";
-let previousRawCode = [];
+import { parseAstRawCode, type AstNode } from "../utils/parseAstCode";
+import type { Plugin, ViteDevServer } from "vite";
+let previousRawCode: RawCode = [];
+export interface RawCodeItem {
+  url: string;
+  options?: Pick<RawCodeOptions, "apiOptions" | "bridgeOptions">;
+}
+export type RawCode = RawCodeItem[];
 
+export interface RawCodeOptions {
+  apiOptions?: ISbStoriesParams;
+  bridgeOptions?: StoryblokBridgeConfigV2;
+}
 export function vitePluginStoryblokBridge(
   experimentalLivePreview: boolean,
   output: string
@@ -24,9 +34,9 @@ export function vitePluginStoryblokBridge(
       },
     };
   }
-  let rawCode = [];
-  let _server = null;
-  let restartTimeout = null;
+  let rawCode: RawCode = [];
+  let _server: ViteDevServer = null;
+  let restartTimeout: NodeJS.Timeout;
 
   return {
     name: "vite-plugin-storyblok-bridge",
@@ -42,7 +52,7 @@ export function vitePluginStoryblokBridge(
       if (!moduleInfo.meta?.astro) return;
       const [, ...routeArray] = id.split("src/pages/");
       const url = routeArray.join("/").replace(".astro", "");
-      const options = parseAstRawCode(this.parse(code));
+      const options = parseAstRawCode(this.parse(code) as unknown as AstNode);
       if (previousRawCode.length) {
         rawCode = previousRawCode.filter((i) => i.url !== url);
       }
@@ -74,12 +84,7 @@ export function vitePluginStoryblokBridge(
   };
 }
 
-interface ParsedCodeObj {
-  url: string;
-  options: any;
-}
-
-function alreadyHaveThisUrl(a: ParsedCodeObj[] = [], b: ParsedCodeObj[] = []) {
+function alreadyHaveThisUrl(a: RawCode = [], b: RawCode = []) {
   return b.every(({ url, options }) => {
     const aCopy = a.find((e) => e?.url === url);
     return aCopy && JSON.stringify(options) === JSON.stringify(aCopy.options);
