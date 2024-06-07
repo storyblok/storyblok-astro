@@ -1,6 +1,6 @@
 import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
 import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
-import { parseAstRawCode, type AstNode } from "../utils/parseAstCode";
+import { parseAstRawCode } from "../utils/parseAstCode";
 import type { Plugin, ViteDevServer } from "vite";
 let previousRawCode: RawCode = [];
 export interface RawCodeItem {
@@ -52,7 +52,7 @@ export function vitePluginStoryblokBridge(
       if (!moduleInfo.meta?.astro) return;
       const [, ...routeArray] = id.split("src/pages/");
       const url = routeArray.join("/").replace(".astro", "");
-      const options = parseAstRawCode(this.parse(code) as unknown as AstNode);
+      const options = parseAstRawCode(this.parse(code));
       if (previousRawCode.length) {
         rawCode = previousRawCode.filter((i) => i.url !== url);
       }

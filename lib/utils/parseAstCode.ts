@@ -1,21 +1,12 @@
 import mergeWith from "lodash.mergewith";
 import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
 import type { RawCodeOptions } from "../vite-plugins/vite-plugin-storyblok-bridge";
+import type { Rollup } from "vite";
 
-export interface AstNode {
-  value: any;
-  type: string;
-  argument?: AstNode | null;
-  callee?: { name: string };
-  arguments?: AstNode[];
-  properties?: { key: { name: string }; value: AstNode }[];
-  elements?: { value: any }[];
-}
-
-export function parseAstRawCode(astCode: AstNode) {
+export function parseAstRawCode(astCode: Rollup.ProgramNode) {
   let obj: RawCodeOptions = {};
 
-  function customizer(_: any, srcValue: AstNode) {
+  function customizer(_: any, srcValue: any) {
     if (
       srcValue?.type === "AwaitExpression" &&
       srcValue?.argument?.callee?.name === "useStoryblok"
@@ -48,7 +39,7 @@ function getAstPropToObj(
     key: {
       name: string;
     };
-    value: AstNode;
+    value: any;
   }[]
 ) {
   const option: ISbStoriesParams | StoryblokBridgeConfigV2 = {};
