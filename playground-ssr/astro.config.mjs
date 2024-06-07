@@ -24,7 +24,7 @@ export default defineConfig({
       useCustomApi: false,
       bridge: true,
       enableFallbackComponent: true,
-      experimentalLivePreview: true,
+      livePreview: true,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",

@@ -23,7 +23,7 @@ export async function handleStoryblokMessage(event: {
       const focusedElem = document.querySelector('[data-blok-focused="true"]');
       updateDOMWithNewBody(currentBody, newBody, focusedElem);
     };
-    const debounceDelay = 1000; // Adjust the delay as needed
+    const debounceDelay = 500; // Adjust the delay as needed
     clearTimeout(timeout);
     timeout = setTimeout(debouncedGetNewHTMLBody, debounceDelay);
   }

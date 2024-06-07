@@ -17,7 +17,6 @@ export default defineConfig({
         cache: { clear: "auto", type: "memory" },
       },
       enableFallbackComponent: true,
-      experimentalLivePreview: false,
       components: {
         page: "storyblok/Page",
         feature: "storyblok/Feature",

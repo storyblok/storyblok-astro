@@ -8,16 +8,20 @@ export function parseAstRawCode(astCode) {
       srcValue?.argument?.callee?.name === "useStoryblok"
     ) {
       const props = srcValue?.argument?.arguments;
-      props.forEach((argument) => {
-        argument?.properties?.forEach((property) => {
-          if (["apiOptions", "bridgeOptions"].includes(property.key.name)) {
-            obj = {
-              ...obj,
-              [property.key.name]: getAstPropToObj(property?.value?.properties),
-            };
-          }
-        });
-      });
+      if (props[1]?.type === "ObjectExpression") {
+        const apiOptions = getAstPropToObj(props[1]?.properties);
+        obj = {
+          ...obj,
+          apiOptions,
+        };
+      }
+      if (props[2]?.type === "ObjectExpression") {
+        const bridgeOptions = getAstPropToObj(props[2]?.properties);
+        obj = {
+          ...obj,
+          bridgeOptions,
+        };
+      }
     }
   }
 

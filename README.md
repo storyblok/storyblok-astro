@@ -398,7 +398,7 @@ The Astro SDK now provides a live preview feature, designed to offer real-time e
 
 To activate the experimental live preview feature, follow these steps:
 
-1. Set `experimentalLivePreview` to `true` within your `astro.config.mjs` file.
+1. Set `livePreview` to `true` within your `astro.config.mjs` file.
 
 ```js
 //astro.config.mjs
@@ -406,7 +406,7 @@ export default defineConfig({
   integrations: [
     storyblok({
       accessToken: "OsvN..",
-      experimentalLivePreview: true,
+      livePreview: true,
     }),
   ],
 });
