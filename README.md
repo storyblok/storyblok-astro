@@ -445,7 +445,13 @@ const story = await useStoryblok(
 
 ## Acknowledgements
 
-A huge thank you goes to the Astro Team. In particular to [Tony Sullivan](https://github.com/tony-sull), who has provided extraordinary support and made _automagically_ rendering Storyblok components a reality.
+### Astro
+
+We extend our deepest gratitude to the [Astro](https://astro.build/) team, especially Tony Sullivan, [Matthew Philips](https://x.com/matthewcp), and [Nate Moore](https://x.com/n_moore), for their unwavering support in enhancing this integration. Your partnership is immensely valued.
+
+### Virtual Identity
+
+Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/), one of our closest agency partners. The live preview feature owes its existence to the ingenuity and innovation of their team. Special recognition goes to Senior Frontend Engineer, [Mario Hamann](https://www.linkedin.com/in/mariohamann/), for his pivotal live preview POC and continuous support.
 
 ## Related Links
 
