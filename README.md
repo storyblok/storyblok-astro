@@ -451,7 +451,7 @@ We extend our deepest gratitude to the [Astro](https://astro.build/) team, espec
 
 ### Virtual Identity
 
-Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/), one of our closest agency partners. The live preview feature owes its existence to the ingenuity and innovation of their team. Special recognition goes to Senior Frontend Engineer, [Mario Hamann](https://www.linkedin.com/in/mariohamann/), for his pivotal live preview POC and continuous support.
+Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/), one of our closest agency partners. The live preview feature owes its existence to the ingenuity and innovation of their team. Special recognition goes to their developer [Mario Hamann](https://github.com/mariohamann) for his pivotal live preview POC and continuous support.
 
 ## Related Links
 
