@@ -2,14 +2,17 @@ import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
 import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
 import { parseAstRawCode } from "../utils/parseAstCode";
 import type { Plugin, ViteDevServer } from "vite";
+
 let previousRawCode: RawCode = [];
+
 export interface RawCodeItem {
   url: string;
-  options?: Pick<RawCodeOptions, "apiOptions" | "bridgeOptions">;
+  options?: RawCodeItemOptions;
 }
+
 export type RawCode = RawCodeItem[];
 
-export interface RawCodeOptions {
+export interface RawCodeItemOptions {
   apiOptions?: ISbStoriesParams;
   bridgeOptions?: StoryblokBridgeConfigV2;
 }
@@ -68,13 +71,18 @@ export function vitePluginStoryblokBridge(
         if (alreadyHaveThisUrl(previousRawCode, rawCode)) return;
         if (previousRawCode.length !== 0) {
           _server.restart();
-          console.info("Updating bridge options...");
+          console.info("Bridge options updated. Restarting...");
         }
         previousRawCode = [...rawCode];
       }, 1000);
     },
     async load(id: string) {
       if (id === resolvedVirtualModuleId) {
+        /**
+         * Crrently we are merging all the bridge options to be one
+         * in the future we need to find a way to make it work per
+         * route basis
+         */
         return `export const bridgeOptions = ${JSON.stringify(generateFinalBridgeObject(rawCode))}`;
       }
     },

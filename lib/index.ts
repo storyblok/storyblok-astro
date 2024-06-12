@@ -165,7 +165,7 @@ export default function storyblokIntegration(
         });
         if (resolvedOptions.livePreview && config?.output !== "server") {
           throw new Error(
-            "To utilize the Astro Storyblok Live feature, Astro must be configured in SSR mode. Please disable this feature or switch Astro to SSR mode."
+            "To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode."
           );
         }
         injectScript(

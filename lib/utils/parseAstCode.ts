@@ -1,8 +1,8 @@
 import mergeWith from "lodash.mergewith";
 import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
-import type { RawCodeOptions } from "../vite-plugins/vite-plugin-storyblok-bridge";
+import type { RawCodeItemOptions } from "../vite-plugins/vite-plugin-storyblok-bridge";
 import type { Rollup } from "vite";
-import type { AwaitExpression, SpreadElement, Property } from "estree";
+import type { SpreadElement, Property } from "estree";
 
 /**
  * Parses through the Abstract Syntax Tree (AST) code to locate the 'useStoryblok' function and its properties.
@@ -10,25 +10,25 @@ import type { AwaitExpression, SpreadElement, Property } from "estree";
  */
 
 export function parseAstRawCode(astCode: Rollup.ProgramNode) {
-  let obj: RawCodeOptions = {};
+  let obj: RawCodeItemOptions = {};
 
-  function customizer(_: any, srcValue: AwaitExpression) {
+  function customizer(_: any, srcValue: any) {
     if (
       srcValue?.type === "AwaitExpression" &&
       srcValue.argument.type === "CallExpression" &&
       srcValue.argument.callee.type === "Identifier" &&
       srcValue.argument.callee.name === "useStoryblok"
     ) {
-      const props = srcValue?.argument?.arguments;
-      if (props && props[1]?.type === "ObjectExpression") {
-        const apiOptions = getAstPropToObj(props[1]?.properties);
+      const props = srcValue.argument.arguments;
+      if (props && props[1].type === "ObjectExpression") {
+        const apiOptions = getAstPropToObj(props[1].properties);
         obj = {
           ...obj,
           apiOptions,
         };
       }
-      if (props && props[2]?.type === "ObjectExpression") {
-        const bridgeOptions = getAstPropToObj(props[2]?.properties);
+      if (props && props[2].type === "ObjectExpression") {
+        const bridgeOptions = getAstPropToObj(props[2].properties);
         obj = {
           ...obj,
           bridgeOptions,
@@ -53,11 +53,14 @@ function getAstPropToObj(properties: (SpreadElement | Property)[]) {
     if (type === "Literal") {
       options[key.name] = value.value;
     } else if (type === "ArrayExpression") {
-      options[key.name] = value.elements
-        .filter((v) => v.type === "Literal")
-        .map((v) => v.value);
+      const arrayValues = value.elements.reduce((acc, element) => {
+        if (element.type === "Literal" && element.value) {
+          return [...acc, element.value];
+        }
+        return acc;
+      }, []);
+      options[key.name] = arrayValues;
     }
-
     return options;
   }, option);
 }

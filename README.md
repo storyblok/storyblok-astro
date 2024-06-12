@@ -396,6 +396,9 @@ Returns the instance of the `storyblok-js-client`.
 
 The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
 
+> **Note**  
+> To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode.
+
 To activate the experimental live preview feature, follow these steps:
 
 1. Set `livePreview` to `true` within your `astro.config.mjs` file.
@@ -409,6 +412,7 @@ export default defineConfig({
       livePreview: true,
     }),
   ],
+  output: "server", // Astro must be configured to run in SSR mode
 });
 ```
 
