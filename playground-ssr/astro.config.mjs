@@ -34,6 +34,7 @@ export default defineConfig({
         svelte_counter: "storyblok/SvelteCounter",
         react_counter: "storyblok/ReactCounter",
         "featured-articles": "storyblok/FeaturedArticles",
+        main: "storyblok/Main",
       },
     }),
     tailwind(),
