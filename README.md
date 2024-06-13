@@ -389,13 +389,73 @@ const options = {
 
 Returns the instance of the `storyblok-js-client`.
 
+## Enabling Live Preview for Storyblok's Visual Editor
+
+> **Warning**  
+> This feature is currently experimental and optional. You may encounters bugs or performance issues.
+
+The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
+
+> **Note**  
+> To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode.
+
+To activate the experimental live preview feature, follow these steps:
+
+1. Set `livePreview` to `true` within your `astro.config.mjs` file.
+
+```js
+//astro.config.mjs
+export default defineConfig({
+  integrations: [
+    storyblok({
+      accessToken: "OsvN..",
+      livePreview: true,
+    }),
+  ],
+  output: "server", // Astro must be configured to run in SSR mode
+});
+```
+
+2. Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
+
+```jsx
+//pages/[...slug].astro
+---
+import { useStoryblok } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { slug } = Astro.params;
+
+const story = await useStoryblok(
+  // The slug to fetch
+  `cdn/stories/${slug === undefined ? "home" : slug}`,
+  // The API options
+  {
+    version: "draft",
+  },
+  // The Bridge options (optional, if an empty object, null, or false are set, the API options will be considered automatically as far as applicable)
+  {},
+  // The Astro object (essential for the live preview functionality)
+  Astro
+);
+---
+
+<StoryblokComponent blok={story.content} />
+```
+
 ## The Storyblok JavaScript SDK Ecosystem
 
 ![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)
 
 ## Acknowledgements
 
-A huge thank you goes to the Astro Team. In particular to [Tony Sullivan](https://github.com/tony-sull), who has provided extraordinary support and made _automagically_ rendering Storyblok components a reality.
+### Astro
+
+We extend our deepest gratitude to the [Astro](https://astro.build/) team, especially Tony Sullivan, [Matthew Philips](https://x.com/matthewcp), and [Nate Moore](https://x.com/n_moore), for their unwavering support in enhancing this integration. Your partnership is immensely valued.
+
+### Virtual Identity
+
+Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/), one of our closest agency partners. The live preview feature owes its existence to the ingenuity and innovation of their team. Special recognition goes to their developer [Mario Hamann](https://github.com/mariohamann) for his pivotal live preview POC and continuous support.
 
 ## Related Links
 
