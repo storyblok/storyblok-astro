@@ -27,13 +27,11 @@
   </a>
 </p>
 
-## Live Demo
+## Kickstart a new project
+Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies#astro?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)**, and get started in just a few minutes!
 
-If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/astro-sdk-demo)** on StackBlitz.
-
-## Usage
-
-> If you are first-time user of Storyblok, read the [Getting Started](https://www.storyblok.com/docs/guide/getting-started?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro) guide to get a project ready in less than 5 minutes.
+## Ultimate Tutorial
+Are you looking for a hands-on, step-by-step tutorial? The **[Astro Ultimate Tutorial](https://www.storyblok.com/tp/the-storyblok-astro-ultimate-tutorial?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)** has you covered! It provides comprehensive instructions on building a complete, multilingual website using Storyblok and Astro from start to finish.
 
 ## Installation
 
@@ -457,12 +455,7 @@ We extend our deepest gratitude to the [Astro](https://astro.build/) team, espec
 
 Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/), one of our closest agency partners. The live preview feature owes its existence to the ingenuity and innovation of their team. Special recognition goes to their developer [Mario Hamann](https://github.com/mariohamann) for his pivotal live preview POC and continuous support.
 
-## Related Links
-
-- **[Live Demo on Stackblitz](https://stackblitz.com/edit/astro-sdk-demo)**
-- **[Storyblok CLI](https://github.com/storyblok/storyblok)**: A simple CLI for scaffolding Storyblok projects.
-
-## More Resources
+## Further Resources
 
 ### Support
 
