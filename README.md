@@ -457,13 +457,19 @@ Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/)
 
 ## Further Resources
 
-### Support
+- [Quick Start](https://www.storyblok.com/technologies)
+- [API Documentation](https://www.storyblok.com/docs/api)
+- [Developer Tutorials](https://www.storyblok.com/tutorials)
+- [Developer Guides](https://www.storyblok.com/docs/guide/introduction)
+- [FAQs](https://www.storyblok.com/faqs)
+
+## Support
 
 - Bugs or Feature Requests? [Submit an issue](/../../issues/new);
 - Do you have questions about this SDK? Or would you like to join the growing community of `@storyblok/astro` users? [Join the Astro Discord Community](https://discord.com/channels/830184174198718474/1002802280267001858)
 - Do you have questions about Storyblok or do you need help? [Join the Storyblok Discord Community](https://discord.gg/jKrbAMz).
 
-### Contributing
+## Contributing
 
 Please see our [contributing guidelines](https://github.com/storyblok/.github/blob/master/contributing.md) and our [code of conduct](https://www.storyblok.com/trust-center#code-of-conduct?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
 This project uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for generating new versions by using commit messages. We use the Angular Convention to name the commits.
