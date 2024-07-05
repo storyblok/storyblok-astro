@@ -457,11 +457,11 @@ Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/)
 
 ## Further Resources
 
-- [Quick Start](https://www.storyblok.com/technologies)
-- [API Documentation](https://www.storyblok.com/docs/api)
-- [Developer Tutorials](https://www.storyblok.com/tutorials)
-- [Developer Guides](https://www.storyblok.com/docs/guide/introduction)
-- [FAQs](https://www.storyblok.com/faqs)
+- [Quick Start](https://www.storyblok.com/technologies?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)
+- [API Documentation](https://www.storyblok.com/docs/api?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)
+- [Developer Tutorials](https://www.storyblok.com/tutorials?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)
+- [Developer Guides](https://www.storyblok.com/docs/guide/introduction?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)
+- [FAQs](https://www.storyblok.com/faqs?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)
 
 ## Support
 
