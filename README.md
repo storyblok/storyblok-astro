@@ -27,13 +27,11 @@
   </a>
 </p>
 
-## Live Demo
+## Kickstart a new project
+Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies#astro?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)**, and get started in just a few minutes!
 
-If you are in a hurry, check out our official **[live demo](https://stackblitz.com/edit/astro-sdk-demo)** on StackBlitz.
-
-## Usage
-
-> If you are first-time user of Storyblok, read the [Getting Started](https://www.storyblok.com/docs/guide/getting-started?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro) guide to get a project ready in less than 5 minutes.
+## Ultimate Tutorial
+Are you looking for a hands-on, step-by-step tutorial? The **[Astro Ultimate Tutorial](https://www.storyblok.com/tp/the-storyblok-astro-ultimate-tutorial?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)** has you covered! It provides comprehensive instructions on building a complete, multilingual website using Storyblok and Astro from start to finish.
 
 ## Installation
 
@@ -457,20 +455,21 @@ We extend our deepest gratitude to the [Astro](https://astro.build/) team, espec
 
 Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/), one of our closest agency partners. The live preview feature owes its existence to the ingenuity and innovation of their team. Special recognition goes to their developer [Mario Hamann](https://github.com/mariohamann) for his pivotal live preview POC and continuous support.
 
-## Related Links
+## Further Resources
 
-- **[Live Demo on Stackblitz](https://stackblitz.com/edit/astro-sdk-demo)**
-- **[Storyblok CLI](https://github.com/storyblok/storyblok)**: A simple CLI for scaffolding Storyblok projects.
+- [Quick Start](https://www.storyblok.com/technologies)
+- [API Documentation](https://www.storyblok.com/docs/api)
+- [Developer Tutorials](https://www.storyblok.com/tutorials)
+- [Developer Guides](https://www.storyblok.com/docs/guide/introduction)
+- [FAQs](https://www.storyblok.com/faqs)
 
-## More Resources
-
-### Support
+## Support
 
 - Bugs or Feature Requests? [Submit an issue](/../../issues/new);
 - Do you have questions about this SDK? Or would you like to join the growing community of `@storyblok/astro` users? [Join the Astro Discord Community](https://discord.com/channels/830184174198718474/1002802280267001858)
 - Do you have questions about Storyblok or do you need help? [Join the Storyblok Discord Community](https://discord.gg/jKrbAMz).
 
-### Contributing
+## Contributing
 
 Please see our [contributing guidelines](https://github.com/storyblok/.github/blob/master/contributing.md) and our [code of conduct](https://www.storyblok.com/trust-center#code-of-conduct?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
 This project uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for generating new versions by using commit messages. We use the Angular Convention to name the commits.
