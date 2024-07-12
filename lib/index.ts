@@ -5,6 +5,7 @@ import {
   RichTextResolver,
   renderRichText as origRenderRichText,
 } from "@storyblok/js";
+import sanitizeHtml from 'sanitize-html';
 
 import type { AstroGlobal, AstroIntegration } from "astro";
 import type {
@@ -68,9 +69,13 @@ export function renderRichText(
     );
     return;
   }
-  return origRenderRichText(data, options, resolverInstance);
-}
 
+  const original = origRenderRichText(data, options, resolverInstance);
+  const sanitized = sanitizeHtml(original, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  })
+  return sanitized
+}
 export type IntegrationOptions = {
   /**
    * The access token from your space.
