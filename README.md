@@ -28,9 +28,11 @@
 </p>
 
 ## Kickstart a new project
+
 Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies#astro?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)**, and get started in just a few minutes!
 
 ## Ultimate Tutorial
+
 Are you looking for a hands-on, step-by-step tutorial? The **[Astro Ultimate Tutorial](https://www.storyblok.com/tp/the-storyblok-astro-ultimate-tutorial?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)** has you covered! It provides comprehensive instructions on building a complete, multilingual website using Storyblok and Astro from start to finish.
 
 ## Installation
@@ -43,7 +45,7 @@ npm install @storyblok/astro
 # See below for pnpm
 ```
 
-> **Note**  
+> [!NOTE]  
 > With pnpm, hoist Storyblok dependencies publicly with `.npmrc`. For more information, check pnpm documentation on [here](https://pnpm.io/npmrc).
 
 Add the following code to `astro.config.mjs` and replace the `accessToken` with the preview API token of your Storyblok space.
@@ -61,7 +63,7 @@ export default defineConfig({
 });
 ```
 
-> **Warning**  
+> [!WARNING]
 > This SDK uses the Fetch API under the hood. If your environment doesn't support it, you need to install a polyfill like [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch). More info on [storyblok-js-client docs](https://github.com/storyblok/storyblok-js-client#fetch-use-polyfill-if-needed---version-5).
 
 ### Options
@@ -82,7 +84,7 @@ storyblok({
 });
 ```
 
-> **Note**  
+> [!NOTE]  
 > By default, the `apiPlugin` from `@storyblok/js` is loaded. If you want to use your own method to fetch data from Storyblok, you can disable this behavior by setting `useCustomApi` to `true`, resulting in an optimized final bundle.
 
 #### Region parameter
@@ -106,7 +108,7 @@ storyblok({
 });
 ```
 
-> **Warning**  
+> [!WARNING]
 > For spaces created in the United States or China, the `region` parameter **must** be specified.
 
 ## Getting started
@@ -126,7 +128,7 @@ components: {
 },
 ```
 
-> **Note**  
+> [!NOTE]  
 > The `src` folder is automatically added to the beginning of the path, so in this example your Astro components should be located here:
 >
 > - `src/storyblok/Page.astro`
@@ -136,7 +138,7 @@ components: {
 >
 > You can choose any other folder in the `src` directory for your Astro components.
 
-> **Note**
+> [!NOTE]
 > If you prefer to use a different folder than `src`, you can specify one using the `componentsDir` option:
 >
 > ```js
@@ -176,7 +178,7 @@ const { blok } = Astro.props
 </main>
 ```
 
-> **Note**  
+> [!NOTE]  
 > The `blok` is the actual blok data coming from [Storblok's Content Delivery API](https://www.storyblok.com/docs/api/content-delivery/v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
 
 #### Using fallback components
@@ -215,7 +217,7 @@ const story = data.story;
 <StoryblokComponent blok="{story.content}" />
 ```
 
-> **Note**  
+> [!NOTE]  
 > The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
 
 #### Dynamic Routing
@@ -261,7 +263,7 @@ const story = data.story;
 
 The Storyblok Bridge is enabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
 
-> **Note**  
+> [!NOTE]  
 > Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
 You can also provide a `StoryblokBridgeConfigV2` configuration object to the `bridge` parameter.
@@ -280,7 +282,7 @@ bridge: {
 - `resolveRelations` may be needed to resolve the same relations that are already resolved in the API requests via the `resolve_relations` parameter.
 - `resolveLinks` may be needed to resolve link fields.
 
-> **Note**  
+> [!NOTE]  
 > `resolveRelations` and `resolveLinks` will not have any effect in Astro, since the Storyblok Bridge is configured to reload the page. Thus, all the requests needed will be performed after the reload.
 
 The provided options will be used when initializing the Storyblok Bridge. You can find more information about the Storyblok Bridge and its configuration options on the [In Depth Storyblok Bridge guide](https://www.storyblok.com/docs/guide/in-depth/storyblok-latest-js-v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
@@ -289,7 +291,7 @@ If you want to deploy a dedicated preview environment with the Bridge enabled, a
 
 ### Rendering Rich Text
 
-> **Note**  
+> [!NOTE]  
 > While @storyblok/astro provides basic richtext rendering capabilities, for advanced use cases, it is highly recommended to use [storyblok-rich-text-astro-renderer](https://github.com/NordSecurity/storyblok-rich-text-astro-renderer).
 
 You can easily render rich text by using either the `renderRichText` function or the `<RichTextRenderer />` component, both of which are included in `@storyblok/astro`.
@@ -378,7 +380,7 @@ const options = {
 
 ```
 
-> **Note**  
+> [!NOTE]  
 > Please be aware that the `<RichTextRenderer />` component is **not** supported when using Astro v1. Make sure to use Astro v2 or v3.
 
 ## API
@@ -389,12 +391,12 @@ Returns the instance of the `storyblok-js-client`.
 
 ## Enabling Live Preview for Storyblok's Visual Editor
 
-> **Warning**  
+> [!WARNING]
 > This feature is currently experimental and optional. You may encounters bugs or performance issues.
 
 The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
 
-> **Note**  
+> [!NOTE]  
 > To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode.
 
 To activate the experimental live preview feature, follow these steps:
