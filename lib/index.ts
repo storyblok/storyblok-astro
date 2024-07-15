@@ -6,6 +6,7 @@ import {
   renderRichText as origRenderRichText,
 } from "@storyblok/js";
 import sanitizeHtml from 'sanitize-html';
+import { defu } from 'defu';
 
 import type { AstroGlobal, AstroIntegration } from "astro";
 import type {
@@ -26,6 +27,13 @@ export {
   RichTextResolver,
   RichTextSchema,
 } from "@storyblok/js";
+
+
+// Default sanitize options
+const defaultSanitizeOptions = {
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+};
+
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
@@ -59,7 +67,8 @@ export async function useStoryblok(
 
 export function renderRichText(
   data?: ISbRichtext,
-  options?: SbRichTextOptions
+  options?: SbRichTextOptions,
+  sanitizeOptions?: sanitizeHtml.IOptions
 ) {
   const resolverInstance: RichTextResolver =
     globalThis.storyblokApiInstance.richTextResolver;
@@ -71,10 +80,8 @@ export function renderRichText(
   }
 
   const original = origRenderRichText(data, options, resolverInstance);
-  const sanitized = sanitizeHtml(original, {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
-  })
-  return sanitized
+  const mergedSanitizeOptions = defu(sanitizeOptions, defaultSanitizeOptions);
+  return sanitizeHtml(original, mergedSanitizeOptions)
 }
 export type IntegrationOptions = {
   /**
@@ -242,3 +249,6 @@ export default function storyblokIntegration(
 }
 
 export * from "./types";
+
+// Export sanitize-html and its defaults
+export { sanitizeHtml, sanitizeHtml as sanitizeHtmlDefaults };

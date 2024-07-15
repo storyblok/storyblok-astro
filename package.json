@@ -20,6 +20,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.2.2",
     "@commitlint/config-conventional": "^19.2.2",
+    "@types/sanitize-html": "^2.11.0",
     "@typescript-eslint/parser": "^7.7.1",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
@@ -39,9 +40,10 @@
     ]
   },
   "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ]
+    "extends": ["@commitlint/config-conventional"],
+    "rules": {
+      "footer-max-line-length": [0, "always", 100]
+    }
   },
   "eslintConfig": {
     "env": {
@@ -87,5 +89,8 @@
         }
       }
     ]
+  },
+  "dependencies": {
+    "defu": "^6.1.4"
   }
 }

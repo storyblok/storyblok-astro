@@ -1,5 +1,5 @@
 ---
-import { renderRichText } from "../";
+import { renderRichText, sanitizeHtml } from "../";
 import type { ISbRichtext, SbBlokData, SbRichTextOptions } from "../dist/types";
 
 import StoryblokComponent from "./StoryblokComponent.astro";
@@ -7,9 +7,10 @@ import StoryblokComponent from "./StoryblokComponent.astro";
 export interface Props {
   richTextData?: ISbRichtext;
   richTextOptions?: SbRichTextOptions;
+  sanitizeOptions: sanitizeHtml.IOptions;
 }
 
-const { richTextData, richTextOptions } = Astro.props;
+const { richTextData, richTextOptions, sanitizeOptions } = Astro.props;
 ---
 
 {
@@ -23,7 +24,8 @@ const { richTextData, richTextOptions } = Astro.props;
         <Fragment
           set:html={renderRichText(
             { type: richTextNode.type, content: [richTextNode] },
-            richTextOptions
+            richTextOptions,
+            sanitizeOptions
           )}
         />
       );
