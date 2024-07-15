@@ -31,9 +31,8 @@ export {
 
 // Default sanitize options
 const defaultSanitizeOptions = {
-  allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img"]),
+  allowedTags: sanitizeHtml.defaults.allowedTags.concat(["img", "audio", "video", "input", "button", "form"]),
 };
-
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
