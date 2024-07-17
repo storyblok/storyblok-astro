@@ -27,11 +27,6 @@
       "import": "./components/FallbackComponent.ts",
       "require": "./components/FallbackComponent.ts"
     },
-    "./RichTextRenderer.astro": {
-      "types": "./components/RichTextRenderer.ts",
-      "import": "./components/RichTextRenderer.ts",
-      "require": "./components/RichTextRenderer.ts"
-    },
     "./toolbarApp.ts": {
       "types": "./dev-toolbar/toolbarApp.ts",
       "import": "./dev-toolbar/toolbarApp.ts",
