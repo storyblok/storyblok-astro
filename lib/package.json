@@ -59,7 +59,7 @@
     "@cypress/vite-dev-server": "^5.0.7",
     "@rollup/plugin-dynamic-import-vars": "^2.1.2",
     "@types/lodash.mergewith": "^4.6.9",
-    "@types/node": "20.14.9",
+    "@types/node": "22.1.0",
     "astro": "^4.12.1",
     "cypress": "^13.12.0",
     "eslint-plugin-cypress": "^3.2.0",
