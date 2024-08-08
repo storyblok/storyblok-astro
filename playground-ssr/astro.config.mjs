@@ -22,8 +22,11 @@ export default defineConfig({
         },
       },
       useCustomApi: false,
-      bridge: true,
+      bridge: {
+        resolveRelations: ["featured-articles.posts"],
+      },
       enableFallbackComponent: true,
+      bridgeFromAstroConfig: true,
       livePreview: true,
       components: {
         page: "storyblok/Page",
