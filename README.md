@@ -309,16 +309,6 @@ const renderedRichText = renderRichText(blok.text)
 <div set:html="{renderedRichText}"></div>
 ```
 
-```jsx
----
-import RichTextRenderer from "@storyblok/astro/RichTextRenderer.astro";
-
-const { blok } = Astro.props
----
-
-<RichTextRenderer richTextData={blok.richtext} />
-```
-
 You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
 
 ```jsx
