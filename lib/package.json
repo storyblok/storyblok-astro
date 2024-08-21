@@ -51,7 +51,7 @@
     "prepublishOnly": "npm run build && cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/js": "^3.0.8",
+    "@storyblok/js": "^3.0.9",
     "camelcase": "^8.0.0",
     "lodash.mergewith": "^4.6.2"
   },
