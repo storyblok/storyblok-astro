@@ -10,13 +10,11 @@ import type { AstroGlobal, AstroIntegration } from "astro";
 import type {
   ISbConfig,
   ISbRichtext,
-  ISbStoriesParams,
   ISbStoryData,
   SbRichTextOptions,
   StoryblokBridgeConfigV2,
   StoryblokClient,
 } from "./types";
-import { vitePluginStoryblokBridge } from "./vite-plugins/vite-plugin-storyblok-bridge";
 export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
 
 export {
@@ -33,25 +31,10 @@ export function useStoryblokApi(): StoryblokClient {
   return globalThis.storyblokApiInstance;
 }
 
-export async function useStoryblok(
-  slug: string,
-  apiOptions: ISbStoriesParams = {},
-  bridgeOptions: StoryblokBridgeConfigV2 = {},
-  Astro: AstroGlobal
-) {
-  if (!globalThis.storyblokApiInstance) {
-    console.error("storyblokApiInstance has not been initialized correctly");
-  }
+export async function useStoryblok(Astro: AstroGlobal) {
   let story: ISbStoryData = null;
   if (Astro && Astro.locals["_storyblok_preview_data"]) {
     story = Astro.locals["_storyblok_preview_data"];
-  } else {
-    const { data } = await globalThis.storyblokApiInstance.get(
-      slug,
-      apiOptions,
-      bridgeOptions
-    );
-    story = data.story;
   }
   return story;
 }
@@ -121,7 +104,6 @@ export type IntegrationOptions = {
   /**
    * A boolean to enable/disable the per route base bridge config.
    */
-  bridgeFromAstroConfig?: boolean;
 };
 
 export default function storyblokIntegration(
@@ -133,7 +115,6 @@ export default function storyblokIntegration(
     componentsDir: "src",
     enableFallbackComponent: false,
     livePreview: false,
-    bridgeFromAstroConfig: false,
     ...options,
   };
   return {
@@ -161,14 +142,6 @@ export default function storyblokIntegration(
                 resolvedOptions.customFallbackComponent
               ),
               vitePluginStoryblokOptions(resolvedOptions),
-              ...(resolvedOptions.bridgeFromAstroConfig
-                ? []
-                : [
-                    vitePluginStoryblokBridge(
-                      resolvedOptions.livePreview,
-                      config.output
-                    ),
-                  ]),
             ],
           },
         });
@@ -206,7 +179,6 @@ export default function storyblokIntegration(
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
                 ${initBridge}
-
                 storyblokInstance.on(["published", "change"], (event) => {
                   if (!event.slugChanged) {
                     location.reload(true);
@@ -216,43 +188,9 @@ export default function storyblokIntegration(
             `
           );
         }
-        // This is only enabled if experimentalLivePreview and bridgeFromAstroConfig is enabled
-        if (
-          resolvedOptions.livePreview &&
-          resolvedOptions.bridgeFromAstroConfig
-        ) {
-          let initBridge: string = "";
-          if (typeof resolvedOptions.bridge === "object") {
-            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
-            )});`;
-          } else {
-            initBridge = "const storyblokInstance = new StoryblokBridge()";
-          }
-          injectScript(
-            "page",
-            `
-              import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
-              console.info("The Storyblok Astro live preview feature is currently in an experimental phase, and its API is subject to change in the future.")
-              loadStoryblokBridge().then(() => {
-                const { StoryblokBridge, location } = window;
-                ${initBridge}
-                storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
-              });
-            `
-          );
-          addMiddleware({
-            entrypoint: "@storyblok/astro/middleware.ts",
-            order: "pre",
-          });
-        }
 
         // This is only enabled if experimentalLivePreview feature is on
-        if (
-          resolvedOptions.livePreview &&
-          !resolvedOptions.bridgeFromAstroConfig
-        ) {
+        if (resolvedOptions.livePreview) {
           injectScript(
             "page",
             `
