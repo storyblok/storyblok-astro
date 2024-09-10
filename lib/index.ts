@@ -157,21 +157,19 @@ export default function storyblokIntegration(
           globalThis.storyblokApiInstance = storyblokApiInstance;
           `
         );
+        let initBridge: string = "";
 
+        if (typeof resolvedOptions.bridge === "object") {
+          const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
+          initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
+            bridgeConfigurationOptions
+          )});`;
+        } else {
+          initBridge = "const storyblokInstance = new StoryblokBridge()";
+        }
         // This is only enabled if experimentalLivePreview is disabled and bridge is enabled.
 
         if (resolvedOptions.bridge && !resolvedOptions.livePreview) {
-          let initBridge: string = "";
-
-          if (typeof resolvedOptions.bridge === "object") {
-            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
-            )});`;
-          } else {
-            initBridge = "const storyblokInstance = new StoryblokBridge()";
-          }
-
           injectScript(
             "page",
             `
@@ -195,14 +193,11 @@ export default function storyblokIntegration(
             "page",
             `
               import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
-              import { bridgeOptions }  from "virtual:storyblok-bridge";
               console.info("The Storyblok Astro live preview feature is currently in an experimental phase, and its API is subject to change in the future.")
               loadStoryblokBridge().then(() => {
                 const { StoryblokBridge, location } = window;
-                if(bridgeOptions){
-                  const storyblokInstance = new StoryblokBridge(bridgeOptions);
-                  storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
-                };
+                ${initBridge}
+                storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
               });
             `
           );
