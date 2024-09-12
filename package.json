@@ -6,13 +6,15 @@
     "./lib",
     "./playground",
     "./playground-ssr",
-    "./playground-test"
+    "./playground-test",
+    "./playground-content-layer"
   ],
   "scripts": {
     "dev": "npm run dev --workspace=lib & npm run demo",
     "demo": "npm run dev --workspace=playground",
     "demo-test": "npm run dev --workspace=playground-test",
     "demo-ssr": "npm run dev --workspace=playground-ssr",
+    "demo-cl": "npm run dev --workspace=playground-content-layer",
     "build": "npm run build --workspace=lib",
     "test:e2e": "npm run test:e2e --workspace=lib",
     "prepare": "husky install"
