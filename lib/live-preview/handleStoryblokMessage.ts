@@ -69,6 +69,7 @@ async function getNewHTMLBody(story: ISbStoryData) {
       "Content-Type": "application/json",
     },
   });
+
   const html = await result.text();
   const parser = new DOMParser();
   const doc = parser.parseFromString(html, "text/html");

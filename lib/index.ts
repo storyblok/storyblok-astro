@@ -16,6 +16,8 @@ import type {
   StoryblokClient,
 } from "./types";
 export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
+export { syncContentUpdate } from "./content-layer/syncContentUpdate";
+export { storyblokLoader } from "./content-layer/storyblokLoader";
 
 export {
   storyblokEditable,
@@ -102,8 +104,9 @@ export type IntegrationOptions = {
    */
   livePreview?: boolean;
   /**
-   * A boolean to enable/disable the per route base bridge config.
+   * A boolean to enable/disable storyblok content layer.
    */
+  contentLayer?: boolean;
 };
 
 export default function storyblokIntegration(
@@ -115,6 +118,7 @@ export default function storyblokIntegration(
     componentsDir: "src",
     enableFallbackComponent: false,
     livePreview: false,
+    contentLayer: false,
     ...options,
   };
   return {
@@ -145,11 +149,11 @@ export default function storyblokIntegration(
             ],
           },
         });
-        if (resolvedOptions.livePreview && config?.output !== "server") {
-          throw new Error(
-            "To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode."
-          );
-        }
+        // if (resolvedOptions.livePreview && config?.output !== "server") {
+        //   throw new Error(
+        //     "To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode."
+        //   );
+        // }
         injectScript(
           "page-ssr",
           `
@@ -206,8 +210,60 @@ export default function storyblokIntegration(
             order: "pre",
           });
         }
+        // This is only enabled if experimentalLivePreview feature is on
+        if (resolvedOptions.contentLayer) {
+          injectScript(
+            "page",
+            `
+              import { loadStoryblokBridge, syncContentUpdate } from "@storyblok/astro";
+              loadStoryblokBridge().then(() => {
+                const { StoryblokBridge } = window;
+                const storyblokInstance = new StoryblokBridge()
+                storyblokInstance.on(["published", "change", "input"], syncContentUpdate);
+              });
+            `
+          );
+        }
         addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
       },
+      ...(resolvedOptions.contentLayer
+        ? {
+            "astro:server:setup": async ({ server, refreshContent }) => {
+              // `server` is the Vite dev server instance
+              server.middlewares.use("/_refresh", async (req, res) => {
+                if (req.method !== "POST") {
+                  res.writeHead(405, { "Content-Type": "application/json" });
+                  res.end(JSON.stringify({ error: "Method Not Allowed" }));
+                  return;
+                }
+                let body = [];
+                req.on("data", (chunk) => body.push(chunk));
+                req.on("end", async () => {
+                  try {
+                    const story = JSON.parse(Buffer.concat(body).toString());
+                    await refreshContent?.({
+                      context: { story },
+                      loaders: ["story-loader"],
+                    });
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.end(
+                      JSON.stringify({
+                        message: "Content refreshed successfully",
+                      })
+                    );
+                  } catch (error) {
+                    res.writeHead(500, { "Content-Type": "application/json" });
+                    res.end(
+                      JSON.stringify({
+                        error: `Failed to refresh content: ${error.message}`,
+                      })
+                    );
+                  }
+                });
+              });
+            },
+          }
+        : {}),
     },
   };
 }
