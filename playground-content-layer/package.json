@@ -1,5 +1,5 @@
 {
-  "name": "@storyblok/astro-playground",
+  "name": "@storyblok/astro-playground-content-layers",
   "version": "0.0.0",
   "scripts": {
     "dev": "astro dev",
@@ -14,7 +14,7 @@
     "@astrojs/vue": "^4.5.0",
     "@storyblok/astro": "1.0.0",
     "@vitejs/plugin-basic-ssl": "^1.1.0",
-    "astro": "^5.0.0-alpha.4",
+    "astro": "^5.0.0-alpha.6",
     "react": "^18.2.0",
     "react-dom": "^18.3.1",
     "svelte": "^4.2.18",

@@ -1,14 +1,24 @@
 ---
 import { storyblokEditable } from "@storyblok/astro";
+import { getEntries } from "astro:content";
 
 const { blok } = Astro.props;
+
+const posts_array = blok.posts.map((post) => {
+  return {
+    collection: "blog",
+    id: post,
+  };
+});
+const stories = await getEntries(posts_array);
+const posts = stories.map((story) => story?.data);
 ---
 
 <div {...storyblokEditable(blok)} class="my-4 py-2">
   <h2 class="text-center text-4xl font-bold">{blok?.heading}</h2>
   <div class="container grid grid-cols-3 gap-12 mt-4">
     {
-      blok.posts?.map((blok) => {
+      posts?.map((blok) => {
         return (
           <div class="border p-2">
             <p class="font-bold text-xl mb-2">{blok.name}</p>
