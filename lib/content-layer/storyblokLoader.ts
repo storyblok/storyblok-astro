@@ -17,32 +17,61 @@ export function storyblokLoader(config: StoryblokLoaderConfig): Loader {
       if (!storyblokApi) {
         throw new Error(`storyblokApi is not loaded`);
       }
+      // Handle updated stories
       if (refreshContextData?.story) {
-        logger.info("Syncing story updated in Storyblok");
-        const updatedStory = refreshContextData?.story as any;
+        logger.info("Syncing... story updated in Storyblok");
+        const updatedStory = refreshContextData.story as any; // Improve type if possible
         store.set({
           data: updatedStory,
-          id: updatedStory?.uuid,
+          id: updatedStory.uuid,
         });
+        return; // Early return to avoid unnecessary processing
       }
       logger.info("Loading stories");
-      const lastSynced = meta.get("lastSynced");
-      // Don't sync more than once 2 minute
-      if (lastSynced && Date.now() - Number(lastSynced) < 1000 * 120) {
-        logger.info("Skipping sync");
-        return;
-      }
+
+      const storedLastPublishedAt = meta.get("lastPublishedAt");
+      const otherParams =
+        storedLastPublishedAt && config.version === "published"
+          ? { published_at_gt: storedLastPublishedAt }
+          : {};
+
       const stories = await storyblokApi?.getAll("cdn/stories", {
-        version: config.version || "draft",
+        version: config.version,
+        ...otherParams,
       });
-      store.clear();
+      console.log("total = ", stories.length);
+
+      // Clear the store before repopulating
+      logger.info("Clearing store");
+
+      if (config.version === "draft") {
+        store.clear();
+      }
+
+      let latestPublishedAt = storedLastPublishedAt
+        ? new Date(storedLastPublishedAt)
+        : null;
+
       for (const story of stories) {
+        const publishedAt = story.published_at
+          ? new Date(story.published_at)
+          : null;
+        if (
+          publishedAt &&
+          (!latestPublishedAt || publishedAt > latestPublishedAt)
+        ) {
+          latestPublishedAt = publishedAt;
+        }
         store.set({
           data: story,
           id: story.uuid,
         });
+
+        // Update meta if new stories are found
+        if (latestPublishedAt) {
+          meta.set("lastPublishedAt", latestPublishedAt.toISOString());
+        }
       }
-      meta.set("lastSynced", String(Date.now()));
     },
   };
 }

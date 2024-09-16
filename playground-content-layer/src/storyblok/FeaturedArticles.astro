@@ -3,6 +3,7 @@ import { storyblokEditable } from "@storyblok/astro";
 import { getEntries } from "astro:content";
 
 const { blok } = Astro.props;
+// console.log(blok);
 
 const posts_array = blok.posts.map((post) => {
   return {
