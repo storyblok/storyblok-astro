@@ -150,6 +150,12 @@ declare module 'astro:content' {
   data: any;
   rendered?: RenderedContent 
 }>;
+"storyblok": Record<string, {
+  id: string;
+  collection: "storyblok";
+  data: any;
+  rendered?: RenderedContent 
+}>;
 
 	};
 

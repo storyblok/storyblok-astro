@@ -1,7 +1,7 @@
 import { storyblokLoader } from "@storyblok/astro";
 import { defineCollection } from "astro:content";
 
-const blogCollection = defineCollection({
+const storyblokCollection = defineCollection({
   loader: storyblokLoader({
     STORYBLOK_TOKEN: "OsvNv534kS2nivAAj1EPVgtt",
     version: "published",
@@ -9,5 +9,5 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
-  blog: blogCollection,
+  storyblok: storyblokCollection,
 };
