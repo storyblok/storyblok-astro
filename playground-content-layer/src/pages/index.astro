@@ -1,0 +1,15 @@
+---
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import { type ISbStoryData } from "@storyblok/astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+const stories = await getCollection("storyblok");
+const homeStory = stories.find(
+  (story: { data: ISbStoryData }) => story.data.slug === "home"
+);
+const story = homeStory?.data;
+---
+
+<BaseLayout>
+  <StoryblokComponent blok={story.content} />
+</BaseLayout>

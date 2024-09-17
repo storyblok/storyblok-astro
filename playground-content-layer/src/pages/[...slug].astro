@@ -1,0 +1,27 @@
+---
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { type ISbStoryData } from "@storyblok/astro";
+
+export async function getStaticPaths() {
+  const stories = await getCollection("storyblok");
+
+  return stories.map(({ data }: { data: ISbStoryData }) => {
+    return {
+      params: { slug: data.full_slug },
+      props: { story: data },
+    };
+  });
+}
+
+interface Props {
+  story: ISbStoryData;
+}
+
+const { story } = Astro.props;
+---
+
+<BaseLayout>
+  <StoryblokComponent blok={story.content} />
+</BaseLayout>

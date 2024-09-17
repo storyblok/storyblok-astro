@@ -18,6 +18,8 @@ import type {
 import { initStoryblokBridge } from "./utils/initStoryblokBridge";
 import { storyblokLogo } from "./dev-toolbar/toolbarApp";
 export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
+export { syncContentUpdate } from "./content-layer/syncContentUpdate";
+export { storyblokLoader } from "./content-layer/storyblokLoader";
 
 export {
   storyblokEditable,
@@ -103,6 +105,10 @@ export type IntegrationOptions = {
    * A boolean to enable/disable the Experimental Live Preview feature. Disabled by default.
    */
   livePreview?: boolean;
+  /**
+   * A boolean to enable/disable storyblok content layer.
+   */
+  contentLayer?: boolean;
 };
 
 export default function storyblokIntegration({
@@ -111,6 +117,7 @@ export default function storyblokIntegration({
   componentsDir = "src",
   enableFallbackComponent = false,
   livePreview = false,
+  contentLayer = false,
   ...restOptions
 }: IntegrationOptions): AstroIntegration {
   const resolvedOptions = {
@@ -119,6 +126,7 @@ export default function storyblokIntegration({
     componentsDir,
     enableFallbackComponent,
     livePreview,
+    contentLayer,
     ...restOptions,
   };
 
@@ -205,6 +213,21 @@ export default function storyblokIntegration({
             order: "pre",
           });
         }
+        // This is only enabled if experimentalLivePreview feature is on
+        if (contentLayer) {
+          injectScript(
+            "page",
+            `
+              import { loadStoryblokBridge, syncContentUpdate } from "@storyblok/astro";
+              loadStoryblokBridge().then(() => {
+                const { StoryblokBridge } = window;
+                const storyblokInstance = new StoryblokBridge()
+                storyblokInstance.on(["published", "change", "input"], syncContentUpdate);
+              });
+            `
+          );
+        }
+
         addDevToolbarApp({
           id: "storyblok",
           name: "Storyblok",
@@ -212,6 +235,44 @@ export default function storyblokIntegration({
           entrypoint: "@storyblok/astro/toolbarApp.ts",
         });
       },
+      ...(contentLayer
+        ? {
+            "astro:server:setup": async ({ server, refreshContent }) => {
+              // `server` is the Vite dev server instance
+              server.middlewares.use("/_refresh", async (req, res) => {
+                if (req.method !== "POST") {
+                  res.writeHead(405, { "Content-Type": "application/json" });
+                  res.end(JSON.stringify({ error: "Method Not Allowed" }));
+                  return;
+                }
+                let body = [];
+                req.on("data", (chunk) => body.push(chunk));
+                req.on("end", async () => {
+                  try {
+                    const story = JSON.parse(Buffer.concat(body).toString());
+                    await refreshContent?.({
+                      context: { story },
+                      loaders: ["story-loader"],
+                    });
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.end(
+                      JSON.stringify({
+                        message: "Content refreshed successfully",
+                      })
+                    );
+                  } catch (error) {
+                    res.writeHead(500, { "Content-Type": "application/json" });
+                    res.end(
+                      JSON.stringify({
+                        error: `Failed to refresh content: ${error.message}`,
+                      })
+                    );
+                  }
+                });
+              });
+            },
+          }
+        : {}),
     },
   };
 }

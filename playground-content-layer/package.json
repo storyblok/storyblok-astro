@@ -1,0 +1,24 @@
+{
+  "name": "@storyblok/astro-playground-content-layer",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "devDependencies": {
+    "@astrojs/react": "^3.6.2",
+    "@astrojs/svelte": "^5.7.0",
+    "@astrojs/tailwind": "^6.0.0-beta.0",
+    "@astrojs/vue": "^4.5.0",
+    "@storyblok/astro": "1.0.0",
+    "astro": "^5.0.0-alpha.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.3.1",
+    "svelte": "^4.2.18",
+    "tailwindcss": "^3.4.3",
+    "vite-plugin-mkcert": "^1.17.6",
+    "vue": "^3.4.38"
+  }
+}
