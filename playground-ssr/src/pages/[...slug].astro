@@ -1,21 +1,36 @@
 ---
-import { useStoryblok } from "@storyblok/astro";
+import {
+  getLiveStory,
+  useStoryblokApi,
+  type ISbStoryData,
+} from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const { slug } = Astro.params;
-
-const story = await useStoryblok(
-  `cdn/stories/${slug === undefined ? "home" : slug}`,
-  {
-    version: "draft",
-    resolve_relations: ["featured-articles.posts"],
-  },
-  {},
-  Astro
-);
+let story: ISbStoryData = null;
+const liveStory = await getLiveStory(Astro);
+if (liveStory) {
+  story = liveStory;
+} else {
+  const sbApi = useStoryblokApi();
+  const { data } = await sbApi.get(
+    `cdn/stories/${slug === undefined ? "home" : slug}`,
+    {
+      version: "draft",
+      resolve_relations: ["featured-articles.posts"],
+    }
+  );
+  story = data?.story;
+}
 ---
 
 <BaseLayout>
   <StoryblokComponent blok={story.content} />
 </BaseLayout>
+<script>
+  document.addEventListener("storyblok-live-preview-updated", () => {
+    console.log("Live preview: body updated");
+    // initUnoCssRuntime(); regenerate all the css
+  });
+</script>

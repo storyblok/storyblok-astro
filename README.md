@@ -375,33 +375,47 @@ export default defineConfig({
 });
 ```
 
-2. Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
+1. Additionally, please use `getLiveStory` on your Astro pages for getting live story.
 
 ```jsx
 //pages/[...slug].astro
 ---
-import { useStoryblok } from "@storyblok/astro";
+import { getLiveStory, useStoryblokApi, type ISbStoryData } from "@storyblok/astro";
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { slug } = Astro.params;
 
-const story = await useStoryblok(
-  // The slug to fetch
-  `cdn/stories/${slug === undefined ? "home" : slug}`,
-  // The API options
-  {
-    version: "draft",
-  },
-  // The Bridge options (optional, if an empty object, null, or false are set, the API options will be considered automatically as far as applicable)
-  {},
-  // The Astro object (essential for the live preview functionality)
-  Astro
-);
+let story: ISbStoryData = null;
+
+const liveStory = await getLiveStory(Astro);
+
+if (liveStory) {
+  story = liveStory;
+} else {
+  const sbApi = useStoryblokApi();
+  const { data } = await sbApi.get(
+    `cdn/stories/${slug === undefined ? "home" : slug}`,
+    {
+      version: "draft",
+      resolve_relations: ["featured-articles.posts"],
+    }
+  );
+  story = data?.story;
+}
 ---
 
 <StoryblokComponent blok={story.content} />
 ```
+2. You can also listen to when the live preview is updated.
 
+```js
+<script>
+  document.addEventListener("storyblok-live-preview-updated", () => {
+    // console.log("Live preview: body updated");
+    // initUnoCssRuntime(); regenerate all the css
+  });
+</script>
+```
 ## The Storyblok JavaScript SDK Ecosystem
 
 ![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)
