@@ -16,6 +16,7 @@ import type {
   StoryblokClient,
 } from "./types";
 import { initStoryblokBridge } from "./utils/initStoryblokBridge";
+import { storyblokLogo } from "./dev-toolbar/toolbarApp";
 export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
 
 export {
@@ -204,7 +205,12 @@ export default function storyblokIntegration({
             order: "pre",
           });
         }
-        addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
+        addDevToolbarApp({
+          id: "storyblok",
+          name: "Storyblok",
+          icon: storyblokLogo,
+          entrypoint: "@storyblok/astro/toolbarApp.ts",
+        });
       },
     },
   };

@@ -1,10 +1,11 @@
-import type { DevToolbarApp } from "astro";
+import { defineToolbarApp } from "astro/toolbar";
+
 import {
   isDefinedIcon,
   type Icon,
 } from "astro/runtime/client/dev-toolbar/ui-library/icons.js";
 
-const storyblokLogo = `<svg width="45px" height="53px" viewBox="0 0 45 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+export const storyblokLogo = `<svg width="45px" height="53px" viewBox="0 0 45 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <g id="storyblok-logo-kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="storyblok-partner-logo" transform="translate(-59.000000, -169.000000)" fill-rule="nonzero">
             <g id="storyblok-symbol" transform="translate(59.000000, 169.000000)">
@@ -35,10 +36,7 @@ function createWindowElement(content: string) {
   return windowElement;
 }
 
-export default {
-  id: "storyblok",
-  name: "Storyblok",
-  icon: storyblokLogo,
+export default defineToolbarApp({
   init(canvas) {
     createCanvas();
 
@@ -182,4 +180,4 @@ export default {
       canvas.append(windowComponent);
     }
   },
-} satisfies DevToolbarApp;
+});

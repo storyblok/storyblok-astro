@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 
-export function vitePluginStoryblokOptions(options: object): Plugin {
+export function vitePluginStoryblokOptions(options: object) {
   const virtualModuleId = `virtual:storyblok-options`;
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 

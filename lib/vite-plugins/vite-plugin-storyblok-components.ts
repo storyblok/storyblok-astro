@@ -9,7 +9,7 @@ export function vitePluginStoryblokComponents(
   components?: object,
   enableFallbackComponent?: boolean,
   customFallbackComponent?: string
-): Plugin {
+) {
   const virtualModuleId = "virtual:storyblok-components";
   const resolvedVirtualModuleId = "\0" + virtualModuleId;
 
