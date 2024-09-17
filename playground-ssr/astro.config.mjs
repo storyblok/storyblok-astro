@@ -1,11 +1,11 @@
 import { defineConfig } from "astro/config";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
-import basicSsl from "@vitejs/plugin-basic-ssl";
 import vercel from "@astrojs/vercel/serverless";
 import svelte from "@astrojs/svelte";
 import vue from "@astrojs/vue";
 import react from "@astrojs/react";
+import mkcert from "vite-plugin-mkcert";
 
 // https://astro.build/config
 export default defineConfig({
@@ -40,7 +40,7 @@ export default defineConfig({
     tailwind(),
   ],
   vite: {
-    plugins: [basicSsl()],
+    plugins: [mkcert()],
     server: {
       https: true,
     },
