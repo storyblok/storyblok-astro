@@ -3,7 +3,7 @@ import { defineCollection } from "astro:content";
 
 const storyblokCollection = defineCollection({
   loader: storyblokLoader({
-    STORYBLOK_TOKEN: "OsvNv534kS2nivAAj1EPVgtt",
+    accessToken: "OsvNv534kS2nivAAj1EPVgtt",
     version: "published",
   }),
 });
