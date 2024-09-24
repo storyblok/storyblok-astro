@@ -360,7 +360,7 @@ The Astro SDK now provides a live preview feature, designed to offer real-time e
 
 To activate the experimental live preview feature, follow these steps:
 
-1. Set `livePreview` to `true` within your `astro.config.mjs` file.
+1. Set `livePreview` to `true` in your astro.config.mjs file. You can also add your `bridge` configuration here, which will be applied to your bridge.
 
 ```js
 //astro.config.mjs
@@ -369,13 +369,16 @@ export default defineConfig({
     storyblok({
       accessToken: "OsvN..",
       livePreview: true,
+      bridge: {
+        resolveRelations: ["featured.posts"],//Your bridge config 
+      }
     }),
   ],
   output: "server", // Astro must be configured to run in SSR mode
 });
 ```
 
-1. Additionally, please use `getLiveStory` on your Astro pages for getting live story.
+2. Additionally, please use `getLiveStory` on your Astro pages for getting live story.
 
 ```jsx
 //pages/[...slug].astro
@@ -406,7 +409,7 @@ if (liveStory) {
 
 <StoryblokComponent blok={story.content} />
 ```
-2. You can also listen to when the live preview is updated.
+3. You can also listen to when the live preview is updated.
 
 ```js
 <script>
@@ -416,6 +419,85 @@ if (liveStory) {
   });
 </script>
 ```
+
+## Enabling Storyblok Loader
+
+> [!WARNING]
+> This feature is currently experimental and optional. You may encounters bugs or performance issues.
+
+The Astro SDK now provides Storyblok Loader feature, It is designed to scale efficiently and handle large sites with thousands of pages highly performantly.
+
+To activate the experimental Storyblok Loader feature, follow these steps:
+
+1. Set `contentLayer` to `true` in your `astro.config.mjs` file.
+
+```js
+//astro.config.mjs
+export default defineConfig({
+  integrations: [
+    storyblok({
+      accessToken: "OsvN..",
+      contentLayer: true,
+    }),
+  ],
+});
+```
+
+2. Additionally, in your `src/content/config.ts` file define your collection.
+
+```jsx
+//src/content/config.ts
+import { storyblokLoader } from "@storyblok/astro";
+import { defineCollection } from "astro:content";
+
+const storyblokCollection = defineCollection({
+  loader: storyblokLoader({
+    accessToken: "fV...",
+    apiOptions: {
+      region: "us",
+    },
+    version: "draft",
+  }),
+});
+
+export const collections = {
+  storyblok: storyblokCollection,
+};
+
+```
+3. You can now use the storyblokCollection in your pages.
+
+```jsx
+//src/pages/[...slug].astro
+---
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import { type ISbStoryData } from "@storyblok/astro";
+
+export async function getStaticPaths() {
+  const stories = await getCollection("storyblok");
+
+  return stories.map(({ data }: { data: ISbStoryData }) => {
+    return {
+      params: { slug: data.full_slug },
+      props: { story: data },
+    };
+  });
+}
+
+interface Props {
+  story: ISbStoryData;
+}
+
+const { story } = Astro.props;
+---
+
+<BaseLayout>
+  <StoryblokComponent blok={story.content} />
+</BaseLayout>
+```
+
 ## The Storyblok JavaScript SDK Ecosystem
 
 ![A visual representation of the Storyblok JavaScript SDK Ecosystem](https://a.storyblok.com/f/88751/2400x1350/be4a4a4180/sdk-ecosystem.png/m/1200x0)

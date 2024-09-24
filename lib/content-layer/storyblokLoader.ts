@@ -1,14 +1,16 @@
 import type { Loader } from "astro/loaders";
-import { storyblokInit, apiPlugin } from "@storyblok/js";
+import { storyblokInit, apiPlugin, type ISbConfig } from "@storyblok/js";
 
 interface StoryblokLoaderConfig {
   accessToken: string;
+  apiOptions?: ISbConfig;
   version: "draft" | "published";
 }
 
 export function storyblokLoader(config: StoryblokLoaderConfig): Loader {
   const { storyblokApi } = storyblokInit({
     accessToken: config.accessToken,
+    apiOptions: config.apiOptions,
     use: [apiPlugin],
   });
   return {
