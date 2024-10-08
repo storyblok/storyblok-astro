@@ -29,7 +29,7 @@
 
 ## Kickstart a new project
 
-Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies#astro?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)**, and get started in just a few minutes!
+Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro#astro)**, and get started in just a few minutes!
 
 ## Ultimate Tutorial
 
