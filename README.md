@@ -29,7 +29,7 @@
 
 ## Kickstart a new project
 
-Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies#astro?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro)**, and get started in just a few minutes!
+Are you eager to dive into coding? **[Follow these steps to kickstart a new project with Storyblok and Astro](https://www.storyblok.com/technologies?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro#astro)**, and get started in just a few minutes!
 
 ## Ultimate Tutorial
 
@@ -432,5 +432,5 @@ Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/)
 
 ## Contributing
 
-Please see our [contributing guidelines](https://github.com/storyblok/.github/blob/master/contributing.md) and our [code of conduct](https://www.storyblok.com/trust-center#code-of-conduct?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
+Please see our [contributing guidelines](https://github.com/storyblok/.github/blob/master/contributing.md) and our [code of conduct](https://www.storyblok.com/trust-center?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro#code-of-conduct).
 This project uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for generating new versions by using commit messages. We use the Angular Convention to name the commits.
