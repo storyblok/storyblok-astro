@@ -15,7 +15,7 @@
     "demo-ssr": "npm run dev --workspace=playground-ssr",
     "build": "npm run build --workspace=lib",
     "test:e2e": "npm run test:e2e --workspace=lib",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
