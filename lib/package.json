@@ -51,22 +51,22 @@
     "prepublishOnly": "npm run build && cp ../README.md ./"
   },
   "dependencies": {
-    "@storyblok/js": "^3.1.4",
+    "@storyblok/js": "^3.1.6",
     "camelcase": "^8.0.0",
     "lodash.mergewith": "^4.6.2"
   },
   "devDependencies": {
-    "@cypress/vite-dev-server": "^5.0.7",
-    "@rollup/plugin-dynamic-import-vars": "^2.1.2",
+    "@cypress/vite-dev-server": "^5.2.0",
+    "@rollup/plugin-dynamic-import-vars": "^2.1.5",
     "@types/lodash.mergewith": "^4.6.9",
-    "@types/node": "22.4.1",
-    "astro": "^4.15.2",
-    "cypress": "^13.13.3",
-    "eslint-plugin-cypress": "^3.2.0",
-    "start-server-and-test": "^2.0.5",
-    "typescript": "5.4.5",
-    "vite": "^5.3.1",
-    "vite-plugin-dts": "^3.7.3"
+    "@types/node": "22.8.2",
+    "astro": "^4.16.7",
+    "cypress": "^13.15.1",
+    "eslint-plugin-cypress": "^4.0.0",
+    "start-server-and-test": "^2.0.8",
+    "typescript": "5.6.3",
+    "vite": "^5.4.10",
+    "vite-plugin-dts": "^4.3.0"
   },
   "peerDependencies": {
     "astro": "^3.0.0 || ^4.0.0"
