@@ -52,7 +52,6 @@
   },
   "dependencies": {
     "@storyblok/js": "^3.1.7",
-    "camelcase": "^8.0.0",
     "lodash.mergewith": "^4.6.2"
   },
   "devDependencies": {

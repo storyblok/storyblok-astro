@@ -1,7 +1,4 @@
-/**
- * Custom Vite plugin by Tony Sull (https://github.com/tony-sull)
- */
-import camelcase from "camelcase";
+import toCamelCase from "../utils/camelcase";
 import type { Plugin } from "vite";
 
 export function vitePluginStoryblokComponents(
@@ -58,7 +55,7 @@ export function vitePluginStoryblokComponents(
              * important: convert blok names to camel case for valid import names
              * StoryblokComponent.astro needs to do the same when resolving components!
              */
-            imports.push(`import ${camelcase(key)} from "${resolvedId.id}"`);
+            imports.push(`import ${toCamelCase(key)} from "${resolvedId.id}"`);
           }
         }
 
@@ -115,7 +112,7 @@ export function vitePluginStoryblokComponents(
         } else {
           return `${imports.join(";")};export default {${Object.keys(components)
             .filter((key) => !excludedKeys.includes(key))
-            .map((key) => camelcase(key))
+            .map((key) => toCamelCase(key))
             .join(",")}${fallbackComponentKey}}`;
         }
       }
