@@ -1,7 +1,7 @@
 ---
 import components from "virtual:storyblok-components";
 import options from "virtual:storyblok-options";
-import camelcase from "camelcase";
+import toCamelCase from "../utils/toCamelCase";
 import type { SbBlokData } from "../dist/types";
 import type { AstroComponentFactory } from "astro/runtime/server/index.js";
 
@@ -21,7 +21,7 @@ if (!blok) {
 /**
  * convert blok components to camel case to match vite-plugin-storyblok-components
  */
-let key = camelcase(blok.component);
+let key = toCamelCase(blok.component);
 
 const componentFound: boolean = key in components;
 
