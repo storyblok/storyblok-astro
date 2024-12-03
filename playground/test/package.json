@@ -1,5 +1,5 @@
 {
-  "name": "@storyblok/astro-playground-test",
+  "name": "test",
   "version": "0.0.0",
   "scripts": {
     "dev": "astro dev",
@@ -8,7 +8,7 @@
     "preview": "astro preview"
   },
   "devDependencies": {
-    "@storyblok/astro": "1.0.0",
+    "@storyblok/astro": "workspace:^",
     "astro": "^4.16.10"
   }
 }

@@ -38,7 +38,7 @@ export function vitePluginStoryblokBridge(
     };
   }
   let rawCode: RawCode = [];
-  let _server: ViteDevServer = null;
+  let _server: ViteDevServer | null = null;
   let restartTimeout: NodeJS.Timeout;
 
   return {
@@ -52,7 +52,7 @@ export function vitePluginStoryblokBridge(
       if (id.includes("node_modules") && !id.includes("/pages/")) return;
       if (!code.includes("useStoryblok")) return;
       const moduleInfo = this.getModuleInfo(id);
-      if (!moduleInfo.meta?.astro) return;
+      if (!moduleInfo?.meta?.astro) return;
       const [, ...routeArray] = id.split("src/pages/");
       const url = routeArray.join("/").replace(".astro", "");
       const options = parseAstRawCode(this.parse(code));
@@ -70,7 +70,7 @@ export function vitePluginStoryblokBridge(
       restartTimeout = setTimeout(() => {
         if (alreadyHaveThisUrl(previousRawCode, rawCode)) return;
         if (previousRawCode.length !== 0) {
-          _server.restart();
+          _server?.restart();
           console.info("Bridge options updated. Restarting...");
         }
         previousRawCode = [...rawCode];

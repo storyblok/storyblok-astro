@@ -4,7 +4,7 @@ import toCamelCase from "../utils/toCamelCase";
 
 export function vitePluginStoryblokComponents(
   componentsDir: string,
-  components?: object,
+  components: Record<string, string> = {},
   enableFallbackComponent?: boolean,
   customFallbackComponent?: string
 ): Plugin {

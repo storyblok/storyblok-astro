@@ -14,7 +14,6 @@ export type {
   ISbError,
   ISbNode,
   ISbSchema,
-  ThrottleFn,
   AsyncFn,
   ArrayFn,
   ISbContentMangmntAPI,

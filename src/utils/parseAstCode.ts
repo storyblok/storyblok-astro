@@ -2,7 +2,7 @@ import mergeWith from "lodash.mergewith";
 import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
 import type { RawCodeItemOptions } from "../vite-plugins/vite-plugin-storyblok-bridge";
 import type { Rollup } from "vite";
-import type { SpreadElement, Property } from "estree";
+import type { SpreadElement } from "typescript";
 
 /**
  * Parses through the Abstract Syntax Tree (AST) code to locate the 'useStoryblok' function and its properties.
@@ -41,7 +41,7 @@ export function parseAstRawCode(astCode: Rollup.ProgramNode) {
   return obj;
 }
 
-function getAstPropToObj(properties: (SpreadElement | Property)[]) {
+function getAstPropToObj(properties: (SpreadElement | any)[]) {
   const option: ISbStoriesParams | StoryblokBridgeConfigV2 = {};
 
   return properties.reduce((options, property) => {
@@ -53,12 +53,15 @@ function getAstPropToObj(properties: (SpreadElement | Property)[]) {
     if (type === "Literal") {
       options[key.name] = value.value;
     } else if (type === "ArrayExpression") {
-      const arrayValues = value.elements.reduce((acc, element) => {
-        if (element.type === "Literal" && element.value) {
-          return [...acc, element.value];
-        }
-        return acc;
-      }, []);
+      const arrayValues = value.elements.reduce(
+        (acc: any, element: { type: string; value: any }) => {
+          if (element.type === "Literal" && element.value) {
+            return [...acc, element.value];
+          }
+          return acc;
+        },
+        []
+      );
       options[key.name] = arrayValues;
     }
     return options;

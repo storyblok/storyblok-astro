@@ -28,7 +28,7 @@ export {
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
-    console.error("storyblokApiInstance has not been initialized correctly");
+    throw new Error("storyblokApiInstance has not been initialized correctly");
   }
   return globalThis.storyblokApiInstance;
 }
@@ -36,20 +36,19 @@ export function useStoryblokApi(): StoryblokClient {
 export async function useStoryblok(
   slug: string,
   apiOptions: ISbStoriesParams = {},
-  bridgeOptions: StoryblokBridgeConfigV2 = {},
+  _: StoryblokBridgeConfigV2 = {},
   Astro: AstroGlobal
 ) {
   if (!globalThis.storyblokApiInstance) {
-    console.error("storyblokApiInstance has not been initialized correctly");
+    throw new Error("storyblokApiInstance has not been initialized correctly");
   }
-  let story: ISbStoryData = null;
+  let story: ISbStoryData | null = null;
   if (Astro && Astro.locals["_storyblok_preview_data"]) {
     story = Astro.locals["_storyblok_preview_data"];
   } else {
-    const { data } = await globalThis.storyblokApiInstance.get(
+    const { data } = await globalThis?.storyblokApiInstance?.get(
       slug,
-      apiOptions,
-      bridgeOptions
+      apiOptions
     );
     story = data.story;
   }
@@ -60,13 +59,12 @@ export function renderRichText(
   data?: ISbRichtext,
   options?: SbRichTextOptions
 ) {
-  const resolverInstance: RichTextResolver =
-    globalThis.storyblokApiInstance.richTextResolver;
+  const resolverInstance: RichTextResolver | undefined =
+    globalThis?.storyblokApiInstance?.richTextResolver;
   if (!resolverInstance) {
-    console.error(
+    throw new Error(
       "Please initialize the Storyblok SDK before calling the renderRichText function"
     );
-    return;
   }
   return origRenderRichText(data, options, resolverInstance);
 }
@@ -100,7 +98,7 @@ export type IntegrationOptions = {
    * },
    * ```
    */
-  components?: object;
+  components?: Record<string, string>;
   /**
    * The directory containing your Astro components are. Defaults to "src".
    */
