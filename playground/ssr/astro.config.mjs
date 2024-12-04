@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
-import basicSsl from "@vitejs/plugin-basic-ssl";
+import mkcert from "vite-plugin-mkcert";
 import vercel from "@astrojs/vercel/serverless";
 import svelte from "@astrojs/svelte";
 import vue from "@astrojs/vue";
@@ -40,10 +40,7 @@ export default defineConfig({
     tailwind(),
   ],
   vite: {
-    plugins: [basicSsl()],
-    server: {
-      https: true,
-    },
+    plugins: [mkcert()],
   },
   output: "server",
   adapter: vercel(),

@@ -4,7 +4,7 @@ import vue from "@astrojs/vue";
 import react from "@astrojs/react";
 import storyblok from "@storyblok/astro";
 import tailwind from "@astrojs/tailwind";
-import basicSsl from "@vitejs/plugin-basic-ssl";
+import mkcert from "vite-plugin-mkcert";
 
 export default defineConfig({
   integrations: [
@@ -32,9 +32,6 @@ export default defineConfig({
     tailwind(),
   ],
   vite: {
-    plugins: [basicSsl()],
-    server: {
-      https: true,
-    },
+    plugins: [mkcert()],
   },
 });
