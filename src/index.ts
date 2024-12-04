@@ -18,13 +18,14 @@ import type {
 } from "./types";
 import { vitePluginStoryblokBridge } from "./vite-plugins/vite-plugin-storyblok-bridge";
 export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
-
 export {
   storyblokEditable,
   loadStoryblokBridge,
   RichTextResolver,
   RichTextSchema,
 } from "@storyblok/js";
+export * from "./types";
+export { toCamelCase } from "./utils/toCamelCase";
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
@@ -233,5 +234,3 @@ export default function storyblokIntegration(
     },
   };
 }
-
-export * from "./types";

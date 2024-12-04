@@ -22,6 +22,36 @@
     "demo:ssr": "cd playground/ssr && npm run dev",
     "test:e2e": "npm run test:e2e --workspace=lib"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/storyblok-astro.d.ts",
+      "import": "./dist/storyblok-astro.es.js",
+      "require": "./dist/storyblok-astro.umd.js"
+    },
+    "./middleware.ts": {
+      "types": "./dist/live-preview/middleware.d.ts",
+      "import": "./dist/live-preview/middleware.ts",
+      "require": "./dist/live-preview/middleware.ts"
+    },
+    "./toolbarApp.ts": {
+      "types": "./dist/dev-toolbar/toolbarApp.d.ts",
+      "import": "./dist/dev-toolbar/toolbarApp.ts",
+      "require": "./dist/dev-toolbar/toolbarApp.ts"
+    },
+    "./FallbackComponent.astro": "./dist/components/FallbackComponent.astro",
+    "./StoryblokComponent.astro": {
+      "types": "./dist/components/StoryblokComponent.d.ts",
+      "import": "./dist/components/StoryblokComponent.astro",
+      "require": "./dist/components/StoryblokComponent.astro"
+    }
+  },
+  "main": "./dist/storyblok-astro.es.js",
+  "module": "./dist/storyblok-astro.js",
+  "types": "./dist/storyblok-astro.d.ts",
+  "files": [
+    "*.d.ts",
+    "dist"
+  ],
   "peerDependencies": {
     "astro": "^3.0.0 || ^4.0.0"
   },

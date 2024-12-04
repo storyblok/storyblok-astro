@@ -1,6 +1,6 @@
 import type { Plugin } from "vite";
 
-import toCamelCase from "../utils/toCamelCase";
+import { toCamelCase } from "../utils/toCamelCase";
 
 export function vitePluginStoryblokComponents(
   componentsDir: string,
