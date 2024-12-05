@@ -30,7 +30,6 @@ jobs:
       - name: Build lib
         run: pnpm build
       - name: Release
-        working-directory: lib
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
