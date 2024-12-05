@@ -1,12 +1,8 @@
 import { vitePluginStoryblokInit } from './vite-plugins/vite-plugin-storyblok-init';
 import { vitePluginStoryblokComponents } from './vite-plugins/vite-plugin-storyblok-components';
 import { vitePluginStoryblokOptions } from './vite-plugins/vite-plugin-storyblok-options';
-import type {
-  RichTextResolver,
-} from '@storyblok/js';
-import {
-  renderRichText as origRenderRichText,
-} from '@storyblok/js';
+import type { RichTextResolver } from '@storyblok/js';
+import { renderRichText as origRenderRichText } from '@storyblok/js';
 
 import type { AstroGlobal, AstroIntegration } from 'astro';
 import type {
@@ -31,7 +27,7 @@ export {
 } from '@storyblok/js';
 
 export function useStoryblokApi(): StoryblokClient {
-  if (!globalThis.storyblokApiInstance) {
+  if (!globalThis?.storyblokApiInstance) {
     throw new Error('storyblokApiInstance has not been initialized correctly');
   }
   return globalThis.storyblokApiInstance;

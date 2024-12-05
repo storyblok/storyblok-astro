@@ -1,3 +1,4 @@
+/* eslint-disable */
 import type { StoryblokClient } from '@storyblok/js';
 
 declare module 'virtual:*' {
@@ -5,8 +6,8 @@ declare module 'virtual:*' {
   export default component;
 }
 
-declare global {
-  let storyblokApiInstance: StoryblokClient | undefined;
-}
-
 export {};
+
+declare global {
+  var storyblokApiInstance: StoryblokClient | undefined;
+}
