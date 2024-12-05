@@ -52,9 +52,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && tsc --project tsconfig.json",
-    "demo": "cd playground/ssg && npm run dev",
-    "demo:test": "cd playground/test && npm run dev",
-    "demo:ssr": "cd playground/ssr && npm run dev",
+    "demo": "cd playground/ssg && pnpm dev",
+    "demo:test": "cd playground/test && pnpm dev",
+    "demo:ssr": "cd playground/ssr && pnpm dev",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "lint:playground": "pnpm -r --parallel --filter='./playground/*' run lint",
