@@ -23,3 +23,5 @@ jobs:
         run: pnpm install
       - name: Cypress run
         uses: cypress-io/github-action@v6
+        with:
+          start: pnpm demo:test
