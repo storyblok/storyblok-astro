@@ -1,12 +1,12 @@
-import type { StoryblokClient } from "@storyblok/js";
+import type { StoryblokClient } from '@storyblok/js';
 
-declare module "virtual:*" {
+declare module 'virtual:*' {
   const component: any;
   export default component;
 }
 
 declare global {
-  var storyblokApiInstance: StoryblokClient | undefined;
+  let storyblokApiInstance: StoryblokClient | undefined;
 }
 
 export {};

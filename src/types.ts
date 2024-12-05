@@ -1,31 +1,31 @@
 export type {
-  SbPluginFactory,
-  SbBlokKeyDataTypes,
+  ArrayFn,
+  AsyncFn,
+  ISbAlternateObject, // previously AlternateObject
+  ISbCache, // previously StoryblokCache
+  ISbConfig, // previously StoryblokConfig
+  ISbContentMangmntAPI,
+  ISbDimensions,
+  ISbError,
+  ISbEventPayload,
+  ISbManagmentApiResult, // previously StoryblokManagmentApiResult
+  ISbNode,
+  ISbResponse,
+  ISbResult, // previously StoryblokResult
+  ISbRichtext, // previously Richtext
+  ISbSchema,
+  ISbStories, // previously Stories
+  ISbStoriesParams, // previously StoriesParams
+  ISbStory, // previously Story
+  ISbStoryData, // previously StoryData
+  ISbStoryParams, // previously StoryParams
   SbBlokData,
+  SbBlokKeyDataTypes,
+  SbPluginFactory,
   SbRichTextOptions,
   SbSDKOptions,
-  StoryblokClient,
-  StoryblokBridgeV2,
   StoryblokBridgeConfigV2,
-  ISbConfig, // previously StoryblokConfig
-  ISbCache, // previously StoryblokCache
-  ISbResult, // previously StoryblokResult
-  ISbResponse,
-  ISbError,
-  ISbNode,
-  ISbSchema,
-  AsyncFn,
-  ArrayFn,
-  ISbContentMangmntAPI,
-  ISbManagmentApiResult, // previously StoryblokManagmentApiResult
-  ISbStories, // previously Stories
-  ISbStory, // previously Story
-  ISbDimensions,
+  StoryblokBridgeV2,
+  StoryblokClient,
   StoryblokComponentType,
-  ISbStoryData, // previously StoryData
-  ISbAlternateObject, // previously AlternateObject
-  ISbStoriesParams, // previously StoriesParams
-  ISbStoryParams, // previously StoryParams
-  ISbRichtext, // previously Richtext
-  ISbEventPayload,
-} from "@storyblok/js";
+} from '@storyblok/js';

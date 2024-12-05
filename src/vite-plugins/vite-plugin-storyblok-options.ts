@@ -1,11 +1,11 @@
-import type { Plugin } from "vite";
+import type { Plugin } from 'vite';
 
 export function vitePluginStoryblokOptions(options: object): Plugin {
   const virtualModuleId = `virtual:storyblok-options`;
-  const resolvedVirtualModuleId = "\0" + virtualModuleId;
+  const resolvedVirtualModuleId = `\0${virtualModuleId}`;
 
   return {
-    name: "vite-plugin-storyblok-options",
+    name: 'vite-plugin-storyblok-options',
     async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;

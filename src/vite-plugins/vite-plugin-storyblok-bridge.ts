@@ -1,7 +1,7 @@
-import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from "@storyblok/js";
-import { generateFinalBridgeObject } from "../utils/generateFinalBridgeObject";
-import { parseAstRawCode } from "../utils/parseAstCode";
-import type { Plugin, ViteDevServer } from "vite";
+import type { ISbStoriesParams, StoryblokBridgeConfigV2 } from '@storyblok/js';
+import { generateFinalBridgeObject } from '../utils/generateFinalBridgeObject';
+import { parseAstRawCode } from '../utils/parseAstCode';
+import type { Plugin, ViteDevServer } from 'vite';
 
 let previousRawCode: RawCode = [];
 
@@ -18,13 +18,13 @@ export interface RawCodeItemOptions {
 }
 export function vitePluginStoryblokBridge(
   experimentalLivePreview: boolean,
-  output: string
+  output: string,
 ): Plugin {
-  const virtualModuleId = "virtual:storyblok-bridge";
-  const resolvedVirtualModuleId = "\0" + virtualModuleId;
-  if (!experimentalLivePreview || output !== "server") {
+  const virtualModuleId = 'virtual:storyblok-bridge';
+  const resolvedVirtualModuleId = `\0${virtualModuleId}`;
+  if (!experimentalLivePreview || output !== 'server') {
     return {
-      name: "vite-plugin-storyblok-bridge",
+      name: 'vite-plugin-storyblok-bridge',
       resolveId(id: string) {
         if (id === virtualModuleId) {
           return resolvedVirtualModuleId;
@@ -42,36 +42,48 @@ export function vitePluginStoryblokBridge(
   let restartTimeout: NodeJS.Timeout;
 
   return {
-    name: "vite-plugin-storyblok-bridge",
+    name: 'vite-plugin-storyblok-bridge',
     async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;
       }
     },
     async transform(code, id) {
-      if (id.includes("node_modules") && !id.includes("/pages/")) return;
-      if (!code.includes("useStoryblok")) return;
+      const notPagesFolder
+        = id.includes('node_modules') && !id.includes('/pages/');
+      if (notPagesFolder) {
+        return;
+      }
+      if (!code.includes('useStoryblok')) {
+        return;
+      }
       const moduleInfo = this.getModuleInfo(id);
-      if (!moduleInfo?.meta?.astro) return;
-      const [, ...routeArray] = id.split("src/pages/");
-      const url = routeArray.join("/").replace(".astro", "");
+      if (!moduleInfo?.meta?.astro) {
+        return;
+      }
+      const [, ...routeArray] = id.split('src/pages/');
+      const url = routeArray.join('/').replace('.astro', '');
       const options = parseAstRawCode(this.parse(code));
       if (previousRawCode.length) {
-        rawCode = previousRawCode.filter((i) => i.url !== url);
+        rawCode = previousRawCode.filter(i => i.url !== url);
       }
       rawCode.push({
         url,
         options,
       });
-      if (!_server) return;
+      if (!_server) {
+        return;
+      }
       if (restartTimeout) {
         clearTimeout(restartTimeout);
       }
       restartTimeout = setTimeout(() => {
-        if (alreadyHaveThisUrl(previousRawCode, rawCode)) return;
+        if (alreadyHaveThisUrl(previousRawCode, rawCode)) {
+          return;
+        }
         if (previousRawCode.length !== 0) {
           _server?.restart();
-          console.info("Bridge options updated. Restarting...");
+          console.info('Bridge options updated. Restarting...');
         }
         previousRawCode = [...rawCode];
       }, 1000);
@@ -94,7 +106,7 @@ export function vitePluginStoryblokBridge(
 
 function alreadyHaveThisUrl(a: RawCode = [], b: RawCode = []) {
   return b.every(({ url, options }) => {
-    const aCopy = a.find((e) => e?.url === url);
+    const aCopy = a.find(e => e?.url === url);
     return aCopy && JSON.stringify(options) === JSON.stringify(aCopy.options);
   });
 }

@@ -2,9 +2,9 @@
   "name": "@storyblok/astro",
   "type": "module",
   "version": "1.0.0",
-  "description": "Official Astro integration for the Storyblok Headless CMS",
   "private": false,
   "packageManager": "pnpm@9.13.2",
+  "description": "Official Astro integration for the Storyblok Headless CMS",
   "author": "Storyblok",
   "license": "MIT",
   "repository": {
@@ -14,21 +14,11 @@
   "bugs": {
     "url": "https://github.com/storyblok/storyblok-astro/issues"
   },
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build && tsc --project tsconfig.json",
-    "demo": "cd playground/ssg && npm run dev",
-    "demo:test": "cd playground/test && npm run dev",
-    "demo:ssr": "cd playground/ssr && npm run dev",
-    "lint": "eslint .",
-    "lint:fix": "eslint . --fix",
-    "test": "pnpm run test:unit && pnpm run test:e2e",
-    "test:unit": "vitest --watch false",
-    "test:e2e": "start-server-and-test demo:test http://localhost:4321/ cy:run",
-    "test:e2e-watch": "start-server-and-test demo:test http://localhost:4321/ cy:open",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open"
-  },
+  "keywords": [
+    "astro",
+    "storyblok",
+    "astro-sdk"
+  ],
   "exports": {
     ".": {
       "types": "./dist/storyblok-astro.d.ts",
@@ -59,11 +49,29 @@
     "*.d.ts",
     "dist"
   ],
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && tsc --project tsconfig.json",
+    "demo": "cd playground/ssg && npm run dev",
+    "demo:test": "cd playground/test && npm run dev",
+    "demo:ssr": "cd playground/ssr && npm run dev",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:playground": "pnpm -r --parallel --filter='./playground/*' run lint",
+    "lint:playground:fix": "pnpm -r --parallel --filter='./playground/*' run lint:fix",
+    "test": "pnpm run test:unit && pnpm run test:e2e",
+    "test:unit": "vitest --watch false",
+    "test:e2e": "start-server-and-test demo:test http://localhost:4321/ cy:run",
+    "test:e2e-watch": "start-server-and-test demo:test http://localhost:4321/ cy:open",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open"
+  },
   "peerDependencies": {
     "astro": "^3.0.0 || ^4.0.0"
   },
   "dependencies": {
     "@storyblok/js": "^3.1.7",
+    "camelcase": "^8.0.0",
     "lodash.mergewith": "^4.6.2"
   },
   "devDependencies": {
@@ -91,11 +99,10 @@
     "vite-plugin-static-copy": "^2.1.0",
     "vitest": "^2.1.8"
   },
-  "keywords": [
-    "astro",
-    "storyblok",
-    "astro-sdk"
-  ],
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint",
+    "pre-push": "pnpm commitlint --last --verbose"
+  },
   "lint-staged": {
     "*.{astro,js,css}": [
       "prettier --write",
@@ -138,23 +145,6 @@
     ],
     "ignorePatterns": "dist/"
   },
-  "prettier": {
-    "trailingComma": "es5",
-    "tabWidth": 2,
-    "semi": true,
-    "singleQuote": false,
-    "plugins": [
-      "prettier-plugin-astro"
-    ],
-    "overrides": [
-      {
-        "files": "**/*.astro",
-        "options": {
-          "parser": "astro"
-        }
-      }
-    ]
-  },
   "release": {
     "branches": [
       "main",
@@ -170,9 +160,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "simple-git-hooks": {
-    "pre-commit": "pnpm lint",
-    "pre-push": "pnpm commitlint --last --verbose"
   }
 }

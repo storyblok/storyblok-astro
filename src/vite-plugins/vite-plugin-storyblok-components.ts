@@ -1,18 +1,18 @@
-import type { Plugin } from "vite";
+import type { Plugin } from 'vite';
 
-import { toCamelCase } from "../utils/toCamelCase";
+import { toCamelCase } from '../utils/toCamelCase';
 
 export function vitePluginStoryblokComponents(
   componentsDir: string,
   components: Record<string, string> = {},
   enableFallbackComponent?: boolean,
-  customFallbackComponent?: string
+  customFallbackComponent?: string,
 ): Plugin {
-  const virtualModuleId = "virtual:storyblok-components";
-  const resolvedVirtualModuleId = "\0" + virtualModuleId;
+  const virtualModuleId = 'virtual:storyblok-components';
+  const resolvedVirtualModuleId = `\0${virtualModuleId}`;
 
   return {
-    name: "vite-plugin-storyblok-components",
+    name: 'vite-plugin-storyblok-components',
     async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;
@@ -27,7 +27,7 @@ export function vitePluginStoryblokComponents(
         const excludedKeys: string[] = [];
         for await (const [key, value] of Object.entries(components)) {
           const resolvedId = await this.resolve(
-            "/" + componentsDir + "/" + value + ".astro"
+            `/${componentsDir}/${value}.astro`,
           );
 
           /**
@@ -40,17 +40,19 @@ export function vitePluginStoryblokComponents(
                * otherwise the attempted import would result in an error
                */
               excludedKeys.push(key);
-            } else {
+            }
+            else {
               /**
                * if it is not enabled, throw a specific error here
                */
               throw new Error(
                 `Component could not be found for blok "${key}"! Does "${
-                  "/" + componentsDir + "/" + value
-                }.astro" exist?`
+                  `/${componentsDir}/${value}`
+                }.astro" exist?`,
               );
             }
-          } else {
+          }
+          else {
             /**
              * if the component can be resolved, add it to the imports array
              * important: convert blok names to camel case for valid import names
@@ -64,35 +66,36 @@ export function vitePluginStoryblokComponents(
          * Handle custom fallback component
          */
 
-        let fallbackComponentKey: string = "";
+        let fallbackComponentKey: string = '';
 
         if (enableFallbackComponent) {
-          fallbackComponentKey = ",FallbackComponent";
+          fallbackComponentKey = ',FallbackComponent';
           if (customFallbackComponent) {
             /**
              * resolve custom FallbackComponent defined in astro.config.mjs
              */
             const fallbackComponentResolvedId = await this.resolve(
-              "/" + componentsDir + "/" + customFallbackComponent + ".astro"
+              `/${componentsDir}/${customFallbackComponent}.astro`,
             );
 
             if (!fallbackComponentResolvedId) {
               throw new Error(
                 `Custom fallback component could not be found. Does "${
-                  "/" + componentsDir + "/" + customFallbackComponent
-                }.astro" exist?`
+                  `/${componentsDir}/${customFallbackComponent}`
+                }.astro" exist?`,
               );
             }
 
             imports.push(
-              `import FallbackComponent from "${fallbackComponentResolvedId.id}"`
+              `import FallbackComponent from "${fallbackComponentResolvedId.id}"`,
             );
-          } else {
+          }
+          else {
             /**
              * import default FallbackComponent bundled with @storyblok/astro
              */
             imports.push(
-              `import FallbackComponent from '@storyblok/astro/FallbackComponent.astro'`
+              `import FallbackComponent from '@storyblok/astro/FallbackComponent.astro'`,
             );
           }
         }
@@ -105,16 +108,17 @@ export function vitePluginStoryblokComponents(
           if (enableFallbackComponent) {
             return `${
               imports[0]
-            }; export default {${fallbackComponentKey.replace(",", "")}}`;
+            }; export default {${fallbackComponentKey.replace(',', '')}}`;
           }
           throw new Error(
-            `Currently, no Storyblok components are registered in astro.config.mjs.\nPlease register your components or enable the fallback component.\nDetailed information can be found here: https://github.com/storyblok/storyblok-astro`
+            `Currently, no Storyblok components are registered in astro.config.mjs.\nPlease register your components or enable the fallback component.\nDetailed information can be found here: https://github.com/storyblok/storyblok-astro`,
           );
-        } else {
-          return `${imports.join(";")};export default {${Object.keys(components)
-            .filter((key) => !excludedKeys.includes(key))
-            .map((key) => toCamelCase(key))
-            .join(",")}${fallbackComponentKey}}`;
+        }
+        else {
+          return `${imports.join(';')};export default {${Object.keys(components)
+            .filter(key => !excludedKeys.includes(key))
+            .map(key => toCamelCase(key))
+            .join(',')}${fallbackComponentKey}}`;
         }
       }
     },

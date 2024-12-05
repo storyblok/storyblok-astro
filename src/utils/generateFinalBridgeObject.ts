@@ -1,8 +1,8 @@
-import type { StoryblokBridgeConfigV2 } from "@storyblok/js";
-import type { RawCode } from "../vite-plugins/vite-plugin-storyblok-bridge";
+import type { StoryblokBridgeConfigV2 } from '@storyblok/js';
+import type { RawCode } from '../vite-plugins/vite-plugin-storyblok-bridge';
 
 export function generateFinalBridgeObject(rawCode: RawCode) {
-  let mergedOptions: StoryblokBridgeConfigV2 = {
+  const mergedOptions: StoryblokBridgeConfigV2 = {
     resolveRelations: [],
   };
 
@@ -11,7 +11,7 @@ export function generateFinalBridgeObject(rawCode: RawCode) {
       mergedOptions.resolveRelations.push(
         ...(Array.isArray(resolveRelations)
           ? resolveRelations
-          : [resolveRelations])
+          : [resolveRelations]),
       );
     }
   }

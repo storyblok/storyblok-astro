@@ -1,16 +1,16 @@
-import type { ISbConfig } from "../types";
-import type { Plugin } from "vite";
+import type { ISbConfig } from '../types';
+import type { Plugin } from 'vite';
 
 export function vitePluginStoryblokInit(
   accessToken: string,
   useCustomApi: boolean,
-  apiOptions?: ISbConfig
+  apiOptions?: ISbConfig,
 ): Plugin {
-  const virtualModuleId = "virtual:storyblok-init";
-  const resolvedVirtualModuleId = "\0" + virtualModuleId;
+  const virtualModuleId = 'virtual:storyblok-init';
+  const resolvedVirtualModuleId = `\0${virtualModuleId}`;
 
   return {
-    name: "vite-plugin-storyblok-init",
+    name: 'vite-plugin-storyblok-init',
     async resolveId(id: string) {
       if (id === virtualModuleId) {
         return resolvedVirtualModuleId;
@@ -22,7 +22,7 @@ export function vitePluginStoryblokInit(
           import { storyblokInit, apiPlugin } from "@storyblok/js";
           const { storyblokApi } = storyblokInit({
             accessToken: "${accessToken}",
-            use: ${useCustomApi ? "[]" : "[apiPlugin]"},
+            use: ${useCustomApi ? '[]' : '[apiPlugin]'},
             apiOptions: ${JSON.stringify(apiOptions)},
           });
           export const storyblokApiInstance = storyblokApi;  

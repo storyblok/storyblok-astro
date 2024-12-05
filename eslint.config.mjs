@@ -1,9 +1,10 @@
-import { storyblokLintConfig } from "@storyblok/eslint-config";
+import { storyblokLintConfig } from '@storyblok/eslint-config';
 
 export default storyblokLintConfig({
   rules: {
-    "no-console": "off",
-    "vue/max-attributes-per-line": "off",
+    'no-console': 'off',
+    'vue/max-attributes-per-line': 'off',
   },
-  ignores: ["**/node_modules/**", "cypress/", "README.md"],
+  vue: true,
+  ignores: ['**/node_modules/**', 'cypress/', 'README.md'],
 });

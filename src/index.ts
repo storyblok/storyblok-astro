@@ -1,12 +1,14 @@
-import { vitePluginStoryblokInit } from "./vite-plugins/vite-plugin-storyblok-init";
-import { vitePluginStoryblokComponents } from "./vite-plugins/vite-plugin-storyblok-components";
-import { vitePluginStoryblokOptions } from "./vite-plugins/vite-plugin-storyblok-options";
-import {
+import { vitePluginStoryblokInit } from './vite-plugins/vite-plugin-storyblok-init';
+import { vitePluginStoryblokComponents } from './vite-plugins/vite-plugin-storyblok-components';
+import { vitePluginStoryblokOptions } from './vite-plugins/vite-plugin-storyblok-options';
+import type {
   RichTextResolver,
+} from '@storyblok/js';
+import {
   renderRichText as origRenderRichText,
-} from "@storyblok/js";
+} from '@storyblok/js';
 
-import type { AstroGlobal, AstroIntegration } from "astro";
+import type { AstroGlobal, AstroIntegration } from 'astro';
 import type {
   ISbConfig,
   ISbRichtext,
@@ -15,21 +17,22 @@ import type {
   SbRichTextOptions,
   StoryblokBridgeConfigV2,
   StoryblokClient,
-} from "./types";
-import { vitePluginStoryblokBridge } from "./vite-plugins/vite-plugin-storyblok-bridge";
-export { handleStoryblokMessage } from "./live-preview/handleStoryblokMessage";
+} from './types';
+import { vitePluginStoryblokBridge } from './vite-plugins/vite-plugin-storyblok-bridge';
+
+export { handleStoryblokMessage } from './live-preview/handleStoryblokMessage';
+export * from './types';
+export { toCamelCase } from './utils/toCamelCase';
 export {
-  storyblokEditable,
   loadStoryblokBridge,
   RichTextResolver,
   RichTextSchema,
-} from "@storyblok/js";
-export * from "./types";
-export { toCamelCase } from "./utils/toCamelCase";
+  storyblokEditable,
+} from '@storyblok/js';
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis.storyblokApiInstance) {
-    throw new Error("storyblokApiInstance has not been initialized correctly");
+    throw new Error('storyblokApiInstance has not been initialized correctly');
   }
   return globalThis.storyblokApiInstance;
 }
@@ -38,18 +41,19 @@ export async function useStoryblok(
   slug: string,
   apiOptions: ISbStoriesParams = {},
   _: StoryblokBridgeConfigV2 = {},
-  Astro: AstroGlobal
+  Astro: AstroGlobal,
 ) {
   if (!globalThis.storyblokApiInstance) {
-    throw new Error("storyblokApiInstance has not been initialized correctly");
+    throw new Error('storyblokApiInstance has not been initialized correctly');
   }
   let story: ISbStoryData | null = null;
-  if (Astro && Astro.locals["_storyblok_preview_data"]) {
-    story = Astro.locals["_storyblok_preview_data"];
-  } else {
+  if (Astro && Astro.locals._storyblok_preview_data) {
+    story = Astro.locals._storyblok_preview_data;
+  }
+  else {
     const { data } = await globalThis?.storyblokApiInstance?.get(
       slug,
-      apiOptions
+      apiOptions,
     );
     story = data.story;
   }
@@ -58,19 +62,19 @@ export async function useStoryblok(
 
 export function renderRichText(
   data?: ISbRichtext,
-  options?: SbRichTextOptions
+  options?: SbRichTextOptions,
 ) {
-  const resolverInstance: RichTextResolver | undefined =
-    globalThis?.storyblokApiInstance?.richTextResolver;
+  const resolverInstance: RichTextResolver | undefined
+    = globalThis?.storyblokApiInstance?.richTextResolver;
   if (!resolverInstance) {
     throw new Error(
-      "Please initialize the Storyblok SDK before calling the renderRichText function"
+      'Please initialize the Storyblok SDK before calling the renderRichText function',
     );
   }
   return origRenderRichText(data, options, resolverInstance);
 }
 
-export type IntegrationOptions = {
+export interface IntegrationOptions {
   /**
    * The access token from your space.
    */
@@ -117,23 +121,23 @@ export type IntegrationOptions = {
    * A boolean to enable/disable the Experimental Live Preview feature. Disabled by default.
    */
   livePreview?: boolean;
-};
+}
 
 export default function storyblokIntegration(
-  options: IntegrationOptions
+  options: IntegrationOptions,
 ): AstroIntegration {
   const resolvedOptions = {
     useCustomApi: false,
     bridge: true,
-    componentsDir: "src",
+    componentsDir: 'src',
     enableFallbackComponent: false,
     livePreview: false,
     ...options,
   };
   return {
-    name: "@storyblok/astro",
+    name: '@storyblok/astro',
     hooks: {
-      "astro:config:setup": ({
+      'astro:config:setup': ({
         injectScript,
         updateConfig,
         addDevToolbarApp,
@@ -146,51 +150,52 @@ export default function storyblokIntegration(
               vitePluginStoryblokInit(
                 resolvedOptions.accessToken,
                 resolvedOptions.useCustomApi,
-                resolvedOptions.apiOptions
+                resolvedOptions.apiOptions,
               ),
               vitePluginStoryblokComponents(
                 resolvedOptions.componentsDir,
                 resolvedOptions.components,
                 resolvedOptions.enableFallbackComponent,
-                resolvedOptions.customFallbackComponent
+                resolvedOptions.customFallbackComponent,
               ),
               vitePluginStoryblokOptions(resolvedOptions),
               vitePluginStoryblokBridge(
                 resolvedOptions.livePreview,
-                config.output
+                config.output,
               ),
             ],
           },
         });
-        if (resolvedOptions.livePreview && config?.output !== "server") {
+        if (resolvedOptions.livePreview && config?.output !== 'server') {
           throw new Error(
-            "To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode."
+            'To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode.',
           );
         }
         injectScript(
-          "page-ssr",
+          'page-ssr',
           `
           import { storyblokApiInstance } from "virtual:storyblok-init";
           globalThis.storyblokApiInstance = storyblokApiInstance;
-          `
+          `,
         );
 
         // This is only enabled if experimentalLivePreview is disabled and bridge is enabled.
 
         if (resolvedOptions.bridge && !resolvedOptions.livePreview) {
-          let initBridge: string = "";
+          let initBridge: string = '';
 
-          if (typeof resolvedOptions.bridge === "object") {
+          if (typeof resolvedOptions.bridge === 'object') {
             const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
             initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
+              bridgeConfigurationOptions,
             )});`;
-          } else {
-            initBridge = "const storyblokInstance = new StoryblokBridge()";
+          }
+          else {
+            initBridge = 'const storyblokInstance = new StoryblokBridge()';
           }
 
           injectScript(
-            "page",
+            'page',
             `
               import { loadStoryblokBridge } from "@storyblok/astro";
               loadStoryblokBridge().then(() => {
@@ -203,14 +208,14 @@ export default function storyblokIntegration(
                   } 
                 });
               });
-            `
+            `,
           );
         }
 
         // This is only enabled if experimentalLivePreview feature is on
         if (resolvedOptions.livePreview) {
           injectScript(
-            "page",
+            'page',
             `
               import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
               import { bridgeOptions }  from "virtual:storyblok-bridge";
@@ -222,14 +227,14 @@ export default function storyblokIntegration(
                   storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
                 };
               });
-            `
+            `,
           );
           addMiddleware({
-            entrypoint: "@storyblok/astro/middleware.ts",
-            order: "pre",
+            entrypoint: '@storyblok/astro/middleware.ts',
+            order: 'pre',
           });
         }
-        addDevToolbarApp("@storyblok/astro/toolbarApp.ts");
+        addDevToolbarApp('@storyblok/astro/toolbarApp.ts');
       },
     },
   };
