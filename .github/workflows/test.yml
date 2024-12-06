@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Build lib
+        run: pnpm build
+
       - name: Vitest run
         run: pnpm run test:unit --silent
 
