@@ -1,16 +1,13 @@
-name: Release CI
+name: Run linters
+on: [push]
 
-on:
-  push:
-    branches: [main, next, alpha]
-  pull_request:
-    branches: [main, next, alpha]
 env:
   PNPM_CACHE_FOLDER: .pnpm-store
   SKIP_INSTALL_SIMPLE_GIT_HOOKS: 1 # Skip installing simple-git-hooks
 
 jobs:
-  release:
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -27,10 +24,5 @@ jobs:
           cache: pnpm
       - name: Install dependencies
         run: pnpm install
-      - name: Build lib
-        run: pnpm build
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        run: pnpx semantic-release
+      - name: Run Lint
+        run: pnpm run lint

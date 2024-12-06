@@ -1,0 +1,43 @@
+---
+import components from "virtual:storyblok-components";
+import options from "virtual:storyblok-options";
+import { toCamelCase } from "@storyblok/astro";
+import type { SbBlokData } from "@storyblok/js";
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+
+export interface Props {
+  blok: SbBlokData;
+  [prop: string]: unknown;
+}
+
+const { blok, ...props } = Astro.props;
+
+if (!blok) {
+  throw new Error(
+    "Cannot render StoryblokComponent. 'blok' prop is undefined."
+  );
+}
+
+/**
+ * convert blok components to camel case to match vite-plugin-storyblok-components
+ */
+let key = toCamelCase(blok.component as string);
+
+const componentFound: boolean = key in components;
+
+let Component: AstroComponentFactory;
+
+if (!componentFound) {
+  if (!options.enableFallbackComponent)
+    throw new Error(
+      `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
+    );
+  else {
+    Component = components["FallbackComponent"];
+  }
+} else {
+  Component = components[key];
+}
+---
+
+<Component blok={blok} {...props} />

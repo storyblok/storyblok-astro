@@ -1,0 +1,10 @@
+---
+  import { storyblokEditable } from '@storyblok/astro';
+  import Counter from './vue/Counter.vue';
+
+  const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)}>
+  <Counter blok={blok} client:visible />
+</div>

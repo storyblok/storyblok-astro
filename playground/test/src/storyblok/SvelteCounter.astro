@@ -1,0 +1,10 @@
+---
+  import { storyblokEditable } from '@storyblok/astro';
+  import Counter from './svelte/Counter.svelte';
+
+  const { blok } = Astro.props
+---
+
+<div {...storyblokEditable(blok)}>
+  <Counter blok={blok} client:load />
+</div>
