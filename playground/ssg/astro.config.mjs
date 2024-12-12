@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import storyblok from '@storyblok/astro';
 import tailwind from '@astrojs/tailwind';
 import mkcert from 'vite-plugin-mkcert';
+import { resolve } from 'node:path';
 
 export default defineConfig({
   integrations: [
@@ -33,5 +34,10 @@ export default defineConfig({
   ],
   vite: {
     plugins: [mkcert()],
+    resolve: {
+      alias: {
+        '@storyblok/astro': resolve(__dirname, '../../src/index.ts'),
+      },
+    },
   },
 });

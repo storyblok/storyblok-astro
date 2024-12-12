@@ -4,6 +4,7 @@ import vue from '@astrojs/vue';
 import react from '@astrojs/react';
 import storyblok from '@storyblok/astro';
 import tailwind from '@astrojs/tailwind';
+import { resolve } from 'node:path';
 
 export default defineConfig({
   integrations: [
@@ -33,4 +34,11 @@ export default defineConfig({
     }),
     tailwind(),
   ],
+  vite: {
+    resolve: {
+      alias: {
+        '@storyblok/astro': resolve(__dirname, '../../src/index.ts'),
+      },
+    },
+  },
 });
