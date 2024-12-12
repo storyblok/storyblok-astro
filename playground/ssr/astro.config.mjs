@@ -6,8 +6,11 @@ import vercel from '@astrojs/vercel/serverless';
 import svelte from '@astrojs/svelte';
 import vue from '@astrojs/vue';
 import react from '@astrojs/react';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 // https://astro.build/config
 export default defineConfig({
   integrations: [

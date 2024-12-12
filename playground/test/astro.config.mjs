@@ -4,7 +4,11 @@ import vue from '@astrojs/vue';
 import react from '@astrojs/react';
 import storyblok from '@storyblok/astro';
 import tailwind from '@astrojs/tailwind';
-import { resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineConfig({
   integrations: [
