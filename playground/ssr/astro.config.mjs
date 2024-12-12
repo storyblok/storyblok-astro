@@ -6,11 +6,7 @@ import vercel from '@astrojs/vercel/serverless';
 import svelte from '@astrojs/svelte';
 import vue from '@astrojs/vue';
 import react from '@astrojs/react';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -45,11 +41,6 @@ export default defineConfig({
   ],
   vite: {
     plugins: [mkcert()],
-    resolve: {
-      alias: {
-        '@storyblok/astro': resolve(__dirname, '../../src/index.ts'),
-      },
-    },
   },
   output: 'server',
   adapter: vercel(),
