@@ -38,7 +38,7 @@ jobs:
         run: pnpm build
 
       - name: Vitest run
-        run: pnpm run test:unit --silent
+        run: pnpm run test:unit:ci --silent
 
       - name: Cypress run
         run: pnpm run test:e2e
