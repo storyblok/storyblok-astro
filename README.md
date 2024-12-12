@@ -432,5 +432,8 @@ Our heartfelt thanks go to [Virtual Identity](https://www.virtual-identity.com/)
 
 ## Contributing
 
-Please see our [contributing guidelines](https://github.com/storyblok/.github/blob/master/contributing.md) and our [code of conduct](https://www.storyblok.com/trust-center?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro#code-of-conduct).
-This project uses [semantic-release](https://semantic-release.gitbook.io/semantic-release/) for generating new versions by using commit messages. We use the Angular Convention to name the commits.
+Please review our [Contributing Guidelines](https://github.com/storyblok/.github/blob/master/contributing.md) and [Code of Conduct](https://www.storyblok.com/trust-center?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro#code-of-conduct) before contributing.  
+
+This project employs [semantic-release](https://semantic-release.gitbook.io/semantic-release/) to generate new versions based on commit messages, following the Angular Commit Message Convention.  
+
+When using playgrounds during development, ensure the build is running in watch mode for an efficient workflow.
