@@ -1,5 +1,5 @@
 /* eslint-disable */
-import type { StoryblokClient } from '@storyblok/js';
+import type { ISbStoryData, StoryblokClient } from '@storyblok/js';
 
 declare module 'virtual:*' {
   const component: any;

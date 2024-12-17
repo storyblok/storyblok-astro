@@ -71,7 +71,7 @@
     "astro": "^3.0.0 || ^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@storyblok/js": "^3.1.7",
+    "@storyblok/js": "^3.1.9",
     "camelcase": "^8.0.0",
     "lodash.mergewith": "^4.6.2"
   },
@@ -82,7 +82,7 @@
     "@rollup/plugin-dynamic-import-vars": "^2.1.5",
     "@storyblok/eslint-config": "^0.3.0",
     "@types/lodash.mergewith": "^4.6.9",
-    "@types/node": "22.9.0",
+    "@types/node": "22.10.2",
     "astro": "^5.0.9",
     "cypress": "^13.15.2",
     "eslint": "^9.15.0",
@@ -94,10 +94,10 @@
     "prettier-plugin-astro": "^0.13.0",
     "simple-git-hooks": "^2.11.1",
     "start-server-and-test": "^2.0.8",
-    "typescript": "5.6.3",
-    "vite": "^5.4.10",
-    "vite-plugin-dts": "^3.9.1",
-    "vite-plugin-static-copy": "^2.1.0",
+    "typescript": "5.7.2",
+    "vite": "^6.0.1",
+    "vite-plugin-dts": "^4.3.0",
+    "vite-plugin-static-copy": "^2.2.0",
     "vitest": "^2.1.8"
   },
   "simple-git-hooks": {
