@@ -15,6 +15,7 @@ import type {
   StoryblokClient,
 } from './types';
 import { vitePluginStoryblokBridge } from './vite-plugins/vite-plugin-storyblok-bridge';
+import { storyblokLogo } from './dev-toolbar/toolbarApp';
 
 export { handleStoryblokMessage } from './live-preview/handleStoryblokMessage';
 export * from './types';
@@ -230,7 +231,12 @@ export default function storyblokIntegration(
             order: 'pre',
           });
         }
-        addDevToolbarApp('@storyblok/astro/toolbarApp.ts');
+        addDevToolbarApp({
+          id: 'storyblok',
+          name: 'Storyblok',
+          icon: storyblokLogo,
+          entrypoint: '@storyblok/astro/toolbarApp.ts',
+        });
       },
     },
   };
