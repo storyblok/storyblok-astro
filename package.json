@@ -1,7 +1,7 @@
 {
   "name": "@storyblok/astro",
   "type": "module",
-  "version": "1.0.0",
+  "version": "5.1.1",
   "private": false,
   "packageManager": "pnpm@9.13.2",
   "description": "Official Astro integration for the Storyblok Headless CMS",
@@ -21,7 +21,7 @@
   ],
   "exports": {
     ".": {
-      "types": "./dist/storyblok-astro.d.ts",
+      "types": "./dist/index.d.ts",
       "import": "./dist/storyblok-astro.es.js",
       "require": "./dist/storyblok-astro.umd.js"
     },
