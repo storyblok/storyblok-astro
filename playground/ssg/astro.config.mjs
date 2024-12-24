@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import svelte from '@astrojs/svelte';
 import vue from '@astrojs/vue';
 import react from '@astrojs/react';
-import storyblok from '@storyblok/astro';
+import { storyblok } from '@storyblok/astro';
 import tailwind from '@astrojs/tailwind';
 import mkcert from 'vite-plugin-mkcert';
 
