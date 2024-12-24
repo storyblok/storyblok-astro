@@ -18,28 +18,28 @@ export function useStoryblokApi(): StoryblokClient {
 
 export async function getLiveStory(Astro: AstroGlobal) {
   let story: ISbStoryData | null = null;
-  if (Astro && Astro.locals['_storyblok_preview_data']) {
-    story = Astro.locals['_storyblok_preview_data'];
+  if (Astro && Astro.locals._storyblok_preview_data) {
+    story = Astro.locals._storyblok_preview_data;
   }
   return story;
 }
 
 export function renderRichText(
   data?: ISbRichtext,
-  options?: SbRichTextOptions
+  options?: SbRichTextOptions,
 ) {
-  const resolverInstance: RichTextResolver | undefined =
-    globalThis?.storyblokApiInstance?.richTextResolver;
+  const resolverInstance: RichTextResolver | undefined
+    = globalThis?.storyblokApiInstance?.richTextResolver;
   if (!resolverInstance) {
     throw new Error(
-      'Please initialize the Storyblok SDK before calling the renderRichText function'
+      'Please initialize the Storyblok SDK before calling the renderRichText function',
     );
   }
   return origRenderRichText(data, options, resolverInstance);
 }
 
 export function initStoryblokBridge(
-  config: boolean | StoryblokBridgeConfigV2
+  config: boolean | StoryblokBridgeConfigV2,
 ): string {
   if (typeof config === 'object') {
     const bridgeConfig = JSON.stringify(config);
