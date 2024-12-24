@@ -1,19 +1,26 @@
 ---
-import { useStoryblok } from "@storyblok/astro";
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  getLiveStory,
+  useStoryblokApi,
+  type ISbStoryData,
+} from '@storyblok/astro';
+import StoryblokComponent from '@storyblok/astro/StoryblokComponent.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
 
 const { slug } = Astro.params;
+let story: ISbStoryData | null = null;
 
-const story = await useStoryblok(
-  `cdn/stories/${slug === undefined ? "home" : slug}`,
-  {
-    version: "draft",
-    resolve_relations: ["featured-articles.posts"],
-  },
-  {},
-  Astro
-);
+const liveStory = await getLiveStory(Astro);
+if (liveStory) {
+  story = liveStory;
+} else {
+  const sbApi = useStoryblokApi();
+  const { data } = await sbApi.get(`cdn/stories/${slug || 'home'}`, {
+    version: 'draft',
+    resolve_relations: ['featured-articles.posts'],
+  });
+  story = data?.story;
+}
 ---
 
 <BaseLayout>
