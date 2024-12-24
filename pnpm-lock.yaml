@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@storyblok/js':
-        specifier: ^3.1.9
+        specifier: 3.1.9
         version: 3.1.9
       camelcase:
         specifier: ^8.0.0
