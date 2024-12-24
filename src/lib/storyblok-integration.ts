@@ -1,7 +1,6 @@
 import type { ISbConfig, StoryblokBridgeConfigV2 } from '@storyblok/js';
 import type { AstroIntegration } from 'astro';
 import { storyblokLogo } from '../dev-toolbar/toolbarApp';
-import { vitePluginStoryblokBridge } from '../vite-plugins/vite-plugin-storyblok-bridge';
 import { vitePluginStoryblokComponents } from '../vite-plugins/vite-plugin-storyblok-components';
 import { vitePluginStoryblokInit } from '../vite-plugins/vite-plugin-storyblok-init';
 import { vitePluginStoryblokOptions } from '../vite-plugins/vite-plugin-storyblok-options';
@@ -94,10 +93,6 @@ export default function storyblokIntegration(
                 resolvedOptions.customFallbackComponent
               ),
               vitePluginStoryblokOptions(resolvedOptions),
-              vitePluginStoryblokBridge(
-                resolvedOptions.livePreview,
-                config.output
-              ),
             ],
           },
         });
@@ -140,14 +135,11 @@ export default function storyblokIntegration(
             'page',
             `
                 import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
-                import { bridgeOptions }  from "virtual:storyblok-bridge";
                 console.info("The Storyblok Astro live preview feature is currently in an experimental phase, and its API is subject to change in the future.")
                 loadStoryblokBridge().then(() => {
                   const { StoryblokBridge, location } = window;
-                  if(bridgeOptions){
-                    const storyblokInstance = new StoryblokBridge(bridgeOptions);
-                    storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
-                  };
+                  ${initBridge}
+                  storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
                 });
               `
           );
