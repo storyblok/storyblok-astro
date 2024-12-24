@@ -5,6 +5,7 @@ import { vitePluginStoryblokBridge } from '../vite-plugins/vite-plugin-storyblok
 import { vitePluginStoryblokComponents } from '../vite-plugins/vite-plugin-storyblok-components';
 import { vitePluginStoryblokInit } from '../vite-plugins/vite-plugin-storyblok-init';
 import { vitePluginStoryblokOptions } from '../vite-plugins/vite-plugin-storyblok-options';
+import { initStoryblokBridge } from './helpers';
 
 export interface IntegrationOptions {
   /**
@@ -66,6 +67,8 @@ export default function storyblokIntegration(
     livePreview: false,
     ...options,
   };
+  const initBridge = initStoryblokBridge(resolvedOptions.bridge);
+
   return {
     name: '@storyblok/astro',
     hooks: {
@@ -114,17 +117,6 @@ export default function storyblokIntegration(
         // This is only enabled if experimentalLivePreview is disabled and bridge is enabled.
 
         if (resolvedOptions.bridge && !resolvedOptions.livePreview) {
-          let initBridge: string = '';
-
-          if (typeof resolvedOptions.bridge === 'object') {
-            const bridgeConfigurationOptions = { ...resolvedOptions.bridge };
-            initBridge = `const storyblokInstance = new StoryblokBridge(${JSON.stringify(
-              bridgeConfigurationOptions
-            )});`;
-          } else {
-            initBridge = 'const storyblokInstance = new StoryblokBridge()';
-          }
-
           injectScript(
             'page',
             `
@@ -132,7 +124,6 @@ export default function storyblokIntegration(
                 loadStoryblokBridge().then(() => {
                   const { StoryblokBridge, location } = window;
                   ${initBridge}
-  
                   storyblokInstance.on(["published", "change"], (event) => {
                     if (!event.slugChanged) {
                       location.reload(true);
