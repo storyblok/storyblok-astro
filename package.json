@@ -72,8 +72,7 @@
   },
   "dependencies": {
     "@storyblok/js": "^3.1.9",
-    "camelcase": "^8.0.0",
-    "lodash.mergewith": "^4.6.2"
+    "camelcase": "^8.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
@@ -81,7 +80,6 @@
     "@cypress/vite-dev-server": "^5.2.0",
     "@rollup/plugin-dynamic-import-vars": "^2.1.5",
     "@storyblok/eslint-config": "^0.3.0",
-    "@types/lodash.mergewith": "^4.6.9",
     "@types/node": "22.10.2",
     "astro": "^5.0.9",
     "cypress": "^13.15.2",
