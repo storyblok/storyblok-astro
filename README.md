@@ -52,7 +52,7 @@ Add the following code to `astro.config.mjs` and replace the `accessToken` with 
 
 ```js
 import { defineConfig } from "astro/config";
-import storyblok from "@storyblok/astro";
+import { storyblok } from "@storyblok/astro";
 
 export default defineConfig({
   integrations: [
@@ -75,6 +75,7 @@ When you initialize the integration, you can pass all [_@storyblok/js_ options](
 storyblok({
   accessToken: "<your-access-token>",
   bridge: true,
+  livePreview: false,
   apiOptions: {}, // storyblok-js-client options
   components: {},
   componentsDir: "src",
@@ -174,7 +175,7 @@ const { blok } = Astro.props
 ---
 
 <main {...storyblokEditable(blok)}>
-  {blok.body?.map(blok => {return <StoryblokComponent blok="{blok}" />})}
+  {blok.body?.map(blok => {return <StoryblokComponent blok={blok} />})}
 </main>
 ```
 
@@ -214,7 +215,7 @@ const { data } = await storyblokApi.get("cdn/stories/home", {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 > [!NOTE]  
@@ -256,15 +257,12 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 ### Using the Storyblok Bridge
 
 The Storyblok Bridge is enabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
-
-> [!NOTE]  
-> Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
 You can also provide a `StoryblokBridgeConfigV2` configuration object to the `bridge` parameter.
 
@@ -306,7 +304,7 @@ const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.text)
 ---
 
-<div set:html="{renderedRichText}"></div>
+<div set:html={renderedRichText}></div>
 ```
 
 You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
@@ -350,9 +348,6 @@ Returns the instance of the `storyblok-js-client`.
 
 ## Enabling Live Preview for Storyblok's Visual Editor
 
-> [!WARNING]
-> This feature is currently experimental and optional. You may encounters bugs or performance issues.
-
 The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
 
 > [!NOTE]  
@@ -375,28 +370,33 @@ export default defineConfig({
 });
 ```
 
-2. Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
+2. Additionally, please use `getLiveStory` on your Astro pages for live story fetching.
 
 ```jsx
 //pages/[...slug].astro
 ---
-import { useStoryblok } from "@storyblok/astro";
+import {
+  getLiveStory,
+  useStoryblokApi,
+  type ISbStoryData,
+} from '@storyblok/astro';
 import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 
 const { slug } = Astro.params;
+let story: ISbStoryData | null = null;
 
-const story = await useStoryblok(
-  // The slug to fetch
-  `cdn/stories/${slug === undefined ? "home" : slug}`,
-  // The API options
-  {
-    version: "draft",
-  },
-  // The Bridge options (optional, if an empty object, null, or false are set, the API options will be considered automatically as far as applicable)
-  {},
-  // The Astro object (essential for the live preview functionality)
-  Astro
-);
+const liveStory = await getLiveStory(Astro);
+if (liveStory) {
+  story = liveStory;
+} else {
+  const sbApi = useStoryblokApi();
+  const { data } = await sbApi.get(`cdn/stories/${slug || 'home'}`, {
+    version: 'draft',
+    resolve_relations: ['featured-articles.posts'],
+  });
+  story = data?.story;
+}
+// If you are using `resolve_relations` or `resolve_links`, you must also pass them to the Bridge configuration in `astro.config.mjs`.  
 ---
 
 <StoryblokComponent blok={story.content} />
