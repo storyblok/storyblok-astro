@@ -135,7 +135,6 @@ export default function storyblokIntegration(
             'page',
             `
                 import { loadStoryblokBridge, handleStoryblokMessage } from "@storyblok/astro";
-                console.info("The Storyblok Astro live preview feature is currently in an experimental phase, and its API is subject to change in the future.")
                 loadStoryblokBridge().then(() => {
                   const { StoryblokBridge, location } = window;
                   ${initBridge}
