@@ -28,4 +28,5 @@ export type {
   StoryblokBridgeV2,
   StoryblokClient,
   StoryblokComponentType,
+  RichTextResolver,
 } from '@storyblok/js';
