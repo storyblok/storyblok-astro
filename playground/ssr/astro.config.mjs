@@ -22,7 +22,9 @@ export default defineConfig({
         },
       },
       useCustomApi: false,
-      bridge: true,
+      bridge: {
+        resolveRelations: ['featured-articles.posts'],
+      },
       enableFallbackComponent: true,
       livePreview: true,
       components: {
