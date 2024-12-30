@@ -56,7 +56,7 @@ export interface IntegrationOptions {
 }
 
 export default function storyblokIntegration(
-  options: IntegrationOptions
+  options: IntegrationOptions,
 ): AstroIntegration {
   const resolvedOptions = {
     useCustomApi: false,
@@ -83,13 +83,13 @@ export default function storyblokIntegration(
               vitePluginStoryblokInit(
                 resolvedOptions.accessToken,
                 resolvedOptions.useCustomApi,
-                resolvedOptions.apiOptions
+                resolvedOptions.apiOptions,
               ),
               vitePluginStoryblokComponents(
                 resolvedOptions.componentsDir,
                 resolvedOptions.components,
                 resolvedOptions.enableFallbackComponent,
-                resolvedOptions.customFallbackComponent
+                resolvedOptions.customFallbackComponent,
               ),
               vitePluginStoryblokOptions(resolvedOptions),
             ],
@@ -97,7 +97,7 @@ export default function storyblokIntegration(
         });
         if (resolvedOptions.livePreview && config?.output !== 'server') {
           throw new Error(
-            'To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode.'
+            'To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode. Please disable this feature or switch Astro to SSR mode.',
           );
         }
         injectScript(
@@ -105,7 +105,7 @@ export default function storyblokIntegration(
           `
             import { storyblokApiInstance } from "virtual:storyblok-init";
             globalThis.storyblokApiInstance = storyblokApiInstance;
-            `
+            `,
         );
 
         // This is only enabled if experimentalLivePreview is disabled and bridge is enabled.
@@ -124,7 +124,7 @@ export default function storyblokIntegration(
                     } 
                   });
                 });
-              `
+              `,
           );
         }
 
@@ -139,7 +139,7 @@ export default function storyblokIntegration(
               ${initBridge}
               storyblokInstance.on(["published", "change", "input"], handleStoryblokMessage);
             });
-              `
+              `,
           );
           addMiddleware({
             entrypoint: '@storyblok/astro/middleware.ts',

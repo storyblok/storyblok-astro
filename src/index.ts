@@ -1,3 +1,6 @@
+import storyblokIntegration from './lib/storyblok-integration';
+
+export { getLiveStory, renderRichText, useStoryblokApi } from './lib/healpers';
 export { handleStoryblokMessage } from './live-preview/handleStoryblokMessage';
 export * from './types';
 export { toCamelCase } from './utils/toCamelCase';
@@ -7,7 +10,5 @@ export {
   RichTextSchema,
   storyblokEditable,
 } from '@storyblok/js';
-import storyblokIntegration from './lib/storyblok-integration';
-export { renderRichText, getLiveStory, useStoryblokApi } from './lib/healpers';
 
 export default storyblokIntegration;

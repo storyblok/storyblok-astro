@@ -19,6 +19,7 @@ export type {
   ISbStory, // previously Story
   ISbStoryData, // previously StoryData
   ISbStoryParams, // previously StoryParams
+  RichTextResolver,
   SbBlokData,
   SbBlokKeyDataTypes,
   SbPluginFactory,
@@ -28,5 +29,4 @@ export type {
   StoryblokBridgeV2,
   StoryblokClient,
   StoryblokComponentType,
-  RichTextResolver,
 } from '@storyblok/js';
