@@ -11,4 +11,4 @@ export {
   storyblokEditable,
 } from '@storyblok/js';
 
-export default storyblokIntegration;
+export { storyblokIntegration as storyblok };
