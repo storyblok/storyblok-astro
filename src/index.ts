@@ -8,6 +8,6 @@ export {
   storyblokEditable,
 } from '@storyblok/js';
 import storyblokIntegration from './lib/storyblok-integration';
-export { renderRichText, useStoryblok, useStoryblokApi } from './lib/healpers';
+export { renderRichText, getLiveStory, useStoryblokApi } from './lib/healpers';
 
 export default storyblokIntegration;
