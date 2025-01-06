@@ -17,7 +17,8 @@
   "keywords": [
     "astro",
     "storyblok",
-    "astro-sdk"
+    "astro-sdk",
+    "withastro"
   ],
   "exports": {
     ".": {
