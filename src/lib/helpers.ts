@@ -16,7 +16,7 @@ export function useStoryblokApi(): StoryblokClient {
   return globalThis.storyblokApiInstance;
 }
 
-export async function getLiveStory(Astro: AstroGlobal) {
+export async function getLiveStory(Astro: Readonly<AstroGlobal>) {
   let story: ISbStoryData | null = null;
   if (Astro && Astro.locals._storyblok_preview_data) {
     story = Astro.locals._storyblok_preview_data;
