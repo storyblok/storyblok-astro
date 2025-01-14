@@ -1,6 +1,6 @@
 import storyblokIntegration from './lib/storyblok-integration';
 
-export { renderRichText, useStoryblok, useStoryblokApi } from './lib/helpers';
+export { getLiveStory, renderRichText, useStoryblokApi } from './lib/helpers';
 export { handleStoryblokMessage } from './live-preview/handleStoryblokMessage';
 export * from './types';
 export { toCamelCase } from './utils/toCamelCase';

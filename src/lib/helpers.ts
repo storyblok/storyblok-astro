@@ -1,6 +1,5 @@
 import type {
   ISbRichtext,
-  ISbStoriesParams,
   ISbStoryData,
   RichTextResolver,
   SbRichTextOptions,
@@ -17,25 +16,10 @@ export function useStoryblokApi(): StoryblokClient {
   return globalThis.storyblokApiInstance;
 }
 
-export async function useStoryblok(
-  slug: string,
-  apiOptions: ISbStoriesParams = {},
-  _: StoryblokBridgeConfigV2 = {},
-  Astro: AstroGlobal,
-) {
-  if (!globalThis.storyblokApiInstance) {
-    throw new Error('storyblokApiInstance has not been initialized correctly');
-  }
+export async function getLiveStory(Astro: AstroGlobal) {
   let story: ISbStoryData | null = null;
   if (Astro && Astro.locals._storyblok_preview_data) {
     story = Astro.locals._storyblok_preview_data;
-  }
-  else {
-    const { data } = await globalThis?.storyblokApiInstance?.get(
-      slug,
-      apiOptions,
-    );
-    story = data.story;
   }
   return story;
 }
