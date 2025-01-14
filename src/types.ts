@@ -19,6 +19,7 @@ export type {
   ISbStory, // previously Story
   ISbStoryData, // previously StoryData
   ISbStoryParams, // previously StoryParams
+  RichTextResolver,
   SbBlokData,
   SbBlokKeyDataTypes,
   SbPluginFactory,
