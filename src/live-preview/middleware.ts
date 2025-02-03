@@ -6,7 +6,7 @@ export const onRequest = defineMiddleware(async ({ locals, request }, next) => {
     // First do a basic check if its coming from within storyblok
     const isStoryblokRequest
       = url.searchParams.has('_storyblok')
-      && url.searchParams.has('_storyblok_c');
+        && url.searchParams.has('_storyblok_c');
 
     if (isStoryblokRequest) {
       try {

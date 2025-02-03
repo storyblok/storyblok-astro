@@ -24,6 +24,8 @@ export async function handleStoryblokMessage(event: {
       // Get current focused element in Storyblok
       const focusedElem = document.querySelector('[data-blok-focused="true"]');
       updateDOMWithNewBody(currentBody, newBody, focusedElem);
+      // Dispatch a custom event after the body update
+      document.dispatchEvent(new Event('storyblok-live-preview-updated'));
     };
     const debounceDelay = 500; // Adjust the delay as needed
     clearTimeout(timeout);

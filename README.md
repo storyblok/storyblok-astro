@@ -46,13 +46,13 @@ npm install @storyblok/astro
 ```
 
 > [!NOTE]  
-> With pnpm, hoist Storyblok dependencies publicly with `.npmrc`. For more information, check pnpm documentation on [here](https://pnpm.io/npmrc).
+> With pnpm, hoist Storyblok dependencies publicly with `.npmrc`. For more information, please refer to the [pnpm documentation](https://pnpm.io/npmrc).
 
 Add the following code to `astro.config.mjs` and replace the `accessToken` with the preview API token of your Storyblok space.
 
 ```js
 import { defineConfig } from "astro/config";
-import storyblok from "@storyblok/astro";
+import { storyblok } from "@storyblok/astro";
 
 export default defineConfig({
   integrations: [
@@ -75,6 +75,7 @@ When you initialize the integration, you can pass all [_@storyblok/js_ options](
 storyblok({
   accessToken: "<your-access-token>",
   bridge: true,
+  livePreview: false,
   apiOptions: {}, // storyblok-js-client options
   components: {},
   componentsDir: "src",
@@ -109,15 +110,15 @@ storyblok({
 ```
 
 > [!WARNING]
-> For spaces created in the United States or China, the `region` parameter **must** be specified.
+> The `region` parameter **must** be specified unless the space was created in the EU.
 
 ## Getting started
 
 ### 1. Creating and linking your components to the Storyblok Visual Editor
 
-In order to link your Astro components to their equivalents you created in Storyblok:
+Link your Astro components to their equivalents created in Storyblok with the following steps.
 
-First, you need to load them globally by specifying their name and their path in `astro.config.mjs`:
+First, load the components globally by specifying their name and their path in `astro.config.mjs`:
 
 ```js
 components: {
@@ -163,7 +164,7 @@ const { blok } = Astro.props
 </div>
 ```
 
-Finally, you can use the provided `<StoryblokComponent>` for nested components; it will automatically render them (if they have been registered globally beforehand):
+Finally, you can use the provided `<StoryblokComponent>` for nested components; it will automatically render them (if they are registered globally):
 
 ```jsx
 ---
@@ -174,7 +175,7 @@ const { blok } = Astro.props
 ---
 
 <main {...storyblokEditable(blok)}>
-  {blok.body?.map(blok => {return <StoryblokComponent blok="{blok}" />})}
+  {blok.body?.map(blok => {return <StoryblokComponent blok={blok} />})}
 </main>
 ```
 
@@ -214,11 +215,11 @@ const { data } = await storyblokApi.get("cdn/stories/home", {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 > [!NOTE]  
-> The available methods are described in the [storyblok-js-client] repository(https://github.com/storyblok/storyblok-js-client#method-storyblokget)
+> The available methods are described in the [storyblok-js-client](https://github.com/storyblok/storyblok-js-client#method-storyblokget) repository.
 
 #### Dynamic Routing
 
@@ -256,15 +257,12 @@ const { data } = await storyblokApi.get(`cdn/stories/${slug}`, {
 const story = data.story;
 ---
 
-<StoryblokComponent blok="{story.content}" />
+<StoryblokComponent blok={story.content} />
 ```
 
 ### Using the Storyblok Bridge
 
 The Storyblok Bridge is enabled by default. If you would like to disable it or enable it conditionally (e.g. depending on the environment) you can set the `bridge` parameter to `true` or `false` in `astro.config.mjs`:
-
-> [!NOTE]  
-> Since Astro is not a reactive JavaScript framework and renders everything as HTML, the Storyblok Bridge will not provide real-time editing as you may know it from other frameworks. However, it automatically refreshes the site for you whenever you save or publish a story.
 
 You can also provide a `StoryblokBridgeConfigV2` configuration object to the `bridge` parameter.
 
@@ -283,13 +281,77 @@ bridge: {
 - `resolveLinks` may be needed to resolve link fields.
 
 > [!NOTE]  
-> `resolveRelations` and `resolveLinks` will not have any effect in Astro, since the Storyblok Bridge is configured to reload the page. Thus, all the requests needed will be performed after the reload.
+> `resolveRelations` and `resolveLinks` will only become effective if the live preview feature is used (`getLiveStory()`).
 
 The provided options will be used when initializing the Storyblok Bridge. You can find more information about the Storyblok Bridge and its configuration options on the [In Depth Storyblok Bridge guide](https://www.storyblok.com/docs/guide/in-depth/storyblok-latest-js-v2?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro).
 
 If you want to deploy a dedicated preview environment with the Bridge enabled, allowing users of the Storyblok CMS to see their changes being reflected on the frontend directly without having to rebuild the static site, you can enable Server Side Rendering for that particular use case. More information can be found in the [Astro Docs](https://docs.astro.build/en/guides/server-side-rendering/).
 
-### Rendering Rich Text
+## Enabling Live Preview for Storyblok's Visual Editor
+
+The Astro SDK provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
+
+> [!NOTE]  
+> To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode.
+
+To activate the live preview feature, follow these steps:
+
+1. Set `livePreview` to `true` in your `astro.config.mjs` file.
+
+```js
+//astro.config.mjs
+export default defineConfig({
+  integrations: [
+    storyblok({
+      accessToken: "OsvN..",
+      livePreview: true,
+    }),
+  ],
+  output: "server", // Astro must be configured to run in SSR mode
+});
+```
+
+2. Additionally, use `getLiveStory` on your Astro pages.
+
+```jsx
+//pages/[...slug].astro
+---
+import { getLiveStory, useStoryblokApi } from '@storyblok/astro';
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { slug } = Astro.params;
+let story = null;
+
+const liveStory = await getLiveStory(Astro);
+if (liveStory) {
+  story = liveStory;
+} else {
+  const sbApi = useStoryblokApi();
+  const { data } = await sbApi.get(`cdn/stories/${slug || 'home'}`, {
+    version: 'draft',
+    resolve_relations: ['featured-articles.posts'],
+  });
+  story = data?.story;
+}
+// If you are using `resolve_relations` or `resolve_links`, you must also pass them to the Bridge configuration in `astro.config.mjs`.  
+---
+
+<StoryblokComponent blok={story.content} />
+```
+## Dom update event
+
+```js
+//page.astro
+
+<script>
+document.addEventListener('storyblok-live-preview-updated', () => {
+  // Here is the callback we could run code every time the body is updated via live preview
+  console.log('Live preview: body updated');
+  // Example regenerated all your css
+});
+</script>
+```
+## Rendering Rich Text
 
 > [!NOTE]  
 > While @storyblok/astro provides basic richtext rendering capabilities, for advanced use cases, it is highly recommended to use [storyblok-rich-text-astro-renderer](https://github.com/NordSecurity/storyblok-rich-text-astro-renderer).
@@ -306,7 +368,7 @@ const { blok } = Astro.props
 const renderedRichText = renderRichText(blok.text)
 ---
 
-<div set:html="{renderedRichText}"></div>
+<div set:html={renderedRichText}></div>
 ```
 
 You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
@@ -347,60 +409,6 @@ const renderedRichText = renderRichText(blok.text, {
 ### useStoryblokApi()
 
 Returns the instance of the `storyblok-js-client`.
-
-## Enabling Live Preview for Storyblok's Visual Editor
-
-> [!WARNING]
-> This feature is currently experimental and optional. You may encounters bugs or performance issues.
-
-The Astro SDK now provides a live preview feature, designed to offer real-time editing capabilities for an enhanced user experience in Storyblok's Visual Editor.
-
-> [!NOTE]  
-> To utilize the Astro Storyblok Live feature, Astro must be configured to run in SSR mode.
-
-To activate the experimental live preview feature, follow these steps:
-
-1. Set `livePreview` to `true` within your `astro.config.mjs` file.
-
-```js
-//astro.config.mjs
-export default defineConfig({
-  integrations: [
-    storyblok({
-      accessToken: "OsvN..",
-      livePreview: true,
-    }),
-  ],
-  output: "server", // Astro must be configured to run in SSR mode
-});
-```
-
-2. Additionally, please use `useStoryblok` on your Astro pages for story fetching. This replaces the previously used `useStoryblokApi` method.
-
-```jsx
-//pages/[...slug].astro
----
-import { useStoryblok } from "@storyblok/astro";
-import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
-
-const { slug } = Astro.params;
-
-const story = await useStoryblok(
-  // The slug to fetch
-  `cdn/stories/${slug === undefined ? "home" : slug}`,
-  // The API options
-  {
-    version: "draft",
-  },
-  // The Bridge options (optional, if an empty object, null, or false are set, the API options will be considered automatically as far as applicable)
-  {},
-  // The Astro object (essential for the live preview functionality)
-  Astro
-);
----
-
-<StoryblokComponent blok={story.content} />
-```
 
 ## The Storyblok JavaScript SDK Ecosystem
 
