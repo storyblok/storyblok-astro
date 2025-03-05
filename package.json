@@ -3,7 +3,7 @@
   "type": "module",
   "version": "6.0.0",
   "private": false,
-  "packageManager": "pnpm@9.13.2",
+  "packageManager": "pnpm@9.15.6",
   "description": "Official Astro integration for the Storyblok Headless CMS",
   "author": "Storyblok",
   "license": "MIT",
