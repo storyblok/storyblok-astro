@@ -72,7 +72,7 @@
     "astro": "^3.0.0 || ^4.0.0 || ^5.0.0"
   },
   "dependencies": {
-    "@storyblok/js": "3.1.9",
+    "@storyblok/js": "3.2.3",
     "camelcase": "^8.0.0"
   },
   "devDependencies": {
