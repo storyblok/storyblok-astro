@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const stories = await getCollection('storyblok');
+---
+
+<BaseLayout>
+  <h1>Hello Content Loader</h1>
+  <pre>{JSON.stringify(stories,null,2)}</pre>
+</BaseLayout>
