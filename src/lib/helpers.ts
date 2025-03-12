@@ -10,7 +10,7 @@ import type { AstroGlobal } from 'astro';
 import { renderRichText as origRenderRichText } from '@storyblok/js';
 
 export function useStoryblokApi(): StoryblokClient {
-  if (!globalThis?.storyblokApiInstance) {
+  if (!globalThis.storyblokApiInstance) {
     throw new Error('storyblokApiInstance has not been initialized correctly');
   }
   return globalThis.storyblokApiInstance;

@@ -1,15 +1,14 @@
 ---
-import components from "virtual:storyblok-components";
-import options from "virtual:storyblok-options";
-import { toCamelCase } from "@storyblok/astro";
-import type { SbBlokData } from "@storyblok/js";
-import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import components from 'virtual:storyblok-components';
+import options from 'virtual:storyblok-options';
+import { toCamelCase } from '@storyblok/astro';
+import type { SbBlokData } from '@storyblok/js';
+import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 
 export interface Props {
   blok: SbBlokData;
   [prop: string]: unknown;
 }
-
 const { blok, ...props } = Astro.props;
 
 if (!blok) {
@@ -24,16 +23,14 @@ if (!blok) {
 let key = toCamelCase(blok.component as string);
 
 const componentFound: boolean = key in components;
-
 let Component: AstroComponentFactory;
-
 if (!componentFound) {
   if (!options.enableFallbackComponent)
     throw new Error(
       `Component could not be found for blok "${blok.component}"! Is it defined in astro.config.mjs?`
     );
   else {
-    Component = components["FallbackComponent"];
+    Component = components['FallbackComponent'];
   }
 } else {
   Component = components[key];
