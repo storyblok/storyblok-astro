@@ -1,15 +1,26 @@
 import type { Loader } from 'astro/loaders';
-import { apiPlugin, storyblokInit } from '@storyblok/js';
+import {
+  apiPlugin,
+  type ISbConfig,
+  type ISbStoriesParams,
+  storyblokInit,
+} from '@storyblok/js';
 
 interface StoryblokLoaderConfig {
-  STORYBLOK_TOKEN: string;
+  accessToken: string;
   version: 'draft' | 'published';
+  useCustomApi?: boolean;
+  apiOptions?: ISbConfig;
+  storiesParams?: ISbStoriesParams;
 }
 
 export function storyblokLoader(config: StoryblokLoaderConfig): Loader {
+  const { accessToken, useCustomApi, apiOptions, version, storiesParams }
+    = config;
   const { storyblokApi } = storyblokInit({
-    accessToken: config.STORYBLOK_TOKEN,
-    use: [apiPlugin],
+    accessToken,
+    use: useCustomApi ? [] : [apiPlugin],
+    apiOptions,
   });
   return {
     name: 'story-loader',
@@ -34,20 +45,23 @@ export function storyblokLoader(config: StoryblokLoaderConfig): Loader {
       const storedVersion = meta.get('version');
 
       // Determine fetch parameters
-      const fetchParams: Record<string, string> = { version: config.version };
+      const fetchParams: Record<string, string> = { version };
 
-      if (storedLastPublishedAt && config.version === 'published') {
+      if (storedLastPublishedAt && version === 'published') {
         fetchParams.published_at_gt = storedLastPublishedAt;
       }
       else if (storedLastUpdatedAt) {
         fetchParams.updated_at_gt = storedLastUpdatedAt;
       }
-      if (storedVersion !== config.version) {
+      if (storedVersion !== version) {
         logger.info('Version changed, clearing store');
         store.clear();
       }
-      meta.set('version', config.version);
-      const stories = await storyblokApi?.getAll('cdn/stories', fetchParams);
+      meta.set('version', version);
+      const stories = await storyblokApi?.getAll('cdn/stories', {
+        ...fetchParams,
+        ...storiesParams,
+      });
 
       logger.info(`Fetched ${stories.length} stories`);
 
