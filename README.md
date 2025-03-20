@@ -351,7 +351,33 @@ document.addEventListener('storyblok-live-preview-updated', () => {
 });
 </script>
 ```
-## Rendering Rich Text
+
+## Rendering Rich Text 
+
+> [!NOTE]
+> The `@storyblok/astro` now provides the exports for the new `richTextResolver` API from `@storyblok/js`. Until a dedicated `StoryblokRichText.astro` is developed, we recommend using the vanilla solution below.
+
+```jsx
+---
+import { richTextResolver } from "@storyblok/astro";
+
+const renderedRichText = richTextResolver({
+  // options like custom resolvers
+}).render(doc);
+---
+
+<div set:html={renderedRichText}></div>
+```
+
+To learn more about the new `richTextResolver` API, please refer to the [storyblok-richtext docs](https://github.com/storyblok/richtext).
+
+Similar to the legacy `renderRichText` function, this vanilla approach only supports parsing and returning native HTML tags, if you are not embedding `bloks` in your rich text. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
+
+## Legacy Rendering Rich Text
+
+> [!WARNING]  
+> The legacy `richTextResolver` is soon to be deprecated. We recommend migrating to the new approach described above instead.
+
 
 > [!NOTE]  
 > While @storyblok/astro provides basic richtext rendering capabilities, for advanced use cases, it is highly recommended to use [storyblok-rich-text-astro-renderer](https://github.com/NordSecurity/storyblok-rich-text-astro-renderer).
