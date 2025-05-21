@@ -1,13 +1,9 @@
 import type {
-  ISbRichtext,
   ISbStoryData,
-  RichTextResolver,
-  SbRichTextOptions,
   StoryblokBridgeConfigV2,
   StoryblokClient,
 } from '../types';
 import type { AstroGlobal } from 'astro';
-import { renderRichText as origRenderRichText } from '@storyblok/js';
 
 export function useStoryblokApi(): StoryblokClient {
   if (!globalThis?.storyblokApiInstance) {
@@ -23,20 +19,6 @@ export async function getLiveStory(Astro: Readonly<AstroGlobal>) {
     story = Astro.locals._storyblok_preview_data;
   }
   return story;
-}
-
-export function renderRichText(
-  data?: ISbRichtext,
-  options?: SbRichTextOptions,
-) {
-  const resolverInstance: RichTextResolver | undefined
-    = globalThis?.storyblokApiInstance?.richTextResolver;
-  if (!resolverInstance) {
-    throw new Error(
-      'Please initialize the Storyblok SDK before calling the renderRichText function',
-    );
-  }
-  return origRenderRichText(data, options, resolverInstance);
 }
 
 export function initStoryblokBridge(
