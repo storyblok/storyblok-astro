@@ -371,64 +371,17 @@ const renderedRichText = richTextResolver({
 
 To learn more about the new `richTextResolver` API, please refer to the [storyblok-richtext docs](https://github.com/storyblok/richtext).
 
-Similar to the legacy `renderRichText` function, this vanilla approach only supports parsing and returning native HTML tags, if you are not embedding `bloks` in your rich text. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
-
-## Legacy Rendering Rich Text
-
-> [!WARNING]  
-> The legacy `richTextResolver` is soon to be deprecated. We recommend migrating to the new approach described above instead.
-
-
-> [!NOTE]  
-> While @storyblok/astro provides basic richtext rendering capabilities, for advanced use cases, it is highly recommended to use [storyblok-rich-text-astro-renderer](https://github.com/NordSecurity/storyblok-rich-text-astro-renderer).
-
-You can easily render rich text by using either the `renderRichText` function included in `@storyblok/astro`.
-Use `renderRichText`, which only supports parsing and returning native HTML tags, if you are not embedding `bloks` in your rich text. Then you can use the [`set:html` directive](https://docs.astro.build/en/reference/directives-reference/#sethtml):
+Or use the `renderRichText` function to render rich text.
 
 ```jsx
 ---
 import { renderRichText } from "@storyblok/astro";
 
-const { blok } = Astro.props
-
-const renderedRichText = renderRichText(blok.text)
+const renderedRichText = renderRichText(data, options);
 ---
 
 <div set:html={renderedRichText}></div>
 ```
-
-You can also set a **custom Schema and component resolver** by passing the options as the second parameter of the `renderRichText` function:
-
-```jsx
-import { RichTextSchema, renderRichText } from "@storyblok/astro";
-import cloneDeep from "clone-deep";
-
-const mySchema = cloneDeep(RichTextSchema); // you can make a copy of the default RichTextSchema
-// ... and edit the nodes and marks, or add your own.
-// Check the base RichTextSchema source here https://github.com/storyblok/storyblok-js-client/blob/v4/source/schema.js
-
-const { blok } = Astro.props;
-
-const renderedRichText = renderRichText(blok.text, {
-  schema: mySchema,
-  resolver: (component, blok) => {
-    switch (component) {
-      case "my-custom-component":
-        return `<div class="my-component-class">${blok.text}</div>`;
-        break;
-      default:
-        return `Component ${component} not found`;
-    }
-  },
-});
-```
-
-### RichTextRenderer `deprecated`
-
-~~Use the `<RichTextRenderer />` component if you are embedding `bloks` in your rich text:~~
-
-> [!IMPORTANT]
-> As of `@storyblok/astro` v5, the `<RichTextRenderer />` component has been removed. Use the `renderRichText` function instead.
 
 ## API
 

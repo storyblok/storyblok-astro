@@ -40,6 +40,9 @@ jobs:
       - name: Vitest run
         run: pnpm run test:unit:ci --silent
 
+      - name: Install cypress
+        run: pnpm cypress install
+
       - name: Cypress run
         run: pnpm run test:e2e
 
