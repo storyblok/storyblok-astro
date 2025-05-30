@@ -22,7 +22,7 @@ pnpm build
 
 ### Development
 
-We strongly recommend using the `playgrounds` within the package to develop and manually test the package.
+We strongly recommend using the **playgrounds** within the package to develop and manually test the package.
 
 Make sure the playground project has the root project as a dependency using `workspace:^` in the `package.json`:
 
