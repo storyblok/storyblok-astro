@@ -1,3 +1,14 @@
+> [!IMPORTANT]
+> **📦 Package Migration Notice**
+> 
+> This package has been migrated to the [Storyblok monorepo](https://github.com/storyblok/monoblok). 
+> 
+> **⚠️ This repository has been archived and is no longer maintained. Development has moved to the monorepo.**
+> 
+> **New Location**: You can now find this package at [packages/astro](https://github.com/storyblok/monoblok/tree/main/packages/astro)
+> 
+> Please visit the monorepo for the latest updates, issues, and contributions.
+
 <div align="center">
 	<a  href="https://www.storyblok.com?utm_source=github.com&utm_medium=readme&utm_campaign=storyblok-astro" align="center">
 		<img src="https://a.storyblok.com/f/88751/1500x500/7974d6bc34/storyblok-astro.png#1" width="300" height="100" alt="Storyblok + Astro">
